@@ -49,10 +49,11 @@ class Item(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(150), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text(1000), nullable=False)
     price = db.Column(db.Float(7, 2), nullable=False)
+    image_url = db.Column(db.Text(1000), nullable=False)
     in_stock = db.Column(db.Boolean, nullable=False, default=True)
 
     def to_dict(self):
@@ -62,5 +63,6 @@ class Item(db.Model):
             'category': self.category,
             'description': self.description,
             'price': self.price,
+            'imageUrl': self.image_url,
             'inStock': self.in_stock
         }
