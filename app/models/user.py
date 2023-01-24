@@ -10,8 +10,13 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    first_name = db.Column(db.String(40), nullable=False)
+    last_name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    city = db.Column(db.String(50), nullable=False)
+    state = db.Column(db.string(2), nullable=False)
+    street_address = db.Column(db.String(100))
+    zipcode = db.Column(db.Integer(5))
     hashed_password = db.Column(db.String(255), nullable=False)
 
     @property
