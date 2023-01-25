@@ -1,7 +1,7 @@
 """empty message
 
 Revision ID: 1a3341df6598
-Revises: 
+Revises:
 Create Date: 2023-01-24 11:14:07.490045
 
 """
@@ -22,9 +22,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('category', sa.String(length=50), nullable=False),
-    sa.Column('description', sa.Text(length=1000), nullable=False),
+    sa.Column('description', sa.Text(), nullable=False),
     sa.Column('price', sa.Float(precision=7, asdecimal=2), nullable=False),
-    sa.Column('image_url', sa.Text(length=1000), nullable=False),
+    sa.Column('image_url', sa.Text(), nullable=False),
     sa.Column('in_stock', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
