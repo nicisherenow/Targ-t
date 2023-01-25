@@ -65,6 +65,8 @@ class Item(db.Model):
     image_url = db.Column(db.Text, nullable=False)
     in_stock = db.Column(db.Boolean, nullable=False, default=True)
 
+    reviews = db.relationship('Review', back_populates='item')
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -73,7 +75,8 @@ class Item(db.Model):
             'description': self.description,
             'price': self.price,
             'imageUrl': self.image_url,
-            'inStock': self.in_stock
+            'inStock': self.in_stock,
+            'reviews': [review.to_dict() for review in self.reviews]
         }
 
 class Review(db.Model):
@@ -85,11 +88,15 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     review = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
-    image_url = db.Column(db.Text, nullable=False)
+    image_url = db.Column(db.Text)
 
+    item = db.relationship('Item', back_populates='reviews')
     user_reviews = db.relationship('UserReview', back_populates='review')
+
+    user = db.relationship("User", foreign_keys=[user_id])
 
     def to_dict(self):
         return {
@@ -99,7 +106,8 @@ class Review(db.Model):
             'review': self.review,
             'rating': self.rating,
             'imageUrl': self.image_url,
-            'userReviews': [review.to_dict() for review in self.user_reviews]
+            'title': self.title,
+            'user': self.user.to_dict()
         }
 
 class UserReview(db.Model):

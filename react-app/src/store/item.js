@@ -1,16 +1,30 @@
 const LOAD_ITEMS = 'items/loadItems'
+const LOAD_ITEM = 'item/loadItem'
 
-const load = (items) => ({
+const loadItems = (items) => ({
   type: LOAD_ITEMS,
   items,
 });
+
+const loadItem = (item) => ({
+  type: LOAD_ITEM,
+  item
+})
 
 
 export const getAllItems = () => async (dispatch) => {
   const res = await fetch('/api/items');
   if (res.ok) {
     const items = await res.json()
-    dispatch(load(items))
+    dispatch(loadItems(items))
+  }
+}
+
+export const getItemById = (id) => async (dispatch) => {
+  const res = await fetch(`/api/items/${id}`);
+  if (res.ok) {
+    const item = await res.json()
+    dispatch(loadItem(item))
   }
 }
 
@@ -25,6 +39,10 @@ const itemReducer = ( state = initialState, action ) => {
         newState[item.id] = item;
       });
       return newState;
+    case LOAD_ITEM:
+      newState = { ...state }
+      newState[action.item.id] = action.item
+      return newState
     default:
       return state;
   }
