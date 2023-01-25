@@ -18,6 +18,14 @@ const LoginForm = () => {
     }
   };
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('rambo@aa.io', 'password'))
+    if (data) {
+      setErrors(data)
+    }
+  }
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -31,11 +39,12 @@ const LoginForm = () => {
   }
 
   return (
+    <>
     <form onSubmit={onLogin}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
-        ))}
+          ))}
       </div>
       <div>
         <label htmlFor='email'>Email</label>
@@ -45,7 +54,7 @@ const LoginForm = () => {
           placeholder='Email'
           value={email}
           onChange={updateEmail}
-        />
+          />
       </div>
       <div>
         <label htmlFor='password'>Password</label>
@@ -55,10 +64,14 @@ const LoginForm = () => {
           placeholder='Password'
           value={password}
           onChange={updatePassword}
-        />
+          />
         <button type='submit'>Login</button>
+        <div className='issaDemo'>
+          <button onClick={demoLogin}>Login as Demo user</button>
+        </div>
       </div>
     </form>
+    </>
   );
 };
 

@@ -1,0 +1,8 @@
+.navbar-container {
+  display: flex;
+  position: sticky;
+  height: 8vh;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 3vw;
+}
