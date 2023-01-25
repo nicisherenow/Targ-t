@@ -6,6 +6,7 @@ import './NavBar.css'
 import OpenModalButton from '../OpenModalButton'
 import SignUpForm from '../auth/SignUpForm';
 import LoginForm from '../auth/LoginForm';
+import cart from '../../assets/cart.png'
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,6 +36,7 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
+      <div className='right-side-container'>
       <button onClick={() => setIsOpen(!isOpen)}>
         {user ? `Hi, ${user.firstName}` : 'Sign In'}
       </button>
@@ -65,25 +67,11 @@ const NavBar = () => {
           </div>
       </div>
       }
-    </div>
-        {/* <div>
-          <OpenModalButton
-            buttonText='Sign in'
-            modalComponent={<LoginForm />}
-            className='sign-in-button'
-          />
-        </div>
-        <div>
-          <OpenModalButton
-            buttonText='Create Account'
-            modalComponent={<SignUpForm />}
-            className='create-account-button'
-          />
-        </div>
-
-        <div>
-          <LogoutButton />
-        </div> */}
+      </div>
+        <NavLink to='/cart'>
+          <img src={cart} alt='cart-icon' className='cart-icon-size' />
+        </NavLink>
+      </div>
     </nav>
   );
 }
