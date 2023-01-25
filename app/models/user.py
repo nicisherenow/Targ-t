@@ -49,8 +49,8 @@ class Item(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
-    category = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float(7), nullable=False)
     image_url = db.Column(db.Text, nullable=False)
