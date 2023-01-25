@@ -47,7 +47,8 @@ class User(db.Model, UserMixin):
             'city': self.city,
             'state': self.state,
             'streetAddress': self.street_address,
-            'zipcode': self.zipcode
+            'zipcode': self.zipcode,
+            'userReviews': [user_review.to_dict() for user_review in self.user_reviews]
         }
 
 class Item(db.Model):

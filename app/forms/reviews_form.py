@@ -4,4 +4,4 @@ from wtforms.validators import DataRequired, ValidationError
 from app.models import User
 
 class ReviewForm(FlaskForm):
-  
+  pass
