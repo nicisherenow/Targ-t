@@ -3,11 +3,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import HomePage from './components/HomePage';
 import { authenticate } from './store/session';
+import ItemPage from './components/ItemPage';
+import CartPage from './components/CartPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,8 +43,14 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
+        <Route path='/cart' exact={true}>
+          <CartPage />
+        </Route>
+        <Route path='/items/:itemId'>
+          <ItemPage />
+        </Route>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <HomePage />
         </Route>
       </Switch>
     </BrowserRouter>

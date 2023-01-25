@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import { useModal } from '../../context/Modal';
+import OpenModalButton from '../OpenModalButton';
+import SignUpForm from './SignUpForm';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -10,6 +13,8 @@ const LoginForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
+  const { closeModal } = useModal()
+
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
@@ -17,6 +22,16 @@ const LoginForm = () => {
       setErrors(data);
     }
   };
+
+  const demoLogin = async (e) => {
+    e.preventDefault();
+    const data = await dispatch(login('rambo@aa.io', 'password'))
+    if (data) {
+      setErrors(data)
+    } else {
+      await closeModal()
+    }
+  }
 
   const updateEmail = (e) => {
     setEmail(e.target.value);
@@ -31,11 +46,19 @@ const LoginForm = () => {
   }
 
   return (
+    <>
     <form onSubmit={onLogin}>
+      <div>
+          <OpenModalButton
+            buttonText='Not signed up? Create an account.'
+            modalComponent={<SignUpForm />}
+            className='create-account-button-on-login'
+          />
+        </div>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
-        ))}
+          ))}
       </div>
       <div>
         <label htmlFor='email'>Email</label>
@@ -45,7 +68,7 @@ const LoginForm = () => {
           placeholder='Email'
           value={email}
           onChange={updateEmail}
-        />
+          />
       </div>
       <div>
         <label htmlFor='password'>Password</label>
@@ -55,10 +78,14 @@ const LoginForm = () => {
           placeholder='Password'
           value={password}
           onChange={updatePassword}
-        />
+          />
         <button type='submit'>Login</button>
+        <div className='issaDemo'>
+          <button onClick={demoLogin}>Login as Demo user</button>
+        </div>
       </div>
     </form>
+    </>
   );
 };
 

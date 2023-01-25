@@ -1,0 +1,35 @@
+.navbar-container {
+  display: flex;
+  position: sticky;
+  height: 8vh;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 3vw;
+}
+
+.dropdown-container {
+  display: flex;
+  position: relative;
+}
+
+.right-side-container > button {
+  margin-right: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 5vw;
+  height: 100%;
+  display: none;
+  width: 10vw;
+}
+
+
+.dropdown-container.open .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-icon-size {
+  width: 24px;
+}
