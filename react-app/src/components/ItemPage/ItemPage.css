@@ -11,16 +11,15 @@
   border: lightgray solid 1px;
   padding: .4rem;
   border-radius: .4rem;
-}
-
-.review-image-container {
-  display: flex;
-  height: 100px;
-  width: 100px;
-  margin: 0 2vw;
+  flex-direction: column;
 }
 
 .review-content-container {
   display: flex;
   flex-direction: column;
+}
+
+.review-image {
+  width: 70px;
+  height: 70px;
 }

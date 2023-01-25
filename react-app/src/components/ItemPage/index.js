@@ -26,23 +26,24 @@ export default function ItemPage() {
         <img src={item.imageUrl} alt='targét-item' className="targét-item-picture" />
         <div className="targét-item-info-container">
           <h2>${item.price}</h2>
+          
+          <div>Quantity and Add to cart Placeholder</div>
+        </div>
+      </div>
           <div>{item.reviews.length ? item.reviews.map(review => (
             <div key={review.id} className='review-card-container'>
-            {review.imageUrl ? (
-              <div className="review-image-container">
-            <img src={review.imageUrl} alt='review-image' />
-              </div>) : <div className='review-image-container'></div>}
             <div className="review-content-container">
               <h4>{review.title}</h4>
+              <span>{review.user.firstName}</span>
               <div>{review.rating}</div>
               <div>{review.review}</div>
+            {review.imageUrl ? (
+            <img src={review.imageUrl} alt='review' className="review-image" />
+              ) : null }
             </div>
             </div>
           )) : "No Reviews for this product yet."}
           </div>
-          <div>Quantity and Add to cart Placeholder</div>
-        </div>
-      </div>
     </div>
   )
 }
