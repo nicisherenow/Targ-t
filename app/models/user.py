@@ -51,9 +51,9 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
     category = db.Column(db.String(50), nullable=False)
-    description = db.Column(db.Text(1000), nullable=False)
+    description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float(7), nullable=False)
-    image_url = db.Column(db.Text(1000), nullable=False)
+    image_url = db.Column(db.Text, nullable=False)
     in_stock = db.Column(db.Boolean, nullable=False, default=True)
 
     def to_dict(self):
