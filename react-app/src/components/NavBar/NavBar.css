@@ -6,3 +6,21 @@
   align-items: center;
   margin: 0 3vw;
 }
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: none;
+  width: 10vw;
+}
+
+
+.dropdown-container.open .dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}

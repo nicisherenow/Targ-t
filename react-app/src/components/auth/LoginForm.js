@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import { useModal } from '../../context/Modal';
+import OpenModalButton from '../OpenModalButton';
+import SignUpForm from './SignUpForm';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -9,6 +12,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+
+  const { closeModal } = useModal()
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -23,6 +28,8 @@ const LoginForm = () => {
     const data = await dispatch(login('rambo@aa.io', 'password'))
     if (data) {
       setErrors(data)
+    } else {
+      await closeModal()
     }
   }
 
@@ -41,6 +48,13 @@ const LoginForm = () => {
   return (
     <>
     <form onSubmit={onLogin}>
+      <div>
+          <OpenModalButton
+            buttonText='Not signed up? Create an account.'
+            modalComponent={<SignUpForm />}
+            className='create-account-button-on-login'
+          />
+        </div>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>

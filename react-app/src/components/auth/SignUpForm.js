@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import { useModal } from '../../context/Modal';
+import OpenModalButton from '../OpenModalButton';
+import LoginForm from './LoginForm';
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -74,6 +76,13 @@ const SignUpForm = () => {
   return (
     <form onSubmit={onSignUp}>
       <div>
+          <OpenModalButton
+            buttonText='Already have an account? Sign in.'
+            modalComponent={<LoginForm />}
+            className='sign-in-button-on-signup'
+          />
+        </div>
+      <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
@@ -85,7 +94,7 @@ const SignUpForm = () => {
           name='firstName'
           onChange={updateFirstName}
           value={firstName}
-          require={true}
+          required={true}
         ></input>
       </div>
       <div>
@@ -95,7 +104,7 @@ const SignUpForm = () => {
           name='firstName'
           onChange={updateLastName}
           value={lastName}
-          require={true}
+          required={true}
         ></input>
       </div>
       <div>
@@ -105,7 +114,7 @@ const SignUpForm = () => {
           name='email'
           onChange={updateEmail}
           value={email}
-          require={true}
+          required={true}
         ></input>
       </div>
       <div>
@@ -115,7 +124,7 @@ const SignUpForm = () => {
           name='password'
           onChange={updatePassword}
           value={password}
-          require={true}
+          required={true}
         ></input>
       </div>
       <div>
@@ -125,7 +134,7 @@ const SignUpForm = () => {
           name='repeat_password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          require={true}
+          required={true}
           ></input>
           </div>
           <div>
@@ -135,7 +144,7 @@ const SignUpForm = () => {
               name='city'
               onChange={updateCity}
               value={city}
-              require={true}
+              required={true}
             ></input>
           </div>
           <div>
@@ -143,7 +152,7 @@ const SignUpForm = () => {
           <select
             name="gender"
             onChange={updateState}
-            require={true}
+            required={true}
             className='signup-input-field'
             >
             <option className='signup-input-field' value="AL">Alabama</option>
@@ -205,7 +214,7 @@ const SignUpForm = () => {
               name='street address'
               onChange={updateStreetAddress}
               value={streetAddress}
-              require={true}
+              required={true}
             ></input>
           </div>
           <div>
@@ -215,7 +224,7 @@ const SignUpForm = () => {
               name='zipcode'
               onChange={updateZipcode}
               value={zipcode}
-              require={true}
+              required={true}
             ></input>
           </div>
       <button type='submit'>Sign Up</button>
