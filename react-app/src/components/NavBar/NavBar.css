@@ -4,7 +4,12 @@
   height: 8vh;
   justify-content: space-between;
   align-items: center;
-  margin: 0 3vw;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+  padding: 0 3vw;
+}
+
+#home:hover {
+  content: url('../../assets/home-logo-red.png')
 }
 
 .dropdown-container {

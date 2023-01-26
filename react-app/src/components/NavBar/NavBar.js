@@ -7,6 +7,8 @@ import OpenModalButton from '../OpenModalButton'
 import SignUpForm from '../auth/SignUpForm';
 import LoginForm from '../auth/LoginForm';
 import cart from '../../assets/cart.png'
+import home from '../../assets/home-logo.png'
+import homeRed from '../../assets/home-logo-red.png'
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -28,11 +30,12 @@ const NavBar = () => {
   }, [isOpen]);
 
 
+
   return (
     <nav className='navbar-container'>
         <div>
           <NavLink to='/' exact={true} activeClassName='active'>
-            Home
+            <img src={home} alt='home-icon' id='home' className='cart-icon-size' />
           </NavLink>
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
