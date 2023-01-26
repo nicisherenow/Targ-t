@@ -65,10 +65,10 @@ def update_review(id):
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-    review.review=form.data['review'],
-    review.rating=form.data['rating'],
-    review.title=form.data['title'],
-    review.image_url=form.data['imageUrl'],
+    review.review=form.data['review']
+    review.rating=form.data['rating']
+    review.title=form.data['title']
+    review.image_url=form.data['imageUrl']
 
     db.session.add(review)
     db.session.commit()
