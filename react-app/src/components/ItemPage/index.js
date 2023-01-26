@@ -7,6 +7,7 @@ import ReviewForm from "../ReviewForm";
 import OpenModalButton from "../OpenModalButton";
 import UpdateReview from "../UpdateReview";
 import { deleteSingleReview, getAllReviews } from "../../store/review";
+import DeleteReview from "../DeleteReview";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -20,12 +21,6 @@ export default function ItemPage() {
     dispatch(getAllReviews())
     .then(() => setLoaded(true))
   }, [dispatch, loaded, itemId])
-
-  const onDeleteClick = (e) => {
-    e.preventDefault()
-    dispatch(deleteSingleReview(e.target.value))
-    dispatch(getAllItems())
-  }
 
   if (!loaded) return null
   if (!item) return null
@@ -68,7 +63,11 @@ export default function ItemPage() {
               modalComponent={<UpdateReview reviewId={review.id} />}
               className='edit-review-button'
               />
-              <button onClick={onDeleteClick} value={review.id}>Delete review</button>
+              <OpenModalButton
+              buttonText='Delete review'
+              modalComponent={<DeleteReview reviewId={review.id} />}
+              className='delete-review-button'
+              />
               </>
              : null }
             </div>
