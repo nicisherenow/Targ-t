@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import './ReviewForm.css'
 import { useModal } from '../../context/Modal'
-import { writeReview } from '../../store/review'
+import { updateCurrentReview } from '../../store/review'
 import { getAllItems } from '../../store/item'
 
-const  ReviewForm = ( { itemId }) => {
+const UpdateReview = ({ reviewId }) => {
+  const currentReview = useSelector(state => state.reviews[reviewId])
   const [loaded, setLoaded] = useState(false)
   const [errors, setErrors] = useState([])
-  const [review, setReview] = useState('')
-  const [rating, setRating] = useState(1)
-  const [imageUrl, setImageUrl] = useState('')
-  const [title, setTitle] = useState('')
+  const [review, setReview] = useState(currentReview.review)
+  const [rating, setRating] = useState(currentReview.rating)
+  const [imageUrl, setImageUrl] = useState(currentReview.imageUrl)
+  const [title, setTitle] = useState(currentReview.title)
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.session.user.id)
   const { closeModal } = useModal()
+  const userId = useSelector(state => state.session.user.id)
+
 
   useEffect(() => {
     setLoaded(true)
@@ -38,8 +39,8 @@ const  ReviewForm = ( { itemId }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    const data = await dispatch(writeReview(userId, +itemId, review, rating, imageUrl, title))
-    await dispatch(getAllItems())
+    const data = await dispatch(updateCurrentReview(review, rating, imageUrl, title, +reviewId))
+    await dispatch(getAllItems)
     if (data) {
       setErrors(data)
     } else {
@@ -100,9 +101,9 @@ const  ReviewForm = ( { itemId }) => {
           value={imageUrl}
         ></input>
       </div>
-      <button type='submit'>Submit Review</button>
+      <button type='submit'>Edit Review</button>
     </form>
   )
 }
 
-export default ReviewForm
+export default UpdateReview

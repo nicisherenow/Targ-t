@@ -8,6 +8,10 @@
   padding: 0 3vw;
 }
 
+#home:hover {
+  content: url('../../assets/home-logo-red.png')
+}
+
 .dropdown-container {
   display: flex;
   position: relative;

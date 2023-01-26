@@ -6,15 +6,27 @@
   overflow-y: auto;
 }
 
+.targét-item-picture {
+  border-radius: .4rem;
+
+}
 .targét-item-header {
   margin: 1vh;
   text-align: left;
+
 }
 
 .targét-item-info-container {
   display: flex;
-  margin: 1vh;
+  margin-left: 1vh;
   flex-direction: column;
+  border: lightgray solid 1px;
+  border-radius: .4rem;
+  width: 100%;
+}
+
+.targét-item-info-container > h2, .targét-item-info-container > div {
+  margin: 1vh;
 }
 
 .review-card-container {
@@ -39,8 +51,9 @@
   font-weight: bolder;
   border: none;
 }
+
 .bottom-half > button:hover {
-  background-color: red;
+  background-color: rgb(223, 36, 36);
   border: none;
 }
 .review-content-container {
@@ -76,6 +89,17 @@
   margin: 1vh;
 }
 
+.middle-part {
+  display: flex;
+  width: 80vw;
+  margin-top: 1vh;
+  border: lightgray solid 1px;
+  border-radius: .4rem;
+}
+
+.middle-part > p {
+  margin: 2vh;
+}
 
 .targét-item-content-container {
   display: flex;

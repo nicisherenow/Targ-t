@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllItems } from "../../store/item";
 import { NavLink } from "react-router-dom"
 import './HomePage.css'
+import { getAllReviews } from "../../store/review";
 
 export default function HomePage() {
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
   const items = Object.values(useSelector(state => state.items))
 
-  // let rand = Math.floor(Math.random() * items.length )
 
   const item = items[0]
 
   useEffect(() => {
     dispatch(getAllItems())
+    dispatch(getAllReviews())
     .then(() => setLoaded(true))
   }, [dispatch, loaded])
 
