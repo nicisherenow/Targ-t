@@ -1,6 +1,6 @@
 import { useModal } from "../../context/Modal";
 import { getAllItems } from "../../store/item";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteSingleReview } from "../../store/review";
 
 export default function DeleteReview({ reviewId }) {

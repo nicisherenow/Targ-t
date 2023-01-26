@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 
 
 export default function CartPage() {
   const [loaded, setLoaded] = useState(false)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
 
   useEffect(()=> {
