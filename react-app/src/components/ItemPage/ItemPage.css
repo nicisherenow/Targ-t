@@ -37,8 +37,12 @@
   background-color: black;
   color: white;
   font-weight: bolder;
+  border: none;
 }
-
+.bottom-half > button:hover {
+  background-color: red;
+  border: none;
+}
 .review-content-container {
   display: flex;
   flex-direction: column;
