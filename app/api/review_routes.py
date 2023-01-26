@@ -43,7 +43,6 @@ def write_review(id):
       title=form.data['title'],
       image_url=form.data['imageUrl'],
     )
-    print(new_review)
     db.session.add(new_review)
     db.session.commit()
     return item.to_dict()

@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy import UniqueConstraint
 
 def add_prefix_for_prod(attr):
     if environment == "production":
@@ -92,6 +93,8 @@ class Review(db.Model):
     review = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     image_url = db.Column(db.Text)
+
+    __table_args__ = (UniqueConstraint('user_id', 'item_id', name='user_review'),)
 
     item = db.relationship('Item', back_populates='reviews')
     user_reviews = db.relationship('UserReview', back_populates='review')
