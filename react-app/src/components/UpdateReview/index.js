@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
-import { updateCurrentReview } from '../../store/review'
+import { getAllReviews, updateCurrentReview } from '../../store/review'
 import { getAllItems } from '../../store/item'
 
 const UpdateReview = ({ reviewId }) => {
@@ -14,7 +14,6 @@ const UpdateReview = ({ reviewId }) => {
   const [title, setTitle] = useState(currentReview.title)
   const dispatch = useDispatch()
   const { closeModal } = useModal()
-  const userId = useSelector(state => state.session.user.id)
 
 
   useEffect(() => {
@@ -40,7 +39,8 @@ const UpdateReview = ({ reviewId }) => {
   const onSubmit = async (e) => {
     e.preventDefault()
     const data = await dispatch(updateCurrentReview(review, rating, imageUrl, title, +reviewId))
-    await dispatch(getAllItems)
+    await dispatch(getAllItems())
+    await dispatch(getAllReviews())
     if (data) {
       setErrors(data)
     } else {

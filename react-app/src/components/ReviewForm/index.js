@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './ReviewForm.css'
 import { useModal } from '../../context/Modal'
-import { writeReview } from '../../store/review'
+import { getAllReviews, writeReview } from '../../store/review'
 import { getAllItems } from '../../store/item'
 
 const  ReviewForm = ( { itemId }) => {
@@ -40,6 +40,7 @@ const  ReviewForm = ( { itemId }) => {
     e.preventDefault()
     const data = await dispatch(writeReview(userId, +itemId, review, rating, imageUrl, title))
     await dispatch(getAllItems())
+    await dispatch(getAllReviews())
     if (data) {
       setErrors(data)
     } else {

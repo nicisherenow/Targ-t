@@ -8,7 +8,6 @@ import SignUpForm from '../auth/SignUpForm';
 import LoginForm from '../auth/LoginForm';
 import cart from '../../assets/cart.png'
 import home from '../../assets/home-logo.png'
-import homeRed from '../../assets/home-logo-red.png'
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
