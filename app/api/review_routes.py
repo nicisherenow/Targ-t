@@ -57,7 +57,7 @@ def update_review(id):
   Update review
   """
   review = Review.query.get(id)
-  
+
   if not review:
     return { "errors": ['review does not exist']}, 404
 
@@ -70,9 +70,21 @@ def update_review(id):
     review.title=form.data['title'],
     review.image_url=form.data['imageUrl'],
 
-    print('review-------------------------------', review)
     db.session.add(review)
     db.session.commit()
-    return review.to_dict()
+    return current_user.to_dict()
 
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@review_routes.route('/delete/<int:id>', methods=['DELETE'])
+@login_required
+def delete_review(id):
+  review = Review.query.get(id)
+
+  if not review:
+    return { "errors": ['review does not exist']}, 404
+
+  db.session.delete(review)
+  db.session.commit()
+  return current_user.to_dict(), 200

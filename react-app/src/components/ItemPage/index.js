@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getItemById } from "../../store/item";
-import { NavLink, useParams } from "react-router-dom"
+import { getAllItems, getItemById } from "../../store/item";
+import { useParams } from "react-router-dom"
 import './ItemPage.css'
 import ReviewForm from "../ReviewForm";
 import OpenModalButton from "../OpenModalButton";
 import UpdateReview from "../UpdateReview";
-import { getAllReviews } from "../../store/review";
+import { deleteSingleReview, getAllReviews } from "../../store/review";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -15,12 +15,17 @@ export default function ItemPage() {
   const item = useSelector(state => state.items[itemId])
   const userId = useSelector(state => state.session.user.id)
 
-
   useEffect(() => {
     dispatch(getItemById(itemId))
     dispatch(getAllReviews())
     .then(() => setLoaded(true))
-  }, [dispatch, loaded])
+  }, [dispatch, loaded, itemId])
+
+  const onDeleteClick = (e) => {
+    e.preventDefault()
+    dispatch(deleteSingleReview(e.target.value))
+    dispatch(getAllItems())
+  }
 
   if (!loaded) return null
   if (!item) return null
@@ -57,11 +62,14 @@ export default function ItemPage() {
             <img src={review.imageUrl} alt='review' className="review-image" />
               ) : null }
               { review.userId === userId ?
+              <>
               <OpenModalButton
               buttonText='Edit review'
               modalComponent={<UpdateReview reviewId={review.id} />}
               className='edit-review-button'
               />
+              <button onClick={onDeleteClick} value={review.id}>Delete review</button>
+              </>
              : null }
             </div>
             </div>

@@ -1,7 +1,8 @@
 const LOAD_REVIEWS = 'reviews/loadReviews'
 const LOAD_REVIEW = 'review/loadReview'
-const CREATE_REVIEW = 'item/createReview'
-const EDIT_REVIEW = 'item/editReview'
+const CREATE_REVIEW = 'review/createReview'
+const EDIT_REVIEW = 'review/editReview'
+const DELETE_REVIEW = 'review/deleteReview'
 
 const loadReviews = (reviews) => ({
   type: LOAD_REVIEWS,
@@ -21,6 +22,11 @@ const createReview = (review) => ({
 const editReview = (review) => ({
   type: EDIT_REVIEW,
   review
+})
+
+const deleteReview = (reviewId) => ({
+  type: DELETE_REVIEW,
+  reviewId
 })
 
 
@@ -95,6 +101,17 @@ export const updateCurrentReview = (review, rating, imageUrl, title, reviewId) =
   }
 }
 
+export const deleteSingleReview = (reviewId) => async (dispatch) => {
+  const res = await fetch(`/api/reviews/delete/${reviewId}`, {
+    method: 'DELETE'
+  })
+  if (res.ok) {
+    await res.json()
+    dispatch(deleteReview(reviewId))
+    return null
+  }
+}
+
 let initialState = {}
 
 const reviewReducer = ( state = initialState, action ) => {
@@ -113,6 +130,10 @@ const reviewReducer = ( state = initialState, action ) => {
     case EDIT_REVIEW:
       newState = { ...state }
       newState[action.review.id] = action.review
+      return newState
+    case DELETE_REVIEW:
+      newState = { ... state }
+      delete newState[action.reviewId]
       return newState
     default:
       return state;
