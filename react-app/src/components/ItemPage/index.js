@@ -42,11 +42,6 @@ export default function ItemPage() {
             <p>{item.description}</p>
         </div>
         <div className="bottom-half">
-            <OpenModalButton
-              buttonText='Write Review'
-              modalComponent={<ReviewForm itemId={itemId} />}
-              className='write-review-button'
-              />
             <div>{item.reviews.length ? item.reviews.map(review => (
               <div key={review.id} className='review-card-container'>
               <div className="review-content-container">
