@@ -150,7 +150,7 @@ const SignUpForm = () => {
           <div>
         <label className="signup-input-label">State</label>
           <select
-            name="gender"
+            name="state"
             onChange={updateState}
             required={true}
             className='signup-input-field'

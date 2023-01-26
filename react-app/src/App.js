@@ -11,6 +11,7 @@ import HomePage from './components/HomePage';
 import { authenticate } from './store/session';
 import ItemPage from './components/ItemPage';
 import CartPage from './components/CartPage';
+import ReviewForm from './components/ReviewForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);

@@ -1,5 +1,6 @@
 const LOAD_ITEMS = 'items/loadItems'
 const LOAD_ITEM = 'item/loadItem'
+const CREATE_REVIEW = 'item/createReview'
 
 const loadItems = (items) => ({
   type: LOAD_ITEMS,
@@ -11,6 +12,10 @@ const loadItem = (item) => ({
   item
 })
 
+const createReview = (item) => ({
+  type: CREATE_REVIEW,
+  item
+})
 
 export const getAllItems = () => async (dispatch) => {
   const res = await fetch('/api/items');
@@ -28,6 +33,34 @@ export const getItemById = (id) => async (dispatch) => {
   }
 }
 
+export const writeReview = (userId, itemId, review, rating, imageUrl, title) => async (dispatch) => {
+  const res = await fetch(`/api/reviews/${itemId}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      userId,
+      itemId,
+      review,
+      rating,
+      imageUrl,
+      title,
+    })
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(createReview(data))
+    return null
+  } else if ( res.status < 500 ) {
+    const data = await res.json()
+    if (data.errors) {
+      return data.errors
+      }
+  } else {
+    return ['An error occured. Please try again.']
+  }
+}
+
 let initialState = { items: null }
 
 const itemReducer = ( state = initialState, action ) => {
@@ -40,6 +73,10 @@ const itemReducer = ( state = initialState, action ) => {
       });
       return newState;
     case LOAD_ITEM:
+      newState = { ...state }
+      newState[action.item.id] = action.item
+      return newState
+    case CREATE_REVIEW:
       newState = { ...state }
       newState[action.item.id] = action.item
       return newState

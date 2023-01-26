@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import Review, db
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from app.models import Review, db, Item
 from flask_login import current_user, login_required
+from ..forms.reviews_form import ReviewForm
+from .auth_routes import validation_errors_to_error_messages
 
 review_routes = Blueprint('reviews', __name__)
 
@@ -22,3 +22,30 @@ def review(id):
   """
   review = Review.query.get(id)
   return review.to_dict()
+
+@review_routes.route('/<int:id>', methods=['POST'])
+@login_required
+def write_review(id):
+  item = Item.query.get(id)
+
+  if not item:
+    return { "errors": ['item does not exist']}
+
+  form = ReviewForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  print(form.data)
+  if form.validate_on_submit():
+    new_review = Review(
+      user_id=current_user.id,
+      item_id=item.id,
+      review=form.data['review'],
+      rating=form.data['rating'],
+      title=form.data['title'],
+      image_url=form.data['imageUrl'],
+    )
+
+    db.session.add(new_review)
+    db.session.commit()
+    return item.to_dict()
+
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401

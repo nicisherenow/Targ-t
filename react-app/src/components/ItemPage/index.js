@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getItemById } from "../../store/item";
 import { NavLink, useParams } from "react-router-dom"
 import './ItemPage.css'
+import ReviewForm from "../ReviewForm";
+import OpenModalButton from "../OpenModalButton";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -26,7 +28,11 @@ export default function ItemPage() {
         <img src={item.imageUrl} alt='targét-item' className="targét-item-picture" />
         <div className="targét-item-info-container">
           <h2>${item.price}</h2>
-          
+          <OpenModalButton
+            buttonText='Write Review'
+            modalComponent={<ReviewForm itemId={itemId} />}
+            className='write-review-button'
+          />
           <div>Quantity and Add to cart Placeholder</div>
         </div>
       </div>
