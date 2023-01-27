@@ -36,5 +36,24 @@
 }
 
 .cart-icon-size {
-  width: 24px;
+  width: 30px;
+}
+
+.cart-icon-container {
+  text-decoration: none;
+}
+
+.cart-icon-container:hover {
+  content: url('../../assets/cart-red.png');
+  color: rgb(223, 36, 36);
+}
+
+.cart-total {
+  color: black;
+  font-size: .7rem;
+  position: relative;
+  font-weight: bold;
+  border-radius: 50%;
+  top: -1.28vh;
+  left: 2.45vh;
 }

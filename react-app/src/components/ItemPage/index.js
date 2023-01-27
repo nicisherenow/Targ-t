@@ -18,18 +18,8 @@ export default function ItemPage() {
   const [quantity, setQuantity] = useState(1)
   const item = useSelector(state => state.items[itemId])
   const user = useSelector(state => state.session.user)
-  const carts = useSelector(state => state.carts)
 
-  let cartsList;
-  let total = 0
-  if (carts) {
-    cartsList = Object.values(carts)
-    console.log(cartsList)
-    const cartSum = cartsList.forEach(element =>
-      total += element.quantity
-    );
-  }
-  console.log(total)
+
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
   }
@@ -53,7 +43,7 @@ export default function ItemPage() {
   if (!loaded) return null
   if (!item) return null
 
-  if (!user || !carts) {
+  if (!user) {
     return (
       <div className="targét-item-container">
         <div className="top-half">

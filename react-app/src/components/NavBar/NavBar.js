@@ -27,12 +27,10 @@ const NavBar = () => {
   let total = 0
   if (carts) {
     cartsList = Object.values(carts)
-    console.log(cartsList)
-    const cartSum = cartsList.forEach(element =>
+    cartsList.forEach(element =>
       total += element.quantity
     );
   }
-  console.log(total)
 
   useEffect(() => {
     if (!isOpen) return;
