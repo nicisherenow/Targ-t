@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     user_reviews = db.relationship('UserReview', back_populates='user', cascade="all, delete-orphan")
+    user_carts = db.relationship('Cart', back_populates='user')
 
     @property
     def password(self):
@@ -49,7 +50,8 @@ class User(db.Model, UserMixin):
             'state': self.state,
             'streetAddress': self.street_address,
             'zipcode': self.zipcode,
-            'userReviews': [user_review.to_dict() for user_review in self.user_reviews]
+            'userReviews': [user_review.to_dict() for user_review in self.user_reviews],
+            'userCarts': [user_cart.to_dict() for user_cart in self.user_carts]
         }
 
 class Item(db.Model):
@@ -67,6 +69,10 @@ class Item(db.Model):
     in_stock = db.Column(db.Boolean, nullable=False, default=True)
 
     reviews = db.relationship('Review', back_populates='item')
+    cart_items = db.relationship('CartItem', back_populates='item')
+    cart = db.relationship('Cart', back_populates='items')
+
+
 
     def to_dict(self):
         return {
@@ -85,7 +91,7 @@ class Review(db.Model):
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
-        
+
     __table_args__ = (UniqueConstraint('user_id', 'item_id', name='user_review'),)
 
     id = db.Column(db.Integer, primary_key=True)
@@ -99,6 +105,7 @@ class Review(db.Model):
 
     item = db.relationship('Item', back_populates='reviews')
     user_reviews = db.relationship('UserReview', back_populates='review')
+
 
     user = db.relationship("User", foreign_keys=[user_id])
 
@@ -133,4 +140,54 @@ class UserReview(db.Model):
             'userId': self.user_id,
             'reviewId': self.review_id,
             'review': self.review.to_dict()
+        }
+
+
+class Cart(db.Model):
+    __tablename__ = 'carts'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+
+    item = db.relationship("Item", foreign_keys=[item_id])
+
+    cart_items = db.relationship('CartItem', back_populates='cart')
+    user = db.relationship('User', back_populates='user_carts')
+    items = db.relationship('Item', back_populates='cart')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'itemId': self.item_id,
+            'userId': self.item_id,
+            'item': self.item.to_dict()
+        }
+
+
+
+
+class CartItem(db.Model):
+    __tablename__ = 'cart_items'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    cart_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('carts.id')), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
+    item = db.relationship('Item', back_populates='cart_items')
+    cart = db.relationship('Cart', back_populates='cart_items')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'cartId': self.cart_id,
+            'itemId': self.item_id,
+            'quantity': self.quantity
         }

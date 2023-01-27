@@ -26,6 +26,9 @@ def review(id):
 @review_routes.route('/<int:id>', methods=['POST'])
 @login_required
 def write_review(id):
+  """
+  Writes a review for based on item id
+  """
   item = Item.query.get(id)
 
   if not item:
@@ -53,7 +56,7 @@ def write_review(id):
 @login_required
 def update_review(id):
   """
-  Update review
+  Update review based on review id
   """
   review = Review.query.get(id)
 
@@ -79,6 +82,9 @@ def update_review(id):
 @review_routes.route('/delete/<int:id>', methods=['DELETE'])
 @login_required
 def delete_review(id):
+  """
+  Deletes review based on review id
+  """
   review = Review.query.get(id)
 
   if not review:
