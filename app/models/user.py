@@ -54,6 +54,11 @@ class User(db.Model, UserMixin):
             'userCarts': [user_cart.to_dict() for user_cart in self.user_carts]
         }
 
+    def get_dict(self):
+        return {
+            'firstName': self.first_name
+        }
+
 class Item(db.Model):
     __tablename__ ='items'
 
@@ -118,7 +123,7 @@ class Review(db.Model):
             'rating': self.rating,
             'imageUrl': self.image_url,
             'title': self.title,
-            'user': self.user.to_dict()
+            'user': self.user.get_dict()
         }
 
 class UserReview(db.Model):
@@ -152,6 +157,7 @@ class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    quantity = db.Column(db.Integer)
 
     item = db.relationship("Item", foreign_keys=[item_id])
 
