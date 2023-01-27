@@ -7,7 +7,6 @@ import ReviewForm from "../ReviewForm";
 import OpenModalButton from "../OpenModalButton";
 import UpdateReview from "../UpdateReview";
 import { getAllReviews } from "../../store/review";
-import { getAllItems } from "../../store/item";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
 
@@ -19,7 +18,18 @@ export default function ItemPage() {
   const [quantity, setQuantity] = useState(1)
   const item = useSelector(state => state.items[itemId])
   const user = useSelector(state => state.session.user)
+  const carts = useSelector(state => state.carts)
 
+  let cartsList;
+  let total = 0
+  if (carts) {
+    cartsList = Object.values(carts)
+    console.log(cartsList)
+    const cartSum = cartsList.forEach(element =>
+      total += element.quantity
+    );
+  }
+  console.log(total)
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
   }
@@ -36,13 +46,14 @@ export default function ItemPage() {
   useEffect(() => {
     dispatch(getItemById(itemId))
     dispatch(getAllReviews())
+    dispatch(getAllCarts())
     .then(() => setLoaded(true))
   }, [dispatch, loaded, itemId])
 
   if (!loaded) return null
   if (!item) return null
 
-  if (!user) {
+  if (!user || !carts) {
     return (
       <div className="targét-item-container">
         <div className="top-half">

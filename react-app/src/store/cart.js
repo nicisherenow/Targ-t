@@ -1,6 +1,7 @@
 const LOAD_CARTS = 'carts/loadCarts'
 const LOAD_CART = 'cart/loadCart'
 const CREATE_CART = 'cart/createCart'
+const CLEAR_CART = 'cart/clearCart'
 
 const loadCarts = (carts) => ({
   type: LOAD_CARTS,
@@ -15,6 +16,10 @@ const loadCart = (cart) => ({
 const createCart = (cart) => ({
   type: CREATE_CART,
   cart
+})
+
+export const clearCart = () => ({
+  type: CLEAR_CART
 })
 
 export const getAllCarts = () => async (dispatch) => {
@@ -76,6 +81,8 @@ const cartReducer = ( state = initialState, action ) => {
       newState = { ...state }
       newState[action.cart.id] = action.cart
       return newState
+    case CLEAR_CART:
+      return initialState
     default:
       return state;
   }
