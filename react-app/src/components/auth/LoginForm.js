@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
@@ -10,7 +10,6 @@ const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const { closeModal } = useModal()
@@ -68,6 +67,7 @@ const LoginForm = () => {
           placeholder='Email'
           value={email}
           onChange={updateEmail}
+          required={true}
           />
       </div>
       <div>
@@ -78,6 +78,7 @@ const LoginForm = () => {
           placeholder='Password'
           value={password}
           onChange={updatePassword}
+          required={true}
           />
         <button type='submit'>Login</button>
         <div className='issaDemo'>

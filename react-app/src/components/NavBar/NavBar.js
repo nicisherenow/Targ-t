@@ -27,8 +27,8 @@ const NavBar = () => {
   let total = 0
   if (carts) {
     cartsList = Object.values(carts)
-    cartsList.forEach(element =>
-      total += element.quantity
+    cartsList.forEach(cart =>
+      total += cart.quantity
     );
   }
 

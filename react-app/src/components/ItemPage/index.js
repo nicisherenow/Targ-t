@@ -12,7 +12,6 @@ import { createNewCart, getAllCarts } from "../../store/cart";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
-  const [errors, setErrors] = useState([])
   const { itemId } = useParams()
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1)
@@ -26,17 +25,13 @@ export default function ItemPage() {
 
   const onAddToCart = async (e) => {
     e.preventDefault()
-    const data = await dispatch(createNewCart(user.id, +itemId, quantity))
+    await dispatch(createNewCart(user.id, +itemId, quantity))
     await dispatch(getAllCarts())
-    if (data) {
-      setErrors(data)
-    }
   }
 
   useEffect(() => {
     dispatch(getItemById(itemId))
     dispatch(getAllReviews())
-    dispatch(getAllCarts())
     .then(() => setLoaded(true))
   }, [dispatch, loaded, itemId])
 
