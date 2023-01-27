@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
 import { NavLink } from "react-router-dom";
+import { createNewCart, getAllCarts } from "../../store/cart";
 
 
 export default function CartPage() {
   const [loaded, setLoaded] = useState(false)
-  // const dispatch = useDispatch()
+  const [quantity, setQuantity] = useState(1)
+  const [itemId, setItemId] = useState(0)
+  const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const carts = useSelector(state => state.carts)
 
@@ -24,10 +27,20 @@ export default function CartPage() {
   }
   let tax = totalPrice * 8.25/100
   let priceWithTax = totalPrice + tax
-  console.log(+priceWithTax.toFixed(2))
+  
   useEffect(()=> {
     setLoaded(true)
   }, [loaded])
+
+  const onUpdateCart = async (e) => {
+    e.preventDefault()
+    await dispatch(createNewCart(user.id, +itemId, quantity))
+    await dispatch(getAllCarts())
+  }
+
+  const updateQuantity = (e) => {
+    setQuantity(e.target.value)
+  }
 
 
   return (
@@ -56,10 +69,37 @@ export default function CartPage() {
             </div>
             <div className="cart-item-details">
               <div>{cart.item.name}</div>
-              <div>{cart.quantity}</div>
+              <div>{cart.quantity} </div>
               <div className="price">${cart.item.price}</div>
             </div>
           </NavLink>
+          <div>
+
+          <form onSubmit={onUpdateCart} className='update-cart-button'>
+              <div>
+                <label className="signup-input-label">Quantity</label>
+                  <select
+                    name="quantity"
+                    onChange={updateQuantity}
+                    required={true}
+                    className='signup-input-field'
+                    >
+                    <option className='signup-input-field' value={cart.quantity}>{cart.quantity}</option>
+                    <option className='signup-input-field' value={1}>1</option>
+                    <option className='signup-input-field' value={2}>2</option>
+                    <option className='signup-input-field' value={3}>3</option>
+                    <option className='signup-input-field' value={4}>4</option>
+                    <option className='signup-input-field' value={5}>5</option>
+                    <option className='signup-input-field' value={6}>6</option>
+                    <option className='signup-input-field' value={7}>7</option>
+                    <option className='signup-input-field' value={8}>8</option>
+                    <option className='signup-input-field' value={9}>9</option>
+                    <option className='signup-input-field' value={10}>10</option>
+                  </select>
+                  <button type='submit' onClick={(e) => setItemId(e.target.value)}value={cart.itemId}>Update quantity</button>
+              </div>
+              </form>
+          </div>
           </div>
         ))}
         </div>
