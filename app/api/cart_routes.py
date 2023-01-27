@@ -14,7 +14,7 @@ def cart():
   """
   carts = Cart.query.filter(Cart.user_id == current_user.id).all()
 
-  return {'Cart': [cart.to_dict() for cart in carts]}
+  return {'carts': [cart.to_dict() for cart in carts]}
 
 @cart_routes.route('/<int:id>', methods=['POST'])
 @login_required
@@ -22,19 +22,24 @@ def new_cart(id):
   """
   Create a new cart with a specific quantity
   """
+  currentId = current_user.id
   item = Item.query.get(id)
 
   form = CartForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
-  if form.validate_on_submit:
-
-    new_cart = Cart(
-      user_id=current_user.id,
-      item_id=item.id,
-      quantity=form.data['quantity']
-    )
-
-    db.session.add(new_cart)
-    db.session.commit()
-    return new_cart.to_dict()
+  if form.validate_on_submit():
+    existing_cart = Cart.query.filter(Cart.user_id == currentId, Cart.item_id == item.id).first()
+    if existing_cart:
+        existing_cart.quantity = form.data['quantity']
+        db.session.commit()
+        return existing_cart.to_dict()
+    else:
+        new_cart = Cart(
+            item_id=item.id,
+            quantity=form.data['quantity'],
+            user_id=currentId,
+        )
+        db.session.add(new_cart)
+        db.session.commit()
+        return new_cart.to_dict()

@@ -33,18 +33,20 @@ export const getCartById = (id) => async (dispatch) => {
   }
 }
 
-export const createNewCart = (itemId) => async (dispatch) => {
+export const createNewCart = (userId, itemId, quantity) => async (dispatch) => {
   const res = await fetch(`/api/carts/${itemId}`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
+      userId,
+      itemId,
+      quantity,
     })
   })
-
   if (res.ok) {
     const data = await res.json()
     dispatch(createCart(data))
-    return null
+    return data
   } else if ( res.status < 500 ) {
     const data = await res.json()
     if (data.errors) {

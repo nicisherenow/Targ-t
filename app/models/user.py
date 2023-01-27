@@ -157,7 +157,7 @@ class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    quantity = db.Column(db.Integer)
+    quantity = db.Column(db.Integer, default=1)
 
     item = db.relationship("Item", foreign_keys=[item_id])
 
@@ -170,6 +170,7 @@ class Cart(db.Model):
             'id': self.id,
             'itemId': self.item_id,
             'userId': self.item_id,
+            'quantity': self.quantity,
             'item': self.item.to_dict()
         }
 

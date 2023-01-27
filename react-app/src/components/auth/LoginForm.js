@@ -20,6 +20,8 @@ const LoginForm = () => {
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+    } else {
+      await closeModal()
     }
   };
 

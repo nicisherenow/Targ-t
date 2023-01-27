@@ -9,7 +9,7 @@ import UpdateReview from "../UpdateReview";
 import { getAllReviews } from "../../store/review";
 import { getAllItems } from "../../store/item";
 import DeleteReview from "../DeleteReview";
-import { createNewCart } from "../../store/cart";
+import { createNewCart, getAllCarts } from "../../store/cart";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -26,8 +26,8 @@ export default function ItemPage() {
 
   const onAddToCart = async (e) => {
     e.preventDefault()
-    const data = await dispatch(createNewCart(+itemId, quantity))
-    await dispatch(getAllItems())
+    const data = await dispatch(createNewCart(user.id, +itemId, quantity))
+    await dispatch(getAllCarts())
     if (data) {
       setErrors(data)
     }
