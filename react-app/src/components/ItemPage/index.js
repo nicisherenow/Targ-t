@@ -90,6 +90,7 @@ export default function ItemPage() {
                     required={true}
                     className='signup-input-field'
                     >
+                    <option className='signup-input-field' value={quantity}>{quantity}</option>
                     <option className='signup-input-field' value={1}>1</option>
                     <option className='signup-input-field' value={2}>2</option>
                     <option className='signup-input-field' value={3}>3</option>

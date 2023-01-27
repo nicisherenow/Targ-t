@@ -27,7 +27,7 @@ export default function CartPage() {
   }
   let tax = totalPrice * 8.25/100
   let priceWithTax = totalPrice + tax
-  
+
   useEffect(()=> {
     setLoaded(true)
   }, [loaded])
@@ -40,6 +40,10 @@ export default function CartPage() {
 
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
+  }
+
+  const updateItemId = (e) => {
+    setItemId(e.target.value)
   }
 
 
@@ -62,7 +66,7 @@ export default function CartPage() {
 
         <h1>Cart</h1>
         {cartsList.map(cart => (
-          <div className="cart-item-card">
+          <div className="cart-item-card" key={cart.id}>
             <NavLink to={`/items/${cart.itemId}`} key={cart.id} className='cart-navlink'>
             <div className="cart-image-container">
               <img src={cart.item.imageUrl} alt={`${cart.item.name}`} className='cart-image' />
@@ -73,32 +77,31 @@ export default function CartPage() {
               <div className="price">${cart.item.price}</div>
             </div>
           </NavLink>
-          <div>
-
-          <form onSubmit={onUpdateCart} className='update-cart-button'>
-              <div>
-                <label className="signup-input-label">Quantity</label>
-                  <select
-                    name="quantity"
-                    onChange={updateQuantity}
-                    required={true}
-                    className='signup-input-field'
-                    >
-                    <option className='signup-input-field' value={cart.quantity}>{cart.quantity}</option>
-                    <option className='signup-input-field' value={1}>1</option>
-                    <option className='signup-input-field' value={2}>2</option>
-                    <option className='signup-input-field' value={3}>3</option>
-                    <option className='signup-input-field' value={4}>4</option>
-                    <option className='signup-input-field' value={5}>5</option>
-                    <option className='signup-input-field' value={6}>6</option>
-                    <option className='signup-input-field' value={7}>7</option>
-                    <option className='signup-input-field' value={8}>8</option>
-                    <option className='signup-input-field' value={9}>9</option>
-                    <option className='signup-input-field' value={10}>10</option>
-                  </select>
-                  <button type='submit' onClick={(e) => setItemId(e.target.value)}value={cart.itemId}>Update quantity</button>
-              </div>
-              </form>
+          <div className="update-cart-align">
+            <form onSubmit={onUpdateCart} className='update-cart-button'>
+                <div>
+                  <label className="signup-input-label">Quantity</label>
+                    <select
+                      name="quantity"
+                      onChange={updateQuantity}
+                      required={true}
+                      className='signup-input-field'
+                      >
+                      <option className='signup-input-field' value={cart.quantity}>{cart.quantity}</option>
+                      <option className='signup-input-field' value={1}>1</option>
+                      <option className='signup-input-field' value={2}>2</option>
+                      <option className='signup-input-field' value={3}>3</option>
+                      <option className='signup-input-field' value={4}>4</option>
+                      <option className='signup-input-field' value={5}>5</option>
+                      <option className='signup-input-field' value={6}>6</option>
+                      <option className='signup-input-field' value={7}>7</option>
+                      <option className='signup-input-field' value={8}>8</option>
+                      <option className='signup-input-field' value={9}>9</option>
+                      <option className='signup-input-field' value={10}>10</option>
+                    </select>
+                    <button type='submit' onClick={updateItemId} value={cart.itemId}>Update quantity</button>
+                </div>
+            </form>
           </div>
           </div>
         ))}
