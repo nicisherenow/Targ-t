@@ -95,9 +95,7 @@ class Review(db.Model):
     __tablename__ = 'reviews'
 
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
-    __table_args__ = (UniqueConstraint('user_id', 'item_id', name='user_review'),)
+        __table_args__ = {'schema': SCHEMA} | (UniqueConstraint('user_id', 'item_id', name='user_review'),)
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
