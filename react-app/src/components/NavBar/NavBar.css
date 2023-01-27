@@ -39,12 +39,16 @@
   width: 30px;
 }
 
+.cart-icon-size:hover {
+  content: url('../../assets/cart-red.png');
+
+}
+
 .cart-icon-container {
   text-decoration: none;
 }
 
-.cart-icon-container:hover {
-  content: url('../../assets/cart-red.png');
+.cart-total:hover {
   color: rgb(223, 36, 36);
 }
 
