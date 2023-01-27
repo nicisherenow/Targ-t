@@ -51,3 +51,8 @@
 .price {
   font-weight: bold;
 }
+
+.totals-spacing {
+  display: flex;
+  justify-content: space-between;
+}

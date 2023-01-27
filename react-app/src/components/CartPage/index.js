@@ -63,8 +63,8 @@ export default function CartPage() {
         </div>
         <div className="totals-section">
           <h2>Order Summary</h2>
-          <div>Subtotal{totalPrice}</div>
-          <div>Estimated tax{tax}</div>
+            <div className="totals-spacing">Subtotal <span>${totalPrice}</span></div>
+            <div className="totals-spacing">Estimated tax <span>${tax.toFixed(2)}</span></div>
         </div>
       </div>
         </>
