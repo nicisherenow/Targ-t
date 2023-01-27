@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
+import { NavLink } from "react-router-dom";
 
 
 export default function CartPage() {
@@ -19,10 +20,8 @@ export default function CartPage() {
       totalPrice += cart.item.price * cart.quantity
     })
   }
-  console.log(totalPrice)
   let tax = totalPrice * 8.25/100
-  console.log(tax)
-  let priceWithTax = totalPrice += tax
+  let priceWithTax = totalPrice + tax
   console.log(+priceWithTax.toFixed(2))
   useEffect(()=> {
     setLoaded(true)
@@ -41,15 +40,34 @@ export default function CartPage() {
           className='sign-in-button'
           />
       </div>
-      : <div className="cart-page-body">
+      :
+      <>
+      <div className="cart-page-body">
+        <div className="cart-page-column">
+
+        <h1>Cart</h1>
         {cartsList.map(cart => (
-          <div className="cart-item-container">
-            <div>{cart.item.name}</div>
-            <div>{cart.quantity}</div>
-            <div>{cart.item.price}</div>
+          <div className="cart-item-card">
+            <NavLink to={`/items/${cart.itemId}`} key={cart.id} className='cart-navlink'>
+            <div className="cart-image-container">
+              <img src={cart.item.imageUrl} alt={`${cart.item.name}`} className='cart-image' />
+            </div>
+            <div className="cart-item-details">
+              <div>{cart.item.name}</div>
+              <div>{cart.quantity}</div>
+              <div className="price">${cart.item.price}</div>
+            </div>
+          </NavLink>
           </div>
         ))}
+        </div>
+        <div className="totals-section">
+          <h2>Order Summary</h2>
+          <div>Subtotal{totalPrice}</div>
+          <div>Estimated tax{tax}</div>
+        </div>
       </div>
+        </>
     }
     </>
   )
