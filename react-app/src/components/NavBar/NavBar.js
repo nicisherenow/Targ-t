@@ -106,19 +106,19 @@ const NavBar = () => {
       </div>
       <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
     <div id='right-side-container'>
-    <button onClick={() => setIsOpen(!isOpen)} >
+    <button onClick={() => setIsOpen(!isOpen)} id={`${isOpen ? 'open' : ''}`}>
       {user ? `Hi, ${user.firstName}` : 'Sign In'}
     </button>
     { !user ?
     <div className="dropdown-menu">
-      <div>
+      <div className='menu-buttons'>
         <OpenModalButton
           buttonText='Sign in'
           modalComponent={<LoginForm />}
           className='sign-in-button'
           />
         </div>
-      <div>
+      <div className='menu-buttons'>
         <OpenModalButton
           buttonText='Create Account'
           modalComponent={<SignUpForm />}
@@ -131,7 +131,7 @@ const NavBar = () => {
         <div>
           {`Hello, ${user.firstName}`}
         </div>
-        <div>
+        <div className='menu-buttons'>
           <LogoutButton />
         </div>
     </div>

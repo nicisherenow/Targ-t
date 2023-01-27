@@ -53,11 +53,13 @@ export default function CartPage() {
       <div className="cart-page-column" id='cart-page-align'>
         <h1>Your cart is empty</h1>
         <h3>Have an account? Sign in to see your cart</h3>
-        <OpenModalButton
-          buttonText='Sign in'
-          modalComponent={<LoginForm />}
-          className='sign-in-button'
-          />
+        <div className="placeholder-button">
+          <OpenModalButton
+            buttonText='Sign in'
+            modalComponent={<LoginForm />}
+            className='sign-in-button'
+            />
+          </div>
       </div>
       :
       <>
@@ -80,26 +82,26 @@ export default function CartPage() {
           <div className="update-cart-align">
             <form onSubmit={onUpdateCart} className='update-cart-button'>
                 <div>
-                  <label className="signup-input-label">Quantity</label>
+                  <label className="update-label">Quantity</label>
                     <select
                       name="quantity"
                       onChange={updateQuantity}
                       required={true}
-                      className='signup-input-field'
+                      className='update-field'
                       >
-                      <option className='signup-input-field' value={cart.quantity}>{cart.quantity}</option>
-                      <option className='signup-input-field' value={1}>1</option>
-                      <option className='signup-input-field' value={2}>2</option>
-                      <option className='signup-input-field' value={3}>3</option>
-                      <option className='signup-input-field' value={4}>4</option>
-                      <option className='signup-input-field' value={5}>5</option>
-                      <option className='signup-input-field' value={6}>6</option>
-                      <option className='signup-input-field' value={7}>7</option>
-                      <option className='signup-input-field' value={8}>8</option>
-                      <option className='signup-input-field' value={9}>9</option>
-                      <option className='signup-input-field' value={10}>10</option>
+                      <option className='update-field' value={cart.quantity}>{cart.quantity}</option>
+                      <option className='update-field' value={1}>1</option>
+                      <option className='update-field' value={2}>2</option>
+                      <option className='update-field' value={3}>3</option>
+                      <option className='update-field' value={4}>4</option>
+                      <option className='update-field' value={5}>5</option>
+                      <option className='update-field' value={6}>6</option>
+                      <option className='update-field' value={7}>7</option>
+                      <option className='update-field' value={8}>8</option>
+                      <option className='update-field' value={9}>9</option>
+                      <option className='update-field' value={10}>10</option>
                     </select>
-                    <button type='submit' onClick={updateItemId} value={cart.itemId}>Update quantity</button>
+                    <button type='submit' onClick={updateItemId} value={cart.itemId} className='update-field'>Update quantity</button>
                 </div>
             </form>
           </div>
