@@ -16,15 +16,17 @@
   display: flex;
   position: relative;
 }
-
-.right-side-container > button {
-  margin-right: 10px;
+#right-side-container {
+  display: flex;
+  align-items: center;
+}
+#right-side-container > button {
+  margin-right: 2vw;
 }
 
 .dropdown-menu {
   position: absolute;
   right: 5vw;
-  height: 100%;
   display: none;
   width: 10vw;
 }
@@ -33,10 +35,13 @@
 .dropdown-container.open .dropdown-menu {
   display: flex;
   flex-direction: column;
+  position: fixed;
+  right: 10vw;
+  top: 10vh;
 }
 
 .cart-icon-size {
-  width: 30px;
+  width: 45px;
 }
 
 .cart-icon-size:hover {
@@ -54,10 +59,10 @@
 
 .cart-total {
   color: black;
-  font-size: .7rem;
+  font-size: 1rem;
   position: relative;
   font-weight: bold;
   border-radius: 50%;
-  top: -1.28vh;
-  left: 2.45vh;
+  top: -1.91vh;
+  left: 3.35vh;
 }

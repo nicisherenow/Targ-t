@@ -105,8 +105,8 @@ const NavBar = () => {
         </NavLink>
       </div>
       <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
-    <div className='right-side-container'>
-    <button onClick={() => setIsOpen(!isOpen)}>
+    <div id='right-side-container'>
+    <button onClick={() => setIsOpen(!isOpen)} >
       {user ? `Hi, ${user.firstName}` : 'Sign In'}
     </button>
     { !user ?
