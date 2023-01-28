@@ -33,6 +33,8 @@
 }
 
 .totals-section {
+  position: sticky;
+  top: 1vh;
   display: flex;
   width: 30vw;
   flex-direction: column;
