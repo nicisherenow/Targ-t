@@ -10,6 +10,9 @@ def add_prefix_for_prod(attr):
         return attr
 
 
+if environment == "production":
+    user_review.schema = SCHEMA
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
