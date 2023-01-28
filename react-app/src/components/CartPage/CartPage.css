@@ -61,6 +61,8 @@
 
 #total {
   font-weight: bold;
+  border-top: darkgray solid 1px;
+  padding-top: 2vh;
 }
 
 .cart-item-details {
@@ -131,5 +133,18 @@
 }
 
 .checkout-button:hover {
+  background-color: rgb(223, 36,36);
+}
+
+.cart-buttons {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: .4rem;
+  padding: 1vh;
+  font-weight: bold;
+}
+
+.cart-buttons:hover {
   background-color: rgb(223, 36,36);
 }

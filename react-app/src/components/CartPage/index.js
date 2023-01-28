@@ -48,7 +48,6 @@ export default function CartPage() {
     setItemId(e.target.value)
   }
 
-
   return (
     <>
     { !user || !carts || !loaded ?
@@ -102,8 +101,8 @@ export default function CartPage() {
                       <option className='update-field' value={9}>9</option>
                       <option className='update-field' value={10}>10</option>
                     </select>
-                    <button type='submit' onClick={updateItemId} value={+cart.itemId} >Update</button>
-                    <img src={cross} alt='remove' className="remove-button" onClick={null} />
+                    <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons' >Update</button>
+                    <button onClick={updateItemId} value={cart.itemId} className='cart-buttons'>Remove</button>
                 </div>
             </form>
           </div>
