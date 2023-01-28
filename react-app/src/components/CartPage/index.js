@@ -42,6 +42,7 @@ export default function CartPage() {
   }, [loaded])
 
   const addToCart = async (e) => {
+    e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, 1))
     await dispatch(getAllCarts())
   }
@@ -103,7 +104,9 @@ export default function CartPage() {
                 <div className="no-text-decor">${itemsList[randomItem].price}</div>
               </div>
             </NavLink>
-            <button onMouseUp={addToCart} onMouseDown={updateItemId} value={itemsList[randomItem].id}>Add to cart</button>
+            <form onSubmit={addToCart}>
+              <button type='submit' onClick={updateItemId} value={itemsList[randomItem].id}>Add to cart</button>
+            </form>
           </div>
          : null }
          </>

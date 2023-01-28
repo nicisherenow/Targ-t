@@ -46,7 +46,7 @@
   align-items: center;
   width: 80vw;
   margin: 1vh;
-  padding: 1vh;
+  padding: 1vh 0;
 }
 
 .bottom-half > button {
