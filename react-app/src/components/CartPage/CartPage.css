@@ -84,9 +84,9 @@
 
 #cart-page-align {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  text-overflow: ellipsis;
 }
 
 .placeholder-button > button {
@@ -149,4 +149,19 @@
 
 .cart-buttons:hover {
   background-color: rgb(223, 36,36);
+}
+
+#shopping-item-card {
+  display: flex;
+  border-radius: .4rem;
+  border: 1px solid darkgrey;
+  padding: 1vh;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  flex-direction: column;
+}
+
+.no-text-decor {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
 }

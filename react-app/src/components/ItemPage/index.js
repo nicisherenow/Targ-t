@@ -143,7 +143,7 @@ export default function ItemPage() {
              : null }
             </div>
             </div>
-          )) : "No Reviews for this product yet."}
+          )) : <div className="review-card-container-copy">"No Reviews for this product yet."</div>}
           </div>
       </div>
     </div>

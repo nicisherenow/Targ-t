@@ -14,6 +14,7 @@ export default function CartPage() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const carts = useSelector(state => state.carts)
+  const items = useSelector(state => state.items)
   const history = useHistory()
 
   let cartsList;
@@ -26,6 +27,13 @@ export default function CartPage() {
       total += cart.quantity
     })
   }
+  let randomItem = 0;
+  let itemsList;
+  if (items) {
+    itemsList = Object.values(items)
+    randomItem = Math.floor(Math.random() * itemsList.length)
+  }
+
   let tax = totalPrice * 8.25/100
   let priceWithTax = totalPrice + tax
 
@@ -33,6 +41,10 @@ export default function CartPage() {
     setLoaded(true)
   }, [loaded])
 
+  const addToCart = async (e) => {
+    await dispatch(createNewCart(user.id, +itemId, 1))
+    await dispatch(getAllCarts())
+  }
 
   const onUpdateCart = async (e) => {
     e.preventDefault()
@@ -66,7 +78,8 @@ export default function CartPage() {
   return (
     <>
     { !user || !carts || !loaded || !cartsList.length ?
-      <div className="cart-page-column" id='cart-page-align'>
+
+      <div className="cart-page-body" id='cart-page-align'>
         <h1>Your cart is empty</h1>
         {!user ?
         <>
@@ -79,7 +92,22 @@ export default function CartPage() {
           />
           </div>
           </>
-        : null }
+        :
+        <>
+        <h3>How about a last minute grab?</h3>
+         {itemsList[randomItem] ?
+           <div id="shopping-item-card" key={itemsList[randomItem].id}>
+            <NavLink to={`/items/${itemsList[randomItem].id}`} className='shopping-item-container'>
+              <div className="shopping-item-image-container">
+                <img src={itemsList[randomItem].imageUrl} alt={itemsList[randomItem].name} className='shopping-item-image' />
+                <div className="no-text-decor">${itemsList[randomItem].price}</div>
+              </div>
+            </NavLink>
+            <button onMouseUp={addToCart} onMouseDown={updateItemId} value={itemsList[randomItem].id}>Add to cart</button>
+          </div>
+         : null }
+         </>
+        }
       </div>
       :
       <>

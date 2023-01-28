@@ -11,6 +11,7 @@ import HomePage from './components/HomePage';
 import { authenticate } from './store/session';
 import ItemPage from './components/ItemPage';
 import CartPage from './components/CartPage';
+import CheckoutLanding from './components/CheckoutLanding';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +43,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/checkout' exact={true}>
+          <CheckoutLanding />
         </ProtectedRoute>
         <Route path='/cart' exact={true}>
           <CartPage />

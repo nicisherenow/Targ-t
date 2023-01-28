@@ -9,6 +9,7 @@ import LoginForm from '../auth/LoginForm';
 import cart from '../../assets/cart.png'
 import home from '../../assets/home-logo.png'
 import { getAllCarts } from '../../store/cart';
+import { getAllItems } from '../../store/item';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,6 +21,7 @@ const NavBar = () => {
 
   useEffect(() => {
     dispatch(getAllCarts())
+    dispatch(getAllItems())
     .then(() => setLoaded(true))
   },[dispatch])
 
