@@ -5,6 +5,7 @@ import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
 import { NavLink } from "react-router-dom";
 import { createNewCart, getAllCarts } from "../../store/cart";
+import cross from '../../assets/cross.png'
 
 
 export default function CartPage() {
@@ -31,6 +32,7 @@ export default function CartPage() {
   useEffect(()=> {
     setLoaded(true)
   }, [loaded])
+
 
   const onUpdateCart = async (e) => {
     e.preventDefault()
@@ -81,8 +83,7 @@ export default function CartPage() {
           </NavLink>
           <div className="update-cart-align">
             <form onSubmit={onUpdateCart} className='update-cart-button'>
-                <div>
-                  <label className="update-label">Quantity</label>
+                <div className="here-goes">
                     <select
                       name="quantity"
                       onChange={updateQuantity}
@@ -101,7 +102,8 @@ export default function CartPage() {
                       <option className='update-field' value={9}>9</option>
                       <option className='update-field' value={10}>10</option>
                     </select>
-                    <button type='submit' onClick={updateItemId} value={cart.itemId} className='update-field'>Update quantity</button>
+                    <button type='submit' onClick={updateItemId} value={+cart.itemId} >Update</button>
+                    <img src={cross} alt='remove' className="remove-button" onClick={null} />
                 </div>
             </form>
           </div>

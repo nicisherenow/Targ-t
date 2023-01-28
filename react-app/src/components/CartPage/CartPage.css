@@ -12,6 +12,7 @@
   border-radius: .4rem;
   width: 50vw;
   margin: 1vh;
+  justify-content: space-between;
   align-items: center;
   padding: .4vh;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6)
@@ -69,7 +70,6 @@
 .update-cart-align {
   display: flex;
   justify-content: right;
-  border: 3px red solid
 }
 
 .update-field {
@@ -97,4 +97,30 @@
 
 .placeholder-button > button:hover {
   background-color: rgb(223, 36,36);
+}
+
+.here-goes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-items: flex-end;
+  gap: .4vh;
+}
+
+.remove-button, .update-button {
+  width: 20px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  content: url('../../assets/cross-red.png');
+}
+
+.update-button:hover {
+  content: url('../../assets/add-red.png')
+}
+
+.mute-button {
+  /* background-color: transparent; */
+  border: none;
 }
