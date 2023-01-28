@@ -1,21 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
 import { NavLink, useHistory } from "react-router-dom";
 import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart } from "../../store/cart";
+import arrLeft from '../../assets/arr-left.png'
+import arrRight from '../../assets/arr-right.png'
 
 
 export default function CartPage() {
   const [loaded, setLoaded] = useState(false)
   const [quantity, setQuantity] = useState(1)
-  const [itemId, setItemId] = useState(0)
+  const [itemId, setItemId] = useState(1)
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
   const history = useHistory()
+
 
   let cartsList;
   let totalPrice = 0;
@@ -27,11 +30,9 @@ export default function CartPage() {
       total += cart.quantity
     })
   }
-  let randomItem = 0;
   let itemsList;
   if (items) {
     itemsList = Object.values(items)
-    randomItem = Math.floor(Math.random() * itemsList.length)
   }
 
   let tax = totalPrice * 8.25/100
@@ -45,6 +46,22 @@ export default function CartPage() {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, 1))
     await dispatch(getAllCarts())
+  }
+
+  const onPreviousClick = () => {
+    if (itemId > 1) {
+      setItemId(+itemId - 1)
+    } else {
+      setItemId(+itemsList.length - 1)
+    }
+  }
+
+  const onNextClick = () => {
+    if (itemId < +itemsList.length - 1) {
+      setItemId(+itemId + 1)
+    } else {
+      setItemId(1)
+    }
   }
 
   const onUpdateCart = async (e) => {
@@ -96,17 +113,19 @@ export default function CartPage() {
         :
         <>
         <h3>How about a last minute grab?</h3>
-         {itemsList[randomItem] ?
-           <div id="shopping-item-card" key={itemsList[randomItem].id}>
-            <NavLink to={`/items/${itemsList[randomItem].id}`} className='shopping-item-container'>
+         {itemsList[itemId - 1] ?
+           <div id="shopping-item-card" key={itemsList[itemId -1].id}>
+            <NavLink to={`/items/${itemsList[itemId - 1].id}`} className='shopping-item-container'>
               <div className="shopping-item-image-container">
-                <img src={itemsList[randomItem].imageUrl} alt={itemsList[randomItem].name} className='shopping-item-image' />
-                <div className="no-text-decor">${itemsList[randomItem].price}</div>
+                <img src={itemsList[itemId - 1].imageUrl} alt={itemsList[itemId - 1].name} className='shopping-item-image' />
+                <div className="no-text-decor">${itemsList[itemId - 1].price}</div>
               </div>
             </NavLink>
-            <form onSubmit={addToCart}>
-              <button type='submit' onClick={updateItemId} value={itemsList[randomItem].id}>Add to cart</button>
-            </form>
+              <div className="last-grab-buttons">
+                <img onClick={onPreviousClick} src={arrLeft} alt='previous' className="previous-item" />
+                <button onClick={addToCart} value={itemsList[itemId - 1].id}>Add to cart</button>
+                <img onClick={onNextClick} src={arrRight} alt='next' className="next-item" />
+              </div>
           </div>
          : null }
          </>

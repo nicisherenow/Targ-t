@@ -161,7 +161,43 @@
 }
 
 .no-text-decor {
-  text-decoration: none;
   color: black;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+.shopping-item-container {
+  text-decoration: none;
+}
+
+.previous-item, .next-item {
+  width: 25px;
+  cursor: pointer;
+}
+
+.last-grab-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.last-grab-buttons > button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: .4rem;
+  padding: 1vh;
+  font-weight: bold;
+}
+
+.last-grab-buttons > button:hover {
+  background-color: rgb(223, 36,36);
+}
+
+.previous-item:hover {
+  content: url('../../assets/arr-left-red.png')
+}
+
+.next-item:hover {
+  content: url('../../assets/arr-right-red.png')
 }
