@@ -105,7 +105,6 @@ class Review(db.Model):
     review = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     image_url = db.Column(db.Text)
-    db.Index('user_id', 'item_id', unique=True)
 
 
     item = db.relationship('Item', back_populates='reviews')
@@ -125,6 +124,8 @@ class Review(db.Model):
             'title': self.title,
             'user': self.user.get_dict()
         }
+
+
 
 class UserReview(db.Model):
     __tablename__ = 'user_reviews'
