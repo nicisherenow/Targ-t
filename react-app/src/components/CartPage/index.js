@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
-import { NavLink } from "react-router-dom";
-import { createNewCart, getAllCarts } from "../../store/cart";
-import cross from '../../assets/cross.png'
+import { NavLink, useHistory } from "react-router-dom";
+import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart } from "../../store/cart";
 
 
 export default function CartPage() {
@@ -15,6 +14,7 @@ export default function CartPage() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const carts = useSelector(state => state.carts)
+  const history = useHistory()
 
   let cartsList;
   let totalPrice = 0;
@@ -40,6 +40,21 @@ export default function CartPage() {
     await dispatch(getAllCarts())
   }
 
+  const onDeleteTheWholeCart = async (e) => {
+    e.preventDefault()
+    await dispatch(deleteEntireCart())
+  }
+
+  const onCheckout = async (e) => {
+    e.preventDefault()
+    await dispatch(deleteEntireCart())
+    .then(() => history.push('/checkout'))
+  }
+  const onClickRemove = async (e) => {
+    e.preventDefault()
+    await dispatch(deleteSingleCart(itemId))
+  }
+
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
   }
@@ -50,17 +65,21 @@ export default function CartPage() {
 
   return (
     <>
-    { !user || !carts || !loaded ?
+    { !user || !carts || !loaded || !cartsList.length ?
       <div className="cart-page-column" id='cart-page-align'>
         <h1>Your cart is empty</h1>
+        {!user ?
+        <>
         <h3>Have an account? Sign in to see your cart</h3>
         <div className="placeholder-button">
           <OpenModalButton
-            buttonText='Sign in'
-            modalComponent={<LoginForm />}
-            className='sign-in-button'
-            />
+          buttonText='Sign in'
+          modalComponent={<LoginForm />}
+          className='sign-in-button'
+          />
           </div>
+          </>
+        : null }
       </div>
       :
       <>
@@ -102,7 +121,7 @@ export default function CartPage() {
                       <option className='update-field' value={10}>10</option>
                     </select>
                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons' >Update</button>
-                    <button onClick={updateItemId} value={cart.itemId} className='cart-buttons'>Remove</button>
+                    <button onMouseEnter={updateItemId} onClick={onClickRemove} value={cart.id} className='cart-buttons'>Remove</button>
                 </div>
             </form>
           </div>
@@ -115,8 +134,8 @@ export default function CartPage() {
             <div className="totals-spacing">Estimated tax <span>${tax.toFixed(2)}</span></div>
             <div className="totals-spacing" id='total'>Total <span>${priceWithTax.toFixed(2)}</span></div>
             <div className="button-container">
-              <button onClick={null} className='checkout-button'>Clear cart</button>
-              <button onClick={null} className='checkout-button'>Checkout</button>
+              <button onClick={onDeleteTheWholeCart} className='checkout-button'>Clear cart</button>
+              <button onClick={onCheckout} className='checkout-button'>Checkout</button>
             </div>
         </div>
       </div>

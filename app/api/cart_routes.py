@@ -43,3 +43,31 @@ def new_cart(id):
         db.session.add(new_cart)
         db.session.commit()
         return new_cart.to_dict()
+
+@cart_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_one(id):
+  """
+  Finds one item by item id and then deletes that item
+  """
+
+  cart = Cart.query.get(id)
+
+  if not cart:
+    return { "errors": ['cart does not exist']}
+
+  db.session.delete(cart)
+  db.session.commit()
+  return current_user.to_dict(), 200
+
+@cart_routes.route('/remove', methods=['DELETE'])
+@login_required
+def delete_all():
+  """
+  Finds all cart items that a user has and then deletes them
+  """
+  carts = Cart.query.filter(Cart.user_id == current_user.id)
+
+  [db.session.delete(cart) for cart in carts]
+  db.session.commit()
+  return current_user.to_dict(), 200
