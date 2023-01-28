@@ -85,6 +85,7 @@ const UpdateReview = ({ reviewId }) => {
             required={true}
             className='signup-input-field'
             >
+            <option className='signup-input-field' value={rating}>{rating}</option>
             <option className='signup-input-field' value={1}>1</option>
             <option className='signup-input-field' value={2}>2</option>
             <option className='signup-input-field' value={3}>3</option>

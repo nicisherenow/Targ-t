@@ -1,0 +1,18 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 75vh;
+  align-items: center;
+  border: 1px darkgray solid;
+  width: 80vw;
+  border-radius: .4rem;
+  margin: auto;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+}
+
+.no-text-deco {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}

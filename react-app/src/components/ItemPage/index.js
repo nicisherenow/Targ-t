@@ -7,18 +7,17 @@ import ReviewForm from "../ReviewForm";
 import OpenModalButton from "../OpenModalButton";
 import UpdateReview from "../UpdateReview";
 import { getAllReviews } from "../../store/review";
-import { getAllItems } from "../../store/item";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
-  const [errors, setErrors] = useState([])
   const { itemId } = useParams()
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1)
   const item = useSelector(state => state.items[itemId])
   const user = useSelector(state => state.session.user)
+
 
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
@@ -26,11 +25,8 @@ export default function ItemPage() {
 
   const onAddToCart = async (e) => {
     e.preventDefault()
-    const data = await dispatch(createNewCart(user.id, +itemId, quantity))
+    await dispatch(createNewCart(user.id, +itemId, quantity))
     await dispatch(getAllCarts())
-    if (data) {
-      setErrors(data)
-    }
   }
 
   useEffect(() => {
@@ -94,6 +90,7 @@ export default function ItemPage() {
                     required={true}
                     className='signup-input-field'
                     >
+                    <option className='signup-input-field' value={quantity}>{quantity}</option>
                     <option className='signup-input-field' value={1}>1</option>
                     <option className='signup-input-field' value={2}>2</option>
                     <option className='signup-input-field' value={3}>3</option>
@@ -146,7 +143,7 @@ export default function ItemPage() {
              : null }
             </div>
             </div>
-          )) : "No Reviews for this product yet."}
+          )) : <div className="review-card-container-copy">"No Reviews for this product yet."</div>}
           </div>
       </div>
     </div>

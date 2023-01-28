@@ -1,6 +1,8 @@
 const LOAD_CARTS = 'carts/loadCarts'
 const LOAD_CART = 'cart/loadCart'
 const CREATE_CART = 'cart/createCart'
+const DELETE_CART = 'cart/DeleteCartItem'
+const CLEAR_CART = 'cart/clearCart'
 
 const loadCarts = (carts) => ({
   type: LOAD_CARTS,
@@ -15,6 +17,15 @@ const loadCart = (cart) => ({
 const createCart = (cart) => ({
   type: CREATE_CART,
   cart
+})
+
+const deleteCartItem = (itemId) => ({
+  type: DELETE_CART,
+  itemId
+})
+
+export const clearCart = () => ({
+  type: CLEAR_CART
 })
 
 export const getAllCarts = () => async (dispatch) => {
@@ -57,6 +68,29 @@ export const createNewCart = (userId, itemId, quantity) => async (dispatch) => {
   }
 }
 
+export const deleteSingleCart = (itemId) => async (dispatch) => {
+  const res = await fetch(`/api/carts/${itemId}`, {
+    method: 'DELETE'
+  })
+  if (res.ok) {
+    await res.json()
+    dispatch(deleteCartItem(itemId))
+    return null
+  }
+}
+
+export const deleteEntireCart = () => async (dispatch) => {
+  const res = await fetch('/api/carts/remove', {
+    method: 'DELETE'
+  })
+  if (res.ok) {
+    await res.json()
+    dispatch(clearCart())
+    return null
+  }
+}
+
+
 let initialState = {}
 
 const cartReducer = ( state = initialState, action ) => {
@@ -76,6 +110,12 @@ const cartReducer = ( state = initialState, action ) => {
       newState = { ...state }
       newState[action.cart.id] = action.cart
       return newState
+    case DELETE_CART:
+      newState = { ...state }
+      delete newState[action.itemId]
+      return newState
+    case CLEAR_CART:
+      return initialState
     default:
       return state;
   }

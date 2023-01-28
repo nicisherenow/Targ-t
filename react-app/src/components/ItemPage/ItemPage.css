@@ -37,6 +37,18 @@
   width: 80vw;
 }
 
+.review-card-container-copy {
+  display: flex;
+  border: lightgray solid 1px;
+  border-radius: .4rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  margin: 1vh;
+  padding: 1vh;
+}
+
 .bottom-half > button {
   width: fit-content;
   height: 1.8rem;

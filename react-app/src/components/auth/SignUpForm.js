@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
 import { signUp } from '../../store/session';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
@@ -17,7 +16,6 @@ const SignUpForm = () => {
   const [zipcode, setZipcode] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
   const { closeModal } = useModal()
 
@@ -67,10 +65,6 @@ const SignUpForm = () => {
 
   const updateZipcode = (e) => {
     setZipcode(e.target.value)
-  }
-
-  if (user) {
-    return <Redirect to='/' />;
   }
 
   return (

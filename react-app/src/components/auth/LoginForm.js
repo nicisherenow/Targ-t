@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { login } from '../../store/session';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
 import SignUpForm from './SignUpForm';
+import { getAllCarts } from '../../store/cart';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const { closeModal } = useModal()
@@ -18,6 +17,7 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    await dispatch(getAllCarts())
     if (data) {
       setErrors(data);
     } else {
@@ -28,6 +28,7 @@ const LoginForm = () => {
   const demoLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login('rambo@aa.io', 'password'))
+    await dispatch(getAllCarts())
     if (data) {
       setErrors(data)
     } else {
@@ -42,10 +43,6 @@ const LoginForm = () => {
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
-
-  if (user) {
-    return <Redirect to='/' />;
-  }
 
   return (
     <>
@@ -70,6 +67,7 @@ const LoginForm = () => {
           placeholder='Email'
           value={email}
           onChange={updateEmail}
+          required={true}
           />
       </div>
       <div>
@@ -80,6 +78,7 @@ const LoginForm = () => {
           placeholder='Password'
           value={password}
           onChange={updatePassword}
+          required={true}
           />
         <button type='submit'>Login</button>
         <div className='issaDemo'>
