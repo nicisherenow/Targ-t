@@ -95,7 +95,9 @@ class Review(db.Model):
     __tablename__ = 'reviews'
 
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA},(UniqueConstraint('user_id', 'item_id', name='user_review'),)
+        __table_args__ = {'schema': SCHEMA}
+        # __table_args__ = (UniqueConstraint('user_id', 'item_id', name='user_review'),)
+
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
@@ -103,6 +105,7 @@ class Review(db.Model):
     review = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     image_url = db.Column(db.Text)
+    db.Index('user_id', 'item_id', unique=True)
 
 
     item = db.relationship('Item', back_populates='reviews')
