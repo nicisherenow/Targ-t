@@ -83,7 +83,7 @@ export default function CartPage() {
           </NavLink>
           <div className="update-cart-align">
             <form onSubmit={onUpdateCart} className='update-cart-button'>
-                <div className="here-goes">
+                <div className="cart-item-cards">
                     <select
                       name="quantity"
                       onChange={updateQuantity}
@@ -115,6 +115,10 @@ export default function CartPage() {
             <div className="totals-spacing">Subtotal({total} {total > 1 ? 'items' : 'item'}) <span>${totalPrice.toFixed(2)}</span></div>
             <div className="totals-spacing">Estimated tax <span>${tax.toFixed(2)}</span></div>
             <div className="totals-spacing" id='total'>Total <span>${priceWithTax.toFixed(2)}</span></div>
+            <div className="button-container">
+              <button onClick={null} className='checkout-button'>Clear cart</button>
+              <button onClick={null} className='checkout-button'>Checkout</button>
+            </div>
         </div>
       </div>
         </>
