@@ -29,6 +29,19 @@ export default function ItemPage() {
     await dispatch(getAllCarts())
   }
 
+  let totalRating = 0;
+  let reviewsList;
+  if (item) {
+    reviewsList = item.reviews
+    reviewsList.forEach(review => {
+      totalRating += review.rating
+    })
+  }
+  let reviewRating = 0;
+  if (reviewsList) {
+    reviewRating = (totalRating / reviewsList.length).toFixed(1)
+  }
+
   useEffect(() => {
     dispatch(getItemById(itemId))
     dispatch(getAllReviews())
@@ -47,6 +60,12 @@ export default function ItemPage() {
           <img src={item.imageUrl} alt='targét-item' className="targét-item-picture" />
           <div className="targét-item-info-container">
             <h2>${item.price}</h2>
+            {reviewsList.length  ?
+                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                :
+                <div className="rating-decimal">No Reviews for this product yet.</div>
+
+            }
           </div>
         </div>
         </div>
@@ -66,7 +85,7 @@ export default function ItemPage() {
                 ) : null }
               </div>
               </div>
-            )) : "No Reviews for this product yet."}
+            )) : <div className="review-card-container-copy">No Reviews for this product yet.</div>}
             </div>
         </div>
       </div>
@@ -81,6 +100,11 @@ export default function ItemPage() {
         <img src={item.imageUrl} alt='targét-item' className="targét-item-picture" />
         <div className="targét-item-info-container">
           <h2>${item.price}</h2>
+          {reviewsList.length  ?
+                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                :
+                <div className="rating-decimal">No Reviews for this product yet.</div>
+            }
           <form onSubmit={onAddToCart} className='add-to-cart-button'>
               <div>
                 <label className="signup-input-label">Quantity</label>
