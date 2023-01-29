@@ -51,7 +51,7 @@
   overflow-y: auto;
   border-radius: .4rem;
   gap: 1vh;
-  margin: 1vh 1vh 0 1vh;
+  margin: 0 1vh 0 1vh;
   height: fit-content;
 }
 

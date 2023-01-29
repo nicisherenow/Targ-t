@@ -41,7 +41,7 @@ export default function HomePage() {
   }
 
   const onPreviousClick = () => {
-    if (categoryId > 1) {
+    if (categoryId > 0) {
       setCategoryId(+categoryId - 1)
     } else {
       setCategoryId(+categories.length - 1)
@@ -88,15 +88,19 @@ export default function HomePage() {
         </div>
         <div className="category-holder">
         {category ? categoryList.map(item => (
-          <div className='category-containers'>
+          <div className='category-containers' key={item.id}>
           <NavLink className='category-navs' to={`/items/${item.id}`} key={item.id}>
-            <img src={item.imageUrl} alt={item.name} />
+            <img src={item.imageUrl} alt={item.name} className='home-shopping-image' />
             <div>${item.price}</div>
           </NavLink>
+          {user ?
+          <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            : null
+          }
         </div>
         )) :
         itemsList.map(item => (
-        <div className='category-containers'>
+        <div className='category-containers' key={item.id}>
           <NavLink className='category-navs' to={`/items/${item.id}`} key={item.id}>
             <img src={item.imageUrl} alt={item.name} className='home-shopping-image' />
             <div>${item.price}</div>

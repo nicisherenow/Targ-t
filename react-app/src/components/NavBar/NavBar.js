@@ -14,7 +14,6 @@ import { getAllItems } from '../../store/item';
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  const [category, setCategory] = useState('')
   const user = useSelector(state => state.session.user)
   const divRef = useRef()
   const dispatch = useDispatch()
