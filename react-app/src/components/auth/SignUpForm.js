@@ -4,6 +4,7 @@ import { signUp } from '../../store/session';
 import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
 import LoginForm from './LoginForm';
+import './SignUpForm.css'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -68,22 +69,18 @@ const SignUpForm = () => {
   }
 
   return (
+    <div className='signup-form-container'>
+      <h1 className='signup-header'>Sign up</h1>
     <form onSubmit={onSignUp}>
-      <div>
-          <OpenModalButton
-            buttonText='Already have an account? Sign in.'
-            modalComponent={<LoginForm />}
-            className='sign-in-button-on-signup'
-          />
-        </div>
-      <div>
+        <div className='signup-div'>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
-        ))}
+          ))}
       </div>
-      <div>
+      <div className='signup-div'>
         <label>First Name</label>
         <input
+          className='signup-input'
           type='text'
           name='firstName'
           onChange={updateFirstName}
@@ -91,39 +88,43 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <div>
+      <div className='signup-div'>
         <label>Last Name</label>
         <input
+          className='signup-input'
           type='text'
           name='firstName'
           onChange={updateLastName}
           value={lastName}
           required={true}
-        ></input>
+          ></input>
       </div>
-      <div>
+      <div className='signup-div'>
         <label>Email</label>
         <input
+          className='signup-input'
           type='text'
           name='email'
           onChange={updateEmail}
           value={email}
           required={true}
-        ></input>
+          ></input>
       </div>
-      <div>
+      <div className='signup-div'>
         <label>Password</label>
         <input
+          className='signup-input'
           type='password'
           name='password'
           onChange={updatePassword}
           value={password}
           required={true}
-        ></input>
+          ></input>
       </div>
-      <div>
+      <div className='signup-div'>
         <label>Repeat Password</label>
         <input
+          className='signup-input'
           type='password'
           name='repeat_password'
           onChange={updateRepeatPassword}
@@ -131,23 +132,24 @@ const SignUpForm = () => {
           required={true}
           ></input>
           </div>
-          <div>
+          <div className='signup-div'>
             <label>City</label>
             <input
+              className='signup-input'
               type='text'
               name='city'
               onChange={updateCity}
               value={city}
               required={true}
-            ></input>
+              ></input>
           </div>
-          <div>
+          <div className='signup-div'>
         <label className="signup-input-label">State</label>
           <select
             name="state"
             onChange={updateState}
             required={true}
-            className='signup-input-field'
+            className='signup-input-select'
             >
             <option className='signup-input-field' value="AL">Alabama</option>
             <option className='signup-input-field' value="AK">Alaska</option>
@@ -201,9 +203,10 @@ const SignUpForm = () => {
             <option className='signup-input-field' value="WY">Wyoming</option>
           </select>
           </div>
-          <div>
+          <div className='signup-div'>
             <label>Street Address</label>
             <input
+              className='signup-input'
               type='text'
               name='street address'
               onChange={updateStreetAddress}
@@ -211,18 +214,29 @@ const SignUpForm = () => {
               required={true}
             ></input>
           </div>
-          <div>
-            <label>Zipcode</label>
+          <div className='signup-div'>
+            <label>ZIP code</label>
             <input
+              className='signup-input'
               type='number'
               name='zipcode'
+              min={10000}
+              max={99999}
               onChange={updateZipcode}
               value={zipcode}
               required={true}
             ></input>
           </div>
-      <button type='submit'>Sign Up</button>
+      <button className='signup-button' type='submit'>Sign Up</button>
+      <div className='signup-div' id='signup-modal'>
+          <OpenModalButton
+            buttonText='Already have an account? Sign in.'
+            modalComponent={<signupForm />}
+            className='sign-in-button-on-signup'
+            />
+        </div>
     </form>
+    </div>
   );
 };
 
