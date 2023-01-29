@@ -5,6 +5,7 @@ import { useModal } from '../../context/Modal';
 import OpenModalButton from '../OpenModalButton';
 import SignUpForm from './SignUpForm';
 import { getAllCarts } from '../../store/cart';
+import './LoginForm.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -45,23 +46,18 @@ const LoginForm = () => {
   };
 
   return (
-    <>
+    <div className='login-form-container'>
+      <h1 className='login-header'>Sign in</h1>
     <form onSubmit={onLogin}>
-      <div>
-          <OpenModalButton
-            buttonText='Not signed up? Create an account.'
-            modalComponent={<SignUpForm />}
-            className='create-account-button-on-login'
-          />
-        </div>
-      <div>
+      <div className='login-div'>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
           ))}
       </div>
-      <div>
+      <div className='login-div'>
         <label htmlFor='email'>Email</label>
         <input
+          className='login-input'
           name='email'
           type='text'
           placeholder='Email'
@@ -70,9 +66,10 @@ const LoginForm = () => {
           required={true}
           />
       </div>
-      <div>
+      <div className='login-div'>
         <label htmlFor='password'>Password</label>
         <input
+          className='login-input'
           name='password'
           type='password'
           placeholder='Password'
@@ -80,13 +77,20 @@ const LoginForm = () => {
           onChange={updatePassword}
           required={true}
           />
-        <button type='submit'>Login</button>
-        <div className='issaDemo'>
-          <button onClick={demoLogin}>Login as Demo user</button>
+        <button className='login-button' type='submit'>Login</button>
+        <div className='login-div-bottom'>
+          <button className='login-button' onClick={demoLogin}>Login as Demo user</button>
         </div>
       </div>
+      <div className='login-div' id='login-modal'>
+          <OpenModalButton
+            buttonText='Not signed up? Create an account.'
+            modalComponent={<SignUpForm />}
+            className='create-account-button-on-login'
+          />
+        </div>
     </form>
-    </>
+    </div>
   );
 };
 
