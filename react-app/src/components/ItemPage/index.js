@@ -38,10 +38,13 @@ export default function ItemPage() {
       totalRating += review.rating
     })
   }
-  let hasReview;
   let reviewRating = 0;
   if (reviewsList) {
     reviewRating = (totalRating / reviewsList.length).toFixed(1)
+  }
+
+  let hasReview;
+  if (reviewsList && user) {
     hasReview = reviewsList.filter(review => review.userId === user.id)
   }
 
@@ -64,7 +67,7 @@ export default function ItemPage() {
           <div className="targét-item-info-container">
             <h2>${item.price}</h2>
             {reviewsList.length  ?
-                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                <div className="rating-decimal">Average rating: {reviewRating} ({reviewsList.length > 1 ? `${reviewsList.length} reviews` : `${reviewsList.length} review`})</div>
                 :
                 <div className="rating-decimal">No Reviews for this product yet.</div>
 
@@ -104,7 +107,7 @@ export default function ItemPage() {
         <div className="targét-item-info-container">
           <h2>${item.price}</h2>
           {reviewsList.length  ?
-                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                <div className="rating-decimal">Average rating: {reviewRating} ({reviewsList.length > 1 ? `${reviewsList.length} reviews` : `${reviewsList.length} review`})</div>
                 :
                 <div className="rating-decimal">No Reviews for this product yet.</div>
             }
