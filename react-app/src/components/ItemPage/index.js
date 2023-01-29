@@ -9,6 +9,7 @@ import UpdateReview from "../UpdateReview";
 import { getAllReviews } from "../../store/review";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
+import StarDisplay from "../StarDisplay";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -29,6 +30,19 @@ export default function ItemPage() {
     await dispatch(getAllCarts())
   }
 
+  let totalRating = 0;
+  let reviewsList;
+  if (item) {
+    reviewsList = item.reviews
+    reviewsList.forEach(review => {
+      totalRating += review.rating
+    })
+  }
+  let reviewRating = 0;
+  if (reviewsList) {
+    reviewRating = (totalRating / reviewsList.length).toFixed(1)
+  }
+
   useEffect(() => {
     dispatch(getItemById(itemId))
     dispatch(getAllReviews())
@@ -47,6 +61,12 @@ export default function ItemPage() {
           <img src={item.imageUrl} alt='targét-item' className="targét-item-picture" />
           <div className="targét-item-info-container">
             <h2>${item.price}</h2>
+            {reviewsList.length  ?
+                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                :
+                <div className="rating-decimal">No Reviews for this product yet.</div>
+
+            }
           </div>
         </div>
         </div>
@@ -58,7 +78,7 @@ export default function ItemPage() {
               <div key={review.id} className='review-card-container'>
               <div className="review-content-container">
                 <h4 className="review-h4">{review.title}</h4>
-                <div>{review.rating}</div>
+                <StarDisplay rate={review.rating} />
                 <span className="tiny-review-name">{review.user.firstName}</span>
                 <div>{review.review}</div>
               {review.imageUrl ? (
@@ -66,7 +86,7 @@ export default function ItemPage() {
                 ) : null }
               </div>
               </div>
-            )) : "No Reviews for this product yet."}
+            )) : <div className="review-card-container-copy">No Reviews for this product yet.</div>}
             </div>
         </div>
       </div>
@@ -81,16 +101,20 @@ export default function ItemPage() {
         <img src={item.imageUrl} alt='targét-item' className="targét-item-picture" />
         <div className="targét-item-info-container">
           <h2>${item.price}</h2>
+          {reviewsList.length  ?
+                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                :
+                <div className="rating-decimal">No Reviews for this product yet.</div>
+            }
           <form onSubmit={onAddToCart} className='add-to-cart-button'>
-              <div>
-                <label className="signup-input-label">Quantity</label>
+              <div className="div-gap">
+                <label className="signup-input-label">Quantity: </label>
                   <select
                     name="quantity"
                     onChange={updateQuantity}
                     required={true}
                     className='signup-input-field'
                     >
-                    <option className='signup-input-field' value={quantity}>{quantity}</option>
                     <option className='signup-input-field' value={1}>1</option>
                     <option className='signup-input-field' value={2}>2</option>
                     <option className='signup-input-field' value={3}>3</option>
@@ -119,31 +143,37 @@ export default function ItemPage() {
             />
           <div>{item.reviews.length ? item.reviews.map(review => (
             <div key={review.id} className='review-card-container'>
+              <div className="side-buttons">
             <div className="review-content-container">
               <h4 className="review-h4">{review.title}</h4>
-              <div>{review.rating}</div>
+              <StarDisplay rate={review.rating} />
               <span className="tiny-review-name">{review.user.firstName}</span>
               <div>{review.review}</div>
             {review.imageUrl ? (
             <img src={review.imageUrl} alt='review' className="review-image" />
               ) : null }
+            </div>
               { review.userId === user.id ?
-              <>
-              <OpenModalButton
-              buttonText='Edit review'
-              modalComponent={<UpdateReview reviewId={review.id} />}
-              className='edit-review-button'
-              />
-              <OpenModalButton
-              buttonText='Delete review'
-              modalComponent={<DeleteReview reviewId={review.id} />}
-              className='delete-review-button'
-              />
-              </>
+              <div className="modal-buttons">
+                <div className="space-between">
+                <OpenModalButton
+                buttonText='Edit review'
+                modalComponent={<UpdateReview reviewId={review.id} />}
+                className='edit-review-button'
+                />
+                <OpenModalButton
+                buttonText='Delete review'
+                modalComponent={<DeleteReview reviewId={review.id} />}
+                className='delete-review-button'
+                />
+                </div>
+              </div>
              : null }
+             </div>
             </div>
-            </div>
-          )) : <div className="review-card-container-copy">"No Reviews for this product yet."</div>}
+          ))
+
+          : <div className="review-card-container-copy">No Reviews for this product yet.</div>}
           </div>
       </div>
     </div>
