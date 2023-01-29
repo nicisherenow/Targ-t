@@ -143,6 +143,7 @@ export default function ItemPage() {
             />
           <div>{item.reviews.length ? item.reviews.map(review => (
             <div key={review.id} className='review-card-container'>
+              <div className="side-buttons">
             <div className="review-content-container">
               <h4 className="review-h4">{review.title}</h4>
               <StarDisplay rate={review.rating} />
@@ -151,23 +152,28 @@ export default function ItemPage() {
             {review.imageUrl ? (
             <img src={review.imageUrl} alt='review' className="review-image" />
               ) : null }
+            </div>
               { review.userId === user.id ?
-              <>
-              <OpenModalButton
-              buttonText='Edit review'
-              modalComponent={<UpdateReview reviewId={review.id} />}
-              className='edit-review-button'
-              />
-              <OpenModalButton
-              buttonText='Delete review'
-              modalComponent={<DeleteReview reviewId={review.id} />}
-              className='delete-review-button'
-              />
-              </>
+              <div className="modal-buttons">
+                <div className="space-between">
+                <OpenModalButton
+                buttonText='Edit review'
+                modalComponent={<UpdateReview reviewId={review.id} />}
+                className='edit-review-button'
+                />
+                <OpenModalButton
+                buttonText='Delete review'
+                modalComponent={<DeleteReview reviewId={review.id} />}
+                className='delete-review-button'
+                />
+                </div>
+              </div>
              : null }
+             </div>
             </div>
-            </div>
-          )) : <div className="review-card-container-copy">No Reviews for this product yet.</div>}
+          ))
+
+          : <div className="review-card-container-copy">No Reviews for this product yet.</div>}
           </div>
       </div>
     </div>

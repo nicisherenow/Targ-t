@@ -35,16 +35,17 @@
 .dropdown-container.open .dropdown-menu {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   width: 10vw;
-  top: 6.2vh;
-  left: -8.4vh;
+  top: 8vh;
+  right: 0vw;
   background-color: black;
   color: white;
   padding: 2vh;
   border-radius: .4rem;
   gap: 1vh;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+  z-index: 1000000;
 }
 
 #open {

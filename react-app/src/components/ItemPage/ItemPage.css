@@ -75,7 +75,7 @@
 .review-content-container {
   display: flex;
   flex-direction: column;
-  margin: 2vh;
+  margin: 1vh 2vh;
 }
 
 .review-image {
@@ -143,5 +143,43 @@
 }
 
 .div-gap > button:hover {
+  background-color: rgb(223, 36, 36);
+}
+
+.side-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.space-between {
+  display: flex;
+  gap: 1vh;
+  margin-right: 2vh;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.space-between > button {
+  width: 98px;
+  height: 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  border-radius: .4rem;
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  border: none;
+}
+
+.space-between > button:hover {
   background-color: rgb(223, 36, 36);
 }
