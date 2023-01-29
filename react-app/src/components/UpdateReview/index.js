@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import './UpdateReview.css'
 import { useModal } from '../../context/Modal'
 import { getAllReviews, updateCurrentReview } from '../../store/review'
 import { getAllItems } from '../../store/item'
 import StarComponent from '../StarComponent'
+
 
 const UpdateReview = ({ reviewId }) => {
   const currentReview = useSelector(state => state.reviews[reviewId])
@@ -45,65 +47,56 @@ const UpdateReview = ({ reviewId }) => {
     }
   }
 
+
   if (!loaded) return null
 
   return (
+    <div className='review-container'>
+    <h1 className='review-header'>Edit review</h1>
     <form onSubmit={onSubmit}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
-      </div>
       <div>
+        <StarComponent onChange={setRating} rate={currentReview.rating} />
+      </div>
+      </div>
+      <div className='review-div'>
         <label>Title</label>
         <input
+          className='review-input'
           type='text'
           name='title'
           onChange={updateTitle}
           value={title}
           required={true}
-        ></input>
+          ></input>
       </div>
-      <div>
+      <div className='review-div'>
         <label>Review</label>
         <input
-          type='text'
+          className='review-input'
+          type='text-area'
           name='review'
           onChange={updateReview}
           value={review}
           required={true}
-        ></input>
+          ></input>
       </div>
-      <div>
-        <StarComponent onChange={setRating} rate={currentReview.rating} />
-      </div>
-          {/* <div>
-        <label className="signup-input-label">Rating</label>
-          <select
-            name="rating"
-            onChange={updateRating}
-            required={true}
-            className='signup-input-field'
-            >
-            <option className='signup-input-field' value={rating}>{rating}</option>
-            <option className='signup-input-field' value={1}>1</option>
-            <option className='signup-input-field' value={2}>2</option>
-            <option className='signup-input-field' value={3}>3</option>
-            <option className='signup-input-field' value={4}>4</option>
-            <option className='signup-input-field' value={5}>5</option>
-          </select>
-          </div> */}
-      <div>
+      <div className='review-div'>
         <label>Image URL(optional)</label>
         <input
+          className='review-input'
           type='text'
           name='imageUrl'
           onChange={updateImageUrl}
           value={imageUrl}
-        ></input>
+          ></input>
       </div>
-      <button type='submit'>Edit Review</button>
+      <button className='review-button' type='submit'>Edit Review</button>
     </form>
+  </div>
   )
 }
 

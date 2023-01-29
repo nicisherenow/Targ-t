@@ -22,7 +22,7 @@ export default function StarComponent({ onChange, rate }) {
             key={i}
             alt={`star ${ratingValue}`}
             className='star-size'
-            onClick={() => updateRating(ratingValue)}
+            onMouseEnter={() => updateRating(ratingValue)}
           />
         );
       })}

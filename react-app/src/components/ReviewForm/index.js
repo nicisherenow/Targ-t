@@ -49,25 +49,32 @@ const  ReviewForm = ( { itemId }) => {
   if (!loaded) return null
 
   return (
+    <div className='review-container'>
+    <h1 className='review-header'>Write review</h1>
     <form onSubmit={onSubmit}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
-        ))}
+          ))}
       </div>
       <div>
+        <StarComponent onChange={setRating} />
+      </div>
+      <div className='review-div'>
         <label>Title</label>
         <input
+          className='review-input'
           type='text'
           name='title'
           onChange={updateTitle}
           value={title}
           required={true}
-        ></input>
+          ></input>
       </div>
-      <div>
+      <div className='review-div'>
         <label>Review</label>
         <input
+          className='review-input'
           type='text'
           name='review'
           onChange={updateReview}
@@ -75,20 +82,19 @@ const  ReviewForm = ( { itemId }) => {
           required={true}
         ></input>
       </div>
-      <div>
-        <StarComponent onChange={setRating} />
-      </div>
-      <div>
+      <div className='review-div'>
         <label>Image URL(optional)</label>
         <input
+          className='review-input'
           type='text'
           name='imageUrl'
           onChange={updateImageUrl}
           value={imageUrl}
-        ></input>
+          ></input>
       </div>
-      <button type='submit'>Submit Review</button>
+      <button className='review-button' type='submit'>Submit Review</button>
     </form>
+          </div>
   )
 }
 
