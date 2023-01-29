@@ -231,7 +231,7 @@ const SignUpForm = () => {
       <div className='signup-div' id='signup-modal'>
           <OpenModalButton
             buttonText='Already have an account? Sign in.'
-            modalComponent={<signupForm />}
+            modalComponent={<LoginForm />}
             className='sign-in-button-on-signup'
             />
         </div>

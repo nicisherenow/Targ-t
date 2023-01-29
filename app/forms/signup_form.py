@@ -20,5 +20,5 @@ class SignUpForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(message='Please provide a valid email'), user_exists, Email(message='Please provide a valid email')])
     city = StringField('City', validators=[DataRequired(message='Please provide a city')])
     state = StringField('State', validators=[DataRequired(message='Please provide a state')])
-    streetAddress = StringField('Street Address', validators=[DataRequired(message='Please provide a street address'), Length(min=6, max=100 message='Street address must be at least 6 characters and less than 100')])
+    streetAddress = StringField('Street Address', validators=[DataRequired(message='Please provide a street address'), Length(min=6, max=100, message='Street address must be at least 6 characters and less than 100')])
     zipcode = IntegerField('zipcode', validators=[DataRequired(message='Please provide a 5 digit zipcode')])
