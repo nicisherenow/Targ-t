@@ -38,9 +38,11 @@ export default function ItemPage() {
       totalRating += review.rating
     })
   }
+  let hasReview;
   let reviewRating = 0;
   if (reviewsList) {
     reviewRating = (totalRating / reviewsList.length).toFixed(1)
+    hasReview = reviewsList.filter(review => review.userId === user.id)
   }
 
   useEffect(() => {
@@ -136,11 +138,19 @@ export default function ItemPage() {
           <p>{item.description}</p>
       </div>
       <div className="bottom-half">
-          <OpenModalButton
-            buttonText='Write Review'
-            modalComponent={<ReviewForm itemId={itemId} />}
-            className='write-review-button'
-            />
+          { hasReview.length ?
+            <OpenModalButton
+              buttonText='Edit review'
+              modalComponent={<UpdateReview reviewId={hasReview[0].id} />}
+              className='edit-review-button'
+              />
+              :
+              <OpenModalButton
+                buttonText='Write Review'
+                modalComponent={<ReviewForm itemId={itemId} />}
+                className='write-review-button'
+              />
+            }
           <div>{item.reviews.length ? item.reviews.map(review => (
             <div key={review.id} className='review-card-container'>
               <div className="side-buttons">
@@ -157,14 +167,9 @@ export default function ItemPage() {
               <div className="modal-buttons">
                 <div className="space-between">
                 <OpenModalButton
-                buttonText='Edit review'
-                modalComponent={<UpdateReview reviewId={review.id} />}
-                className='edit-review-button'
-                />
-                <OpenModalButton
-                buttonText='Delete review'
-                modalComponent={<DeleteReview reviewId={review.id} />}
-                className='delete-review-button'
+                  buttonText='Delete review'
+                  modalComponent={<DeleteReview reviewId={review.id} />}
+                  className='delete-review-button'
                 />
                 </div>
               </div>
