@@ -5,10 +5,12 @@ import { NavLink } from "react-router-dom"
 import './HomePage.css'
 import { getAllReviews } from "../../store/review";
 import { createNewCart, getAllCarts } from "../../store/cart";
+import arrLeft from '../../assets/arr-left.png'
+import arrRight from '../../assets/arr-right.png'
 
 export default function HomePage() {
   const [loaded, setLoaded] = useState(false)
-  const [category, setCategory] = useState('')
+  const [categoryId, setCategoryId] = useState(0)
   const [itemId, setItemId] = useState(0)
   const dispatch = useDispatch()
   const items = useSelector(state => state.items)
@@ -18,6 +20,10 @@ export default function HomePage() {
   if (items) {
     itemsList = Object.values(items)
   }
+
+  const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
+
+  const category = categories[categoryId]
 
   let categoryList;
   if (itemsList) {
@@ -33,6 +39,23 @@ export default function HomePage() {
   const updateItemId = (e) => {
     setItemId(e.target.value)
   }
+
+  const onPreviousClick = () => {
+    if (categoryId > 1) {
+      setCategoryId(+categoryId - 1)
+    } else {
+      setCategoryId(+categories.length - 1)
+    }
+  }
+
+  const onNextClick = () => {
+    if (categoryId < +categories.length - 1) {
+      setCategoryId(+categoryId + 1)
+    } else {
+      setCategoryId(0)
+    }
+  }
+
   const item = itemsList[0]
 
   useEffect(() => {
@@ -58,7 +81,11 @@ export default function HomePage() {
           </NavLink>
         </div>
       </div>
-      <h4 className="category-header">{category ? category : "We've got it all!"}</h4>
+        <div className="category-arrows">
+          <img onClick={onPreviousClick} src={arrLeft} alt='previous' className="previous-category" />
+          <h4 className="category-header">{category ? category : "We've got it all!"}</h4>
+          <img onClick={onNextClick} src={arrRight} alt='next' className="next-category" />
+        </div>
         <div className="category-holder">
         {category ? categoryList.map(item => (
           <div className='category-containers'>

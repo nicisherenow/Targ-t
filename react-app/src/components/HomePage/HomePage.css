@@ -84,3 +84,20 @@
 .home-cart-button:hover {
   background-color: rgb(223, 36, 36);
 }
+
+.previous-category, .next-category {
+  width: 40px;
+  cursor: pointer;
+}
+
+.previous-category:hover {
+  content: url('../../assets/arr-left-red.png')
+}
+
+.next-category:hover {
+  content: url('../../assets/arr-right-red.png')
+}
+
+.category-arrows {
+  display: flex;
+}
