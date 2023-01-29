@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { getAllReviews, updateCurrentReview } from '../../store/review'
 import { getAllItems } from '../../store/item'
+import StarComponent from '../StarComponent'
 
 const UpdateReview = ({ reviewId }) => {
   const currentReview = useSelector(state => state.reviews[reviewId])
@@ -22,10 +23,6 @@ const UpdateReview = ({ reviewId }) => {
 
   const updateReview = (e) => {
     setReview(e.target.value)
-  }
-
-  const updateRating = (e) => {
-    setRating(e.target.value)
   }
 
   const updateTitle = (e) => {
@@ -77,7 +74,10 @@ const UpdateReview = ({ reviewId }) => {
           required={true}
         ></input>
       </div>
-          <div>
+      <div>
+        <StarComponent onChange={setRating} rate={currentReview.rating} />
+      </div>
+          {/* <div>
         <label className="signup-input-label">Rating</label>
           <select
             name="rating"
@@ -92,7 +92,7 @@ const UpdateReview = ({ reviewId }) => {
             <option className='signup-input-field' value={4}>4</option>
             <option className='signup-input-field' value={5}>5</option>
           </select>
-          </div>
+          </div> */}
       <div>
         <label>Image URL(optional)</label>
         <input

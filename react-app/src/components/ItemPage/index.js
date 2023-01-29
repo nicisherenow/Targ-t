@@ -9,6 +9,7 @@ import UpdateReview from "../UpdateReview";
 import { getAllReviews } from "../../store/review";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
+import StarDisplay from "../StarDisplay";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -77,7 +78,7 @@ export default function ItemPage() {
               <div key={review.id} className='review-card-container'>
               <div className="review-content-container">
                 <h4 className="review-h4">{review.title}</h4>
-                <div>{review.rating}</div>
+                <StarDisplay rate={review.rating} />
                 <span className="tiny-review-name">{review.user.firstName}</span>
                 <div>{review.review}</div>
               {review.imageUrl ? (
@@ -145,7 +146,7 @@ export default function ItemPage() {
             <div key={review.id} className='review-card-container'>
             <div className="review-content-container">
               <h4 className="review-h4">{review.title}</h4>
-              <div>{review.rating}</div>
+              <StarDisplay rate={review.rating} />
               <span className="tiny-review-name">{review.user.firstName}</span>
               <div>{review.review}</div>
             {review.imageUrl ? (

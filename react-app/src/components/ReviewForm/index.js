@@ -4,6 +4,8 @@ import './ReviewForm.css'
 import { useModal } from '../../context/Modal'
 import { getAllReviews, writeReview } from '../../store/review'
 import { getAllItems } from '../../store/item'
+import StarComponent from '../StarComponent'
+
 
 const  ReviewForm = ( { itemId }) => {
   const [loaded, setLoaded] = useState(false)
@@ -22,10 +24,6 @@ const  ReviewForm = ( { itemId }) => {
 
   const updateReview = (e) => {
     setReview(e.target.value)
-  }
-
-  const updateRating = (e) => {
-    setRating(e.target.value)
   }
 
   const updateTitle = (e) => {
@@ -77,21 +75,9 @@ const  ReviewForm = ( { itemId }) => {
           required={true}
         ></input>
       </div>
-          <div>
-        <label className="signup-input-label">Rating</label>
-          <select
-            name="rating"
-            onChange={updateRating}
-            required={true}
-            className='signup-input-field'
-            >
-            <option className='signup-input-field' value={1}>1</option>
-            <option className='signup-input-field' value={2}>2</option>
-            <option className='signup-input-field' value={3}>3</option>
-            <option className='signup-input-field' value={4}>4</option>
-            <option className='signup-input-field' value={5}>5</option>
-          </select>
-          </div>
+      <div>
+        <StarComponent onChange={setRating} />
+      </div>
       <div>
         <label>Image URL(optional)</label>
         <input

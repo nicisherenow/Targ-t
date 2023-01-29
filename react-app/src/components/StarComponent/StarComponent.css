@@ -1,0 +1,9 @@
+.star-rating {
+  display: flex;
+
+}
+
+.star-size {
+  width: 20px;
+  cursor: pointer;
+}
