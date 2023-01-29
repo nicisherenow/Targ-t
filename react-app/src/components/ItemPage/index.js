@@ -107,15 +107,14 @@ export default function ItemPage() {
                 <div className="rating-decimal">No Reviews for this product yet.</div>
             }
           <form onSubmit={onAddToCart} className='add-to-cart-button'>
-              <div>
-                <label className="signup-input-label">Quantity</label>
+              <div className="div-gap">
+                <label className="signup-input-label">Quantity: </label>
                   <select
                     name="quantity"
                     onChange={updateQuantity}
                     required={true}
                     className='signup-input-field'
                     >
-                    <option className='signup-input-field' value={quantity}>{quantity}</option>
                     <option className='signup-input-field' value={1}>1</option>
                     <option className='signup-input-field' value={2}>2</option>
                     <option className='signup-input-field' value={3}>3</option>
@@ -168,7 +167,7 @@ export default function ItemPage() {
              : null }
             </div>
             </div>
-          )) : <div className="review-card-container-copy">"No Reviews for this product yet."</div>}
+          )) : <div className="review-card-container-copy">No Reviews for this product yet.</div>}
           </div>
       </div>
     </div>

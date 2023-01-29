@@ -16,13 +16,17 @@
 
 }
 
+.top-half {
+  width: 80vw;
+}
+
 .targét-item-info-container {
   display: flex;
   margin-left: 1vh;
   flex-direction: column;
   border: lightgray solid 1px;
   border-radius: .4rem;
-  width: 100%;
+  width: 80vw;
 }
 
 .targét-item-info-container > h2, .targét-item-info-container > div {
@@ -116,4 +120,28 @@
 .targét-item-content-container {
   display: flex;
   width: 80vw;
+}
+
+.add-to-cart-button {
+  display: flex;
+  margin: 1vh;
+}
+
+.div-gap {
+  display: flex;
+  gap: .5vw;
+  align-items: center;
+}
+
+.div-gap > button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: .4rem;
+  padding: 1vh;
+  font-weight: bold;
+}
+
+.div-gap > button:hover {
+  background-color: rgb(223, 36, 36);
 }
