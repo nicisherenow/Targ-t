@@ -66,7 +66,7 @@ def delete_all():
   """
   Finds all cart items that a user has and then deletes them
   """
-  carts = Cart.query.filter(Cart.user_id == current_user.id)
+  carts = Cart.query.filter(Cart.user_id == current_user.id).all()
 
   [db.session.delete(cart) for cart in carts]
   db.session.commit()

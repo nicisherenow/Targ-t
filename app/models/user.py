@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     user_carts = db.relationship('Cart', back_populates='user')
+    user_wishlists = db.relationship('Wishlist', back_populates='user')
 
     @property
     def password(self):
@@ -49,7 +50,8 @@ class User(db.Model, UserMixin):
             'state': self.state,
             'streetAddress': self.street_address,
             'zipcode': self.zipcode,
-            'userCarts': [user_cart.to_dict() for user_cart in self.user_carts]
+            'userCarts': [user_cart.to_dict() for user_cart in self.user_carts],
+            'userWishlists': [user_wishlist.to_dict() for user_wishlist in self.user_wishlists]
         }
 
     def get_dict(self):
@@ -73,6 +75,7 @@ class Item(db.Model):
 
     reviews = db.relationship('Review', back_populates='item')
     cart = db.relationship('Cart', back_populates='items')
+    wishlist = db.relationship('Wishlist', back_populates='items')
 
 
 
@@ -142,5 +145,28 @@ class Cart(db.Model):
             'itemId': self.item_id,
             'userId': self.item_id,
             'quantity': self.quantity,
+            'item': self.item.to_dict()
+        }
+
+class Wishlist(db.Model):
+    __tablename__ = 'wishlists'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    item_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('items.id')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+
+    item = db.relationship("Item", foreign_keys=[item_id])
+
+    user = db.relationship('User', back_populates='user_wishlists')
+    items = db.relationship('Item', back_populates='wishlist')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'itemId': self.item_id,
+            'userId': self.item_id,
             'item': self.item.to_dict()
         }
