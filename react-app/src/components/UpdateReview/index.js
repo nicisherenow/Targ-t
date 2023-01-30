@@ -18,7 +18,6 @@ const UpdateReview = ({ reviewId }) => {
   const dispatch = useDispatch()
   const { closeModal } = useModal()
 
-
   useEffect(() => {
     setLoaded(true)
   }, [loaded])

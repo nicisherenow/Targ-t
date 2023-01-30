@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom"
 import './HomePage.css'
 import { getAllReviews } from "../../store/review";
 import { createNewCart, getAllCarts } from "../../store/cart";
+import { createNewWishlist, getAllWishlists } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
 
@@ -31,7 +32,7 @@ export default function HomePage() {
   if (cartsList) {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
-  
+
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
   const category = categories[categoryId]
@@ -45,6 +46,12 @@ export default function HomePage() {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
     await dispatch(getAllCarts())
+  }
+
+  const addToWishlist = async (e) => {
+    e.preventDefault()
+    await dispatch(createNewWishlist(user.id, +itemId))
+    await dispatch(getAllWishlists())
   }
 
   const updateItemId = (e) => {
@@ -75,8 +82,8 @@ export default function HomePage() {
     .then(() => setLoaded(true))
   }, [dispatch, loaded])
 
-  if (!loaded) return null
-  if (!item) return null
+  if (!loaded) return <div className="targét-home-container"></div>
+  if (!item) return <div className="targét-home-container"></div>
 
   return (
     <div className="targét-home-container">
@@ -105,7 +112,10 @@ export default function HomePage() {
             <div>${item.price}</div>
           </NavLink>
           {user ?
-          <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+          <>
+            <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
+          </>
             : null
           }
         </div>
@@ -117,7 +127,10 @@ export default function HomePage() {
             <div>${item.price}</div>
           </NavLink>
           {user ?
-          <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+          <>
+            <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
+          </>
             : null
         }
         </div>

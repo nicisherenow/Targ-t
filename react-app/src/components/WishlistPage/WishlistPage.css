@@ -12,3 +12,52 @@
   height: 7vh;
   margin-left: 1vh;
 }
+
+.wishlist-container {
+  display: flex;
+  width: 80vw;
+  overflow-x: auto;
+  margin: 1vh;
+  gap: 1vh;
+  overflow-y: hidden;
+}
+
+.each-wishlist {
+  display: flex;
+  flex-direction: column;
+  height: 12vh;
+}
+
+.wishlist-image {
+  height: 10vh;
+  width: 10vw;
+  border-radius: .4rem  ;
+}
+
+.wishlist-to-cart {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: .4rem;
+  width: fit-content;
+  font-weight: bold;
+  width: 9vw;
+}
+
+.wishlist-remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10px;
+  cursor: pointer;
+  background-color: black;
+  border: none;
+}
+
+.wishlist-remove-image {
+  width: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

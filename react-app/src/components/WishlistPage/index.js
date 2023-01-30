@@ -5,7 +5,9 @@ import LoginForm from "../auth/LoginForm";
 import './WishlistPage.css'
 import { NavLink, useHistory } from "react-router-dom";
 import { createNewWishlist, getAllWishlists, deleteSingleWishlist, deleteEntireWishlist } from "../../store/wishlist";
+import { createNewCart } from "../../store/cart";
 import wishlist from '../../assets/wishlist.png'
+import cross from '../../assets/cross-white.png'
 
 
 export default function WishlistPage() {
@@ -44,6 +46,11 @@ export default function WishlistPage() {
     }
   }
 
+  const addToCart = async (e) => {
+    e.preventDefault()
+    await dispatch(createNewCart(user.id, +itemId, 1))
+  }
+
   const onPreviousClick = () => {
     if (itemId > 1) {
       setItemId(+itemId - 1)
@@ -78,19 +85,33 @@ export default function WishlistPage() {
   }
   const onClickRemove = async (e) => {
     e.preventDefault()
-    await dispatch(deleteSingleWishlist(itemId))
+    await dispatch(deleteSingleWishlist(+itemId))
   }
+  console.log(+itemId)
 
   const updateItemId = (e) => {
     setItemId(e.target.value)
   }
-
   return (
     <div className="wishlist-page-body">
       <div className="wishlist-icon-container">
         <img src={wishlist} alt='wishlist' className="wishlist-icon" />
       </div>
-      
+      {wishlistsList.length && user ?
+      <div className="wishlist-container">
+        {wishlistsList.map(wishlist => (
+          <div className="each-wishlish">
+            <img src={wishlist.item.imageUrl} alt={wishlist.item.name} className='wishlist-image' />
+            <div className="wishlist-buttons">
+              <button onClick={addToCart} onMouseEnter={updateItemId} value={wishlist.item.id} className='wishlist-to-cart'>Add to cart</button>
+              <button onClick={onClickRemove} onMouseEnter={updateItemId} value={wishlist.id} className='wishlist-remove'>
+                <img src={cross} alt='remove' className="wishlist-remove-image" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      : <div className="wishlist-container">You don't have anything in your wishlist yet</div>}
     </div>
   )
 }

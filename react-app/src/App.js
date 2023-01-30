@@ -52,7 +52,7 @@ function App() {
         <Route path='/cart' exact={true}>
           <CartPage />
         </Route>
-        <Route path='/items/:itemId'>
+        <Route path='/items/:itemId' exact={true}>
           <ItemPage />
         </Route>
         <Route path='/' exact={true} >
