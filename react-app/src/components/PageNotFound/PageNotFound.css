@@ -1,0 +1,23 @@
+.page-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.page-not-found-nav {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: black;
+}
+
+.page-not-found-header:hover {
+  color: rgb(223, 36, 36);
+}
+
+.page-not-found-image:hover {
+  content: url('../../assets/home-logo-red.png');
+}

@@ -43,6 +43,11 @@ export default function ItemPage() {
     reviewRating = (totalRating / reviewsList.length).toFixed(1)
   }
 
+  let hasReview;
+  if (reviewsList && user) {
+    hasReview = reviewsList.filter(review => review.userId === user.id)
+  }
+
   useEffect(() => {
     dispatch(getItemById(itemId))
     dispatch(getAllReviews())
@@ -62,7 +67,7 @@ export default function ItemPage() {
           <div className="targét-item-info-container">
             <h2>${item.price}</h2>
             {reviewsList.length  ?
-                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                <div className="rating-decimal">Average rating: {reviewRating} ({reviewsList.length > 1 ? `${reviewsList.length} reviews` : `${reviewsList.length} review`})</div>
                 :
                 <div className="rating-decimal">No Reviews for this product yet.</div>
 
@@ -102,7 +107,7 @@ export default function ItemPage() {
         <div className="targét-item-info-container">
           <h2>${item.price}</h2>
           {reviewsList.length  ?
-                <div className="rating-decimal">Average rating: {reviewRating}</div>
+                <div className="rating-decimal">Average rating: {reviewRating} ({reviewsList.length > 1 ? `${reviewsList.length} reviews` : `${reviewsList.length} review`})</div>
                 :
                 <div className="rating-decimal">No Reviews for this product yet.</div>
             }
@@ -136,11 +141,19 @@ export default function ItemPage() {
           <p>{item.description}</p>
       </div>
       <div className="bottom-half">
-          <OpenModalButton
-            buttonText='Write Review'
-            modalComponent={<ReviewForm itemId={itemId} />}
-            className='write-review-button'
-            />
+          { hasReview.length ?
+            <OpenModalButton
+              buttonText='Edit review'
+              modalComponent={<UpdateReview reviewId={hasReview[0].id} />}
+              className='edit-review-button'
+              />
+              :
+              <OpenModalButton
+                buttonText='Write Review'
+                modalComponent={<ReviewForm itemId={itemId} />}
+                className='write-review-button'
+              />
+            }
           <div>{item.reviews.length ? item.reviews.map(review => (
             <div key={review.id} className='review-card-container'>
               <div className="side-buttons">
@@ -157,14 +170,9 @@ export default function ItemPage() {
               <div className="modal-buttons">
                 <div className="space-between">
                 <OpenModalButton
-                buttonText='Edit review'
-                modalComponent={<UpdateReview reviewId={review.id} />}
-                className='edit-review-button'
-                />
-                <OpenModalButton
-                buttonText='Delete review'
-                modalComponent={<DeleteReview reviewId={review.id} />}
-                className='delete-review-button'
+                  buttonText='Delete review'
+                  modalComponent={<DeleteReview reviewId={review.id} />}
+                  className='delete-review-button'
                 />
                 </div>
               </div>
