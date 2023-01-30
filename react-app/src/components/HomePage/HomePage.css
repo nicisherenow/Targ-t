@@ -58,11 +58,18 @@
 .category-containers {
   display: flex;
   flex-direction: column;
+  width: fit-content;
   padding: 1vh;
   background-color: black;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
   border-radius: .4rem;
   margin: 0 1vh 1vh 0;
+}
+
+.category-holder-rows {
+  display: flex;
+  width: 84vw;
+  flex-wrap: wrap;
 }
 
 .home-shopping-image {

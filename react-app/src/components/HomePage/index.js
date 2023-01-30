@@ -33,6 +33,8 @@ export default function HomePage() {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
 
+
+
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
   const category = categories[categoryId]
@@ -104,7 +106,7 @@ export default function HomePage() {
           <h4 className="category-header">{category ? category : "We've got it all!"}</h4>
           <img onClick={onNextClick} src={arrRight} alt='next' className="next-category" />
         </div>
-        <div className="category-holder">
+        <div className="category-holder-rows">
         {category ? categoryList.map(item => (
           <div className='category-containers' key={item.id}>
           <NavLink className='category-navs' to={`/items/${item.id}`} key={item.id}>
