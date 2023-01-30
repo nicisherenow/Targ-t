@@ -31,7 +31,7 @@ export default function HomePage() {
   if (cartsList) {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
-  console.log(hasCart[0].quantity)
+  
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
   const category = categories[categoryId]
