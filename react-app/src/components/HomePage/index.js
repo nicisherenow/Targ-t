@@ -31,7 +31,7 @@ export default function HomePage() {
   if (cartsList) {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
-  console.log(hasCart)
+  console.log(hasCart[0].quantity)
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
   const category = categories[categoryId]
@@ -43,7 +43,7 @@ export default function HomePage() {
 
   const addToCart = async (e) => {
     e.preventDefault()
-    await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart.quantity + 1 : 1))
+    await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
     await dispatch(getAllCarts())
   }
 
