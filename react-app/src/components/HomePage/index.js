@@ -13,6 +13,7 @@ export default function HomePage() {
   const [categoryId, setCategoryId] = useState(0)
   const [itemId, setItemId] = useState(0)
   const dispatch = useDispatch()
+  const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
   const user = useSelector(state => state.session.user)
 
@@ -21,6 +22,16 @@ export default function HomePage() {
     itemsList = Object.values(items)
   }
 
+  let cartsList;
+  if (carts) {
+    cartsList = Object.values(carts)
+  }
+
+  let hasCart;
+  if (cartsList) {
+    hasCart = cartsList.filter(cart => cart.itemId === +itemId)
+  }
+  console.log(hasCart)
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
   const category = categories[categoryId]
@@ -32,7 +43,7 @@ export default function HomePage() {
 
   const addToCart = async (e) => {
     e.preventDefault()
-    await dispatch(createNewCart(user.id, +itemId, 1))
+    await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart.quantity + 1 : 1))
     await dispatch(getAllCarts())
   }
 

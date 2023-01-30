@@ -30,7 +30,11 @@ def new_cart(id):
 
   if form.validate_on_submit():
     existing_cart = Cart.query.filter(Cart.user_id == currentId, Cart.item_id == item.id).first()
-    if existing_cart:
+    if existing_cart and not form:
+        existing_cart.quantity += 1
+        db.session.commit()
+        return existing_cart.to_dict()
+    elif existing_cart:
         existing_cart.quantity = form.data['quantity']
         db.session.commit()
         return existing_cart.to_dict()
