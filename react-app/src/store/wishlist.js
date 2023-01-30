@@ -51,7 +51,6 @@ export const createNewWishlist = (userId, itemId) => async (dispatch) => {
     body: JSON.stringify({
       userId,
       itemId,
-      quantity,
     })
   })
   if (res.ok) {

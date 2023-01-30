@@ -4,9 +4,10 @@ import session from './session'
 import reviewReducer from './review';
 import itemReducer from './item';
 import cartReducer from './cart';
+import wishlistReducer from './wishlist';
 
 const rootReducer = combineReducers({
-  session, items: itemReducer, reviews: reviewReducer, carts: cartReducer
+  session, items: itemReducer, reviews: reviewReducer, carts: cartReducer, wishlists: wishlistReducer
 });
 
 

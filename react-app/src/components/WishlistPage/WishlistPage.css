@@ -1,0 +1,14 @@
+.wishlist-page-body {
+  display: flex;
+  height: 16vh;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+  margin-top: 1vh;
+}
+
+.wishlist-icon {
+  display: flex;
+  align-self: center;
+  width: 80px;
+  height: 70px;
+  margin-left: 1vh;
+}

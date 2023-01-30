@@ -12,6 +12,8 @@ import { authenticate } from './store/session';
 import ItemPage from './components/ItemPage';
 import CartPage from './components/CartPage';
 import CheckoutLanding from './components/CheckoutLanding';
+import WishlistPage from './components/WishlistPage';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -56,7 +58,11 @@ function App() {
         <Route path='/' exact={true} >
           <HomePage />
         </Route>
+        <Route>
+          <PageNotFound />
+        </Route>
       </Switch>
+      <WishlistPage />
     </BrowserRouter>
   );
 }
