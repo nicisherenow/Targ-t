@@ -5,10 +5,10 @@
   margin-top: 1vh;
 }
 
-.wishlist-icon {
+.wishlist-icon-container {
   display: flex;
   align-self: center;
-  width: 80px;
-  height: 70px;
+  width: 8vw;
+  height: 7vh;
   margin-left: 1vh;
 }

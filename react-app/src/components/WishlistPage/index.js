@@ -30,6 +30,7 @@ export default function WishlistPage() {
   }
 
   useEffect(()=> {
+    dispatch(getAllWishlists())
     setLoaded(true)
   }, [loaded])
 
@@ -86,7 +87,10 @@ export default function WishlistPage() {
 
   return (
     <div className="wishlist-page-body">
-      <img src={wishlist} alt='wishlist' className="wishlist-icon" />
+      <div className="wishlist-icon-container">
+        <img src={wishlist} alt='wishlist' className="wishlist-icon" />
+      </div>
+      
     </div>
   )
 }
