@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"
 import './HomePage.css'
 import { getAllReviews } from "../../store/review";
 import { createNewCart, getAllCarts } from "../../store/cart";
-import { createNewWishlist, getAllWishlists } from "../../store/wishlist";
+import { createNewWishlist, getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
 
@@ -17,6 +17,7 @@ export default function HomePage() {
   const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
   const user = useSelector(state => state.session.user)
+  const wishlists = useSelector(state => state.wishlists)
 
   let itemsList;
   if (items) {
@@ -33,6 +34,16 @@ export default function HomePage() {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
 
+  let wishlistsList;
+  if (carts) {
+    wishlistsList = Object.values(wishlists)
+  }
+
+  let hasWishlist;
+  if (wishlistsList) {
+    hasWishlist = wishlistsList.filter(wishlist => wishlist.itemId === +itemId)
+  }
+
 
 
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
@@ -47,6 +58,10 @@ export default function HomePage() {
   const addToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
+    if (hasWishlist) {
+      await dispatch(deleteSingleWishlist(+itemId))
+      await dispatch(getAllWishlists())
+    }
     await dispatch(getAllCarts())
   }
 
@@ -75,6 +90,7 @@ export default function HomePage() {
       setCategoryId(0)
     }
   }
+
 
   const item = itemsList[0]
 
@@ -116,7 +132,6 @@ export default function HomePage() {
           {user ?
           <>
             <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
-
             <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
           </>
             : null

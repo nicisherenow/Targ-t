@@ -84,7 +84,7 @@ export default function WishlistPage() {
     await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllWishlists())
   }
-  if (!wishlistsList.length) return (
+  if (!wishlistsList.length || !loaded ) return (
 
     <div className="wishlist-page-body">
     <div className="wishlist-icon-container">
@@ -104,7 +104,7 @@ export default function WishlistPage() {
       <div className="wishlist-icon-container">
         <img src={wishlist} alt='wishlist' className="wishlist-icon" />
       </div>
-      {wishlistsList.length && user ?
+      {wishlistsList?.length && user ?
       <div className="wishlist-container">
         {wishlistsList.map(wishlist => (
           <div className="each-wishlish">
