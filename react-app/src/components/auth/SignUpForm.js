@@ -74,7 +74,7 @@ const SignUpForm = () => {
     <form onSubmit={onSignUp}>
         <div className='signup-div'>
         {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
+          <div className='errors' key={ind}>{error.split(':')[1]}</div>
           ))}
       </div>
       <div className='signup-div'>
