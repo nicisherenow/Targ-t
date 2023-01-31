@@ -107,7 +107,7 @@ export default function WishlistPage() {
       {wishlistsList?.length && user ?
       <div className="wishlist-container">
         {wishlistsList.map(wishlist => (
-          <div className="each-wishlish">
+          <div className="each-wishlist" key={wishlist.id}>
             <img src={wishlist.item.imageUrl} alt={wishlist.item.name} className='wishlist-image' />
             <div className="wishlist-buttons">
               <button onClick={addToCart} onMouseEnter={updateItemId} value={wishlist.item.id} className='wishlist-to-cart'>Add to cart</button>

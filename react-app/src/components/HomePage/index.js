@@ -91,7 +91,6 @@ export default function HomePage() {
     }
   }
 
-
   const item = itemsList[0]
 
   useEffect(() => {
@@ -132,7 +131,11 @@ export default function HomePage() {
           {user ?
           <>
             <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            {(cartsList[item.id - 1]?.itemId === item.id) || (wishlistsList[item.id - 1]?.itemId === item.id) ?
+            null
+            :
             <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
+            }
           </>
             : null
           }
@@ -147,7 +150,11 @@ export default function HomePage() {
           {user ?
           <>
             <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            {(cartsList[item.id - 1]?.itemId === item.id) || (wishlistsList[item.id - 1]?.itemId === item.id) ?
+            null
+            :
             <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
+            }
           </>
             : null
         }
