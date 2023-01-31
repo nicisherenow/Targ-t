@@ -10,7 +10,7 @@ import { getAllReviews } from "../../store/review";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
 import StarDisplay from "../StarDisplay";
-import { createNewWishlist, getAllWishlists } from "../../store/wishlist";
+import { createNewWishlist, getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -50,6 +50,7 @@ export default function ItemPage() {
   const onAddToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, quantity))
+    await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllCarts())
   }
 

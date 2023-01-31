@@ -5,11 +5,23 @@
   margin-top: 1vh;
 }
 
+.wishlist-header > button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.wishlist-header > button:hover {
+  color: rgb(223, 36, 36);
+}
+
 .wishlist-icon-container {
   display: flex;
   align-self: center;
-  width: 8vw;
-  height: 7vh;
+  flex-direction: column;
+  width: 100px;
+  height: 100%;
   margin-left: 1vh;
 }
 
@@ -41,7 +53,7 @@
   border-radius: .4rem;
   width: fit-content;
   font-weight: bold;
-  width: 9vw;
+  width: 10vw;
 }
 
 .wishlist-to-cart:hover {
@@ -50,6 +62,9 @@
 
 .wishlist-remove {
   display: flex;
+  position: relative;
+  left: -1.2vw;
+  top: -10.5vh;
   justify-content: center;
   align-items: center;
   width: 10px;
