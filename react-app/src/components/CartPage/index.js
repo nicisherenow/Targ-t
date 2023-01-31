@@ -187,10 +187,12 @@ export default function CartPage() {
               <button onClick={onDeleteTheWholeCart} className='checkout-button'>Clear cart</button>
               <button onClick={onCheckout} className='checkout-button'>Checkout</button>
             </div>
-            <a className="ad-background" href='https://click-it-free-new.netlify.app/'>
-              <div className="ad-label">Ad</div>
-              <button className="ad-button">Click here!</button>
-            </a>
+            <div className="ad-background">
+              <a className="ad-link" href='https://click-it-free-new.netlify.app/'>
+                  <div className="ad-label">Ad</div>
+                <button className="ad-button">Click here!</button>
+              </a>
+            </div>
         </div>
       </div>
         </>

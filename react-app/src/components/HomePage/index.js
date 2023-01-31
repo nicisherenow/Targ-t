@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom"
 import './HomePage.css'
 import { getAllReviews } from "../../store/review";
 import { createNewCart, getAllCarts } from "../../store/cart";
+import { createNewWishlist, getAllWishlists } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
 
@@ -13,6 +14,7 @@ export default function HomePage() {
   const [categoryId, setCategoryId] = useState(0)
   const [itemId, setItemId] = useState(0)
   const dispatch = useDispatch()
+  const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
   const user = useSelector(state => state.session.user)
 
@@ -20,6 +22,18 @@ export default function HomePage() {
   if (items) {
     itemsList = Object.values(items)
   }
+
+  let cartsList;
+  if (carts) {
+    cartsList = Object.values(carts)
+  }
+
+  let hasCart;
+  if (cartsList) {
+    hasCart = cartsList.filter(cart => cart.itemId === +itemId)
+  }
+
+
 
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
@@ -32,8 +46,14 @@ export default function HomePage() {
 
   const addToCart = async (e) => {
     e.preventDefault()
-    await dispatch(createNewCart(user.id, +itemId, 1))
+    await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
     await dispatch(getAllCarts())
+  }
+
+  const addToWishlist = async (e) => {
+    e.preventDefault()
+    await dispatch(createNewWishlist(user.id, +itemId))
+    await dispatch(getAllWishlists())
   }
 
   const updateItemId = (e) => {
@@ -64,8 +84,8 @@ export default function HomePage() {
     .then(() => setLoaded(true))
   }, [dispatch, loaded])
 
-  if (!loaded) return null
-  if (!item) return null
+  if (!loaded) return <div className="targét-home-container"></div>
+  if (!item) return <div className="targét-home-container"></div>
 
   return (
     <div className="targét-home-container">
@@ -86,7 +106,7 @@ export default function HomePage() {
           <h4 className="category-header">{category ? category : "We've got it all!"}</h4>
           <img onClick={onNextClick} src={arrRight} alt='next' className="next-category" />
         </div>
-        <div className="category-holder">
+        <div className="category-holder-rows">
         {category ? categoryList.map(item => (
           <div className='category-containers' key={item.id}>
           <NavLink className='category-navs' to={`/items/${item.id}`} key={item.id}>
@@ -94,7 +114,11 @@ export default function HomePage() {
             <div>${item.price}</div>
           </NavLink>
           {user ?
-          <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+          <>
+            <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+
+            <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
+          </>
             : null
           }
         </div>
@@ -106,7 +130,10 @@ export default function HomePage() {
             <div>${item.price}</div>
           </NavLink>
           {user ?
-          <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+          <>
+            <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
+          </>
             : null
         }
         </div>

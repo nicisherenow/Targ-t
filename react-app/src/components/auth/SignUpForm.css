@@ -11,6 +11,10 @@
   margin: 1vh 0;
 }
 
+.errors {
+  color: rgb(223, 36, 36);
+}
+
 .signup-div {
   display: flex;
   flex-direction: column;

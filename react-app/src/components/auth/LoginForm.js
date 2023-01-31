@@ -37,6 +37,20 @@ const LoginForm = () => {
     }
   }
 
+  let errs;
+  if (errors) {
+    errs = errors.map(error =>
+      error.split(':')[1]
+    )
+  }
+
+  let sameErr;
+  if (errs) {
+    if (errs[0] === errs[1]) {
+      sameErr = errs[0]
+    }
+  }
+  
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -50,9 +64,13 @@ const LoginForm = () => {
       <h1 className='login-header'>Sign in</h1>
     <form onSubmit={onLogin}>
       <div className='login-div'>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-          ))}
+        {errors && !sameErr ? errors.map((error, ind) => (
+          <div className='errors' key={ind}>{error.split(':')[1]}</div>
+          )) :
+
+            <div className='errors' >{sameErr}</div>
+
+          }
       </div>
       <div className='login-div'>
         <label htmlFor='email'>Email</label>
