@@ -10,6 +10,7 @@ import { getAllReviews } from "../../store/review";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
 import StarDisplay from "../StarDisplay";
+import { createNewWishlist, getAllWishlists } from "../../store/wishlist";
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -17,17 +18,45 @@ export default function ItemPage() {
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1)
   const item = useSelector(state => state.items[itemId])
+  const carts = useSelector(state => state.carts)
   const user = useSelector(state => state.session.user)
+  const wishlists = useSelector(state => state.wishlists)
 
 
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
   }
 
+  let cartsList;
+  if (carts) {
+    cartsList = Object.values(carts)
+  }
+
+  let hasCart;
+  if (cartsList) {
+    hasCart = cartsList.filter(cart => cart.itemId === +itemId)
+  }
+
+  let wishlistsList;
+  if (wishlists) {
+    wishlistsList = Object.values(wishlists)
+  }
+
+  let hasWishlist;
+  if (wishlistsList) {
+    hasWishlist = wishlistsList.filter(wishlist => wishlist.itemId === +itemId)
+  }
+
   const onAddToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, quantity))
     await dispatch(getAllCarts())
+  }
+
+  const addToWishlist = async (e) => {
+    e.preventDefault()
+    await dispatch(createNewWishlist(user.id, +itemId))
+    await dispatch(getAllWishlists())
   }
 
   let totalRating = 0;
@@ -134,6 +163,9 @@ export default function ItemPage() {
                   <button type='submit'>Add to cart</button>
               </div>
               </form>
+              {hasWishlist && hasWishlist.length || hasCart && hasCart.length ? null :
+                  <button onClick={addToWishlist} className='add-to-wishlist-button'>Add to wishlist</button>
+                }
         </div>
       </div>
       </div>

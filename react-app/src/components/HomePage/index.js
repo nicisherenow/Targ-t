@@ -35,7 +35,7 @@ export default function HomePage() {
   }
 
   let wishlistsList;
-  if (carts) {
+  if (wishlists) {
     wishlistsList = Object.values(wishlists)
   }
 
@@ -58,17 +58,7 @@ export default function HomePage() {
   const addToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
-    if (hasWishlist) {
-      await dispatch(deleteSingleWishlist(+itemId))
-      await dispatch(getAllWishlists())
-    }
     await dispatch(getAllCarts())
-  }
-
-  const addToWishlist = async (e) => {
-    e.preventDefault()
-    await dispatch(createNewWishlist(user.id, +itemId))
-    await dispatch(getAllWishlists())
   }
 
   const updateItemId = (e) => {
@@ -131,11 +121,6 @@ export default function HomePage() {
           {user ?
           <>
             <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
-            {(cartsList[item.id - 1]?.itemId === item.id) || (wishlistsList[item.id - 1]?.itemId === item.id) ?
-            null
-            :
-            <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
-            }
           </>
             : null
           }
@@ -150,11 +135,6 @@ export default function HomePage() {
           {user ?
           <>
             <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
-            {(cartsList[item.id - 1]?.itemId === item.id) || (wishlistsList[item.id - 1]?.itemId === item.id) ?
-            null
-            :
-            <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
-            }
           </>
             : null
         }

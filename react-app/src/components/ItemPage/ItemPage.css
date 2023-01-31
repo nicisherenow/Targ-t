@@ -183,3 +183,17 @@
 .space-between > button:hover {
   background-color: rgb(223, 36, 36);
 }
+
+.add-to-wishlist-button {
+  width: fit-content;
+  height: 1.8rem;
+  display: flex;
+  justify-content: center;
+  margin-left: 1vh;
+  align-items: center;
+  border-radius: .4rem;
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  border: none;
+}
