@@ -34,7 +34,7 @@ export default function WishlistPage() {
   useEffect(()=> {
     dispatch(getAllWishlists())
     setLoaded(true)
-  }, [loaded])
+  }, [dispatch, loaded])
 
   const addToWishlist = async (e) => {
     e.preventDefault()
@@ -84,7 +84,17 @@ export default function WishlistPage() {
     await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllWishlists())
   }
-  console.log(+itemId)
+  if (!wishlistsList.length) return (
+
+    <div className="wishlist-page-body">
+    <div className="wishlist-icon-container">
+        <img src={wishlist} alt='wishlist' className="wishlist-icon" />
+      </div>
+      <div className="wishlist-header-container">
+        <h2 className="wishlist-header">You don't have anything in your wishlist yet</h2>
+      </div>
+  </div>
+    )
 
   const updateItemId = (e) => {
     setItemId(e.target.value)

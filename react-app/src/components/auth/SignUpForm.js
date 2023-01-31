@@ -29,6 +29,8 @@ const SignUpForm = () => {
       } else {
         await closeModal()
       }
+    } else {
+      setErrors(['Password: Passwords must match'])
     }
   };
 
