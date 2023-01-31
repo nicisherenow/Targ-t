@@ -50,7 +50,7 @@ const LoginForm = () => {
       sameErr = errs[0]
     }
   }
-  console.log(errs)
+  
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };

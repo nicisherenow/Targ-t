@@ -116,6 +116,7 @@ export default function HomePage() {
           {user ?
           <>
             <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+
             <button onClick={addToWishlist} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to wishlist</button>
           </>
             : null

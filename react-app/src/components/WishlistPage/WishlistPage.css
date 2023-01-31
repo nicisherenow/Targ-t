@@ -25,7 +25,7 @@
 .each-wishlist {
   display: flex;
   flex-direction: column;
-  height: 12vh;
+  height: 13vh;
 }
 
 .wishlist-image {
@@ -44,6 +44,10 @@
   width: 9vw;
 }
 
+.wishlist-to-cart:hover {
+  background-color: rgb(223, 36, 36);
+}
+
 .wishlist-remove {
   display: flex;
   justify-content: center;
@@ -52,11 +56,33 @@
   cursor: pointer;
   background-color: black;
   border: none;
+  border-radius: .4rem;
+}
+
+.wishlist-remove:hover {
+  background-color: rgb(223, 36, 36);
 }
 
 .wishlist-remove-image {
   width: 10px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wishlist-header-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+}
+
+.wishlist-buttons {
+  display: flex;
+}
+
+.wishlist-header {
   display: flex;
   justify-content: center;
   align-items: center;

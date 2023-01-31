@@ -49,6 +49,8 @@ export default function WishlistPage() {
   const addToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, 1))
+    await dispatch(deleteSingleWishlist(+itemId))
+    await dispatch(getAllWishlists())
   }
 
   const onPreviousClick = () => {
@@ -67,12 +69,6 @@ export default function WishlistPage() {
     }
   }
 
-  const onUpdateWishlist = async (e) => {
-    e.preventDefault()
-    await dispatch(createNewWishlist(user.id, +itemId))
-    await dispatch(getAllWishlists())
-  }
-
   const onDeleteTheWholeWishlist = async (e) => {
     e.preventDefault()
     await dispatch(deleteEntireWishlist())
@@ -86,6 +82,7 @@ export default function WishlistPage() {
   const onClickRemove = async (e) => {
     e.preventDefault()
     await dispatch(deleteSingleWishlist(+itemId))
+    await dispatch(getAllWishlists())
   }
   console.log(+itemId)
 
@@ -104,14 +101,18 @@ export default function WishlistPage() {
             <img src={wishlist.item.imageUrl} alt={wishlist.item.name} className='wishlist-image' />
             <div className="wishlist-buttons">
               <button onClick={addToCart} onMouseEnter={updateItemId} value={wishlist.item.id} className='wishlist-to-cart'>Add to cart</button>
-              <button onClick={onClickRemove} onMouseEnter={updateItemId} value={wishlist.id} className='wishlist-remove'>
+              <button onClick={onClickRemove} onMouseEnter={updateItemId} value={wishlist.item.id} className='wishlist-remove'>
                 <img src={cross} alt='remove' className="wishlist-remove-image" />
               </button>
             </div>
           </div>
         ))}
       </div>
-      : <div className="wishlist-container">You don't have anything in your wishlist yet</div>}
+      :
+          <div className="wishlist-header-container">
+            <h2 className="wishlist-header">You don't have anything in your wishlist yet</h2>
+          </div>
+      }
     </div>
   )
 }

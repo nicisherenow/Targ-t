@@ -48,7 +48,7 @@ def delete_one(id):
   Finds one wishlist by item id and then deletes that item
   """
 
-  wishlist = Wishlist.query.get(id)
+  wishlist = Wishlist.query.filter(Wishlist.item_id == id).first()
 
   if not wishlist:
     return { "errors": ['wishlist does not exist']}
