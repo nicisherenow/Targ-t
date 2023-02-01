@@ -53,22 +53,6 @@ export default function WishlistPage() {
     await dispatch(getAllWishlists())
   }
 
-  const onPreviousClick = () => {
-    if (itemId > 1) {
-      setItemId(+itemId - 1)
-    } else {
-      setItemId(+itemsList.length - 1)
-    }
-  }
-
-  const onNextClick = () => {
-    if (itemId < +itemsList.length - 1) {
-      setItemId(+itemId + 1)
-    } else {
-      setItemId(1)
-    }
-  }
-
   const onDeleteTheWholeWishlist = async (e) => {
     e.preventDefault()
     await dispatch(reallyDeleteEntireWishlist())
