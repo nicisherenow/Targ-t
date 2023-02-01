@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Length, ValidationError
 def is_image_url(form, field):
   imageUrl = field.data
   if not imageUrl.startswith(('http://', 'https://',)):
-    raise ValidationError('Image URL must start with http:// or https://')
+    raise ValidationError('Image URL must start with http or https')
   if not imageUrl.endswith(('.jpg', '.jpeg', '.png', '.svg', '.img',)):
     raise ValidationError('Image URL must end with .jpg, .jpeg, .png, .svg, or .img')
 
