@@ -197,3 +197,29 @@
   font-weight: bolder;
   border: none;
 }
+
+.ip-next-item {
+  display: flex;
+  width: 50px;
+  position: fixed;
+  right: 3vw;
+  top: 35vh;
+  cursor: pointer;
+}
+
+.ip-previous-item {
+  display: flex;
+  width: 50px;
+  position: fixed;
+  left: 3vw;
+  top: 35vh;
+  cursor: pointer;
+}
+
+.ip-next-item:hover {
+  content: url('../../assets/arr-right-red.png')
+}
+
+.ip-previous-item:hover {
+  content: url('../../assets/arr-left-red.png');
+}
