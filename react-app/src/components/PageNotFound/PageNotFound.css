@@ -21,3 +21,7 @@
 .page-not-found-image:hover {
   content: url('../../assets/home-logo-red.png');
 }
+
+.page-not-found-image {
+  width: 500px;
+}

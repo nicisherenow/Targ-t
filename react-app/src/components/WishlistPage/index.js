@@ -32,7 +32,9 @@ export default function WishlistPage() {
   }
 
   useEffect(()=> {
-    dispatch(getAllWishlists())
+    if (user) {
+      dispatch(getAllWishlists())
+    }
     setLoaded(true)
   }, [dispatch, loaded])
 
@@ -109,6 +111,7 @@ export default function WishlistPage() {
         <img src={wishlist} alt='wishlist' className="wishlist-icon" />
         <button onClick={onMoveToCart} className='move-to-cart-button'>Add all to cart</button>
         <button onClick={onDeleteTheWholeWishlist} className='move-to-cart-button'>Clear wishlist</button>
+        <span className="wishlist-total">{wishlistsList.length}</span>
       </div>
       {wishlistsList?.length && user ?
       <div className="wishlist-container">

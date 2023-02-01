@@ -5,6 +5,7 @@ import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
 import { NavLink, useHistory } from "react-router-dom";
 import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart } from "../../store/cart";
+import { deleteSingleWishlist, getAllWishlists } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
 
@@ -45,7 +46,9 @@ export default function CartPage() {
   const addToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, 1))
+    await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllCarts())
+    await dispatch(getAllWishlists())
   }
 
   const onPreviousClick = () => {
