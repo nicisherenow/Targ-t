@@ -89,6 +89,17 @@ export const deleteEntireWishlist = () => async (dispatch) => {
   }
 }
 
+export const reallyDeleteEntireWishlist = () => async (dispatch) => {
+  const res = await fetch('/api/wishlists/removed', {
+    method: 'DELETE'
+  })
+  if (res.ok) {
+    await res.json()
+    dispatch(clearWishlist())
+    return null
+  }
+}
+
 
 let initialState = {}
 

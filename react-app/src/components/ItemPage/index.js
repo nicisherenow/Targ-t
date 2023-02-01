@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemById } from "../../store/item";
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import './ItemPage.css'
 import ReviewForm from "../ReviewForm";
 import OpenModalButton from "../OpenModalButton";
@@ -10,24 +10,80 @@ import { getAllReviews } from "../../store/review";
 import DeleteReview from "../DeleteReview";
 import { createNewCart, getAllCarts } from "../../store/cart";
 import StarDisplay from "../StarDisplay";
+import { createNewWishlist, getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
+import arrLeft from '../../assets/arr-left.png'
+import arrRight from '../../assets/arr-right.png'
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
   const { itemId } = useParams()
   const dispatch = useDispatch()
+  const history = useHistory()
   const [quantity, setQuantity] = useState(1)
   const item = useSelector(state => state.items[itemId])
+  const items = useSelector(state => state.items)
+  const carts = useSelector(state => state.carts)
   const user = useSelector(state => state.session.user)
+  const wishlists = useSelector(state => state.wishlists)
 
 
   const updateQuantity = (e) => {
     setQuantity(e.target.value)
   }
 
+  let cartsList;
+  if (carts) {
+    cartsList = Object.values(carts)
+  }
+
+  let hasCart;
+  if (cartsList) {
+    hasCart = cartsList.filter(cart => cart.itemId === +itemId)
+  }
+
+  let wishlistsList;
+  if (wishlists) {
+    wishlistsList = Object.values(wishlists)
+  }
+
+  let hasWishlist;
+  if (wishlistsList) {
+    hasWishlist = wishlistsList.filter(wishlist => wishlist.itemId === +itemId)
+  }
+
+  let itemsList;
+  if (items) {
+    itemsList = Object.values(items)
+  }
+
+  const onPreviousClick = () => {
+    if (itemId > 1) {
+      history.push(`/items/${+itemId - 1}`)
+    } else {
+      history.push(`/items/${+itemsList.length}`)
+    }
+  }
+
+  const onNextClick = () => {
+    if (+itemId < +itemsList.length) {
+      history.push(`/items/${+itemId + 1}`)
+    } else {
+      history.push('/items/1')
+    }
+  }
+
   const onAddToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, quantity))
+    await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllCarts())
+    await dispatch(getAllWishlists())
+  }
+
+  const addToWishlist = async (e) => {
+    e.preventDefault()
+    await dispatch(createNewWishlist(user.id, +itemId))
+    await dispatch(getAllWishlists())
   }
 
   let totalRating = 0;
@@ -54,12 +110,14 @@ export default function ItemPage() {
     .then(() => setLoaded(true))
   }, [dispatch, loaded, itemId])
 
-  if (!loaded) return null
-  if (!item) return null
+  if (!loaded) return <div className="targét-item-container"></div>
+  if (!item) return <div className="targét-item-container"></div>
 
   if (!user) {
     return (
       <div className="targét-item-container">
+        <img onClick={onPreviousClick} src={arrLeft} alt='previous' className="ip-previous-item" />
+        <img onClick={onNextClick} src={arrRight} alt='next' className="ip-next-item" />
         <div className="top-half">
         <h1 className="targét-item-header">{item.name}</h1>
         <div className="targét-item-content-container">
@@ -100,6 +158,8 @@ export default function ItemPage() {
 
   return (
     <div className="targét-item-container">
+      <img onClick={onPreviousClick} src={arrLeft} alt='previous' className="ip-previous-item" />
+      <img onClick={onNextClick} src={arrRight} alt='next' className="ip-next-item" />
       <div className="top-half">
       <h1 className="targét-item-header">{item.name}</h1>
       <div className="targét-item-content-container">
@@ -134,6 +194,9 @@ export default function ItemPage() {
                   <button type='submit'>Add to cart</button>
               </div>
               </form>
+              {hasWishlist && hasWishlist.length || hasCart && hasCart.length ? null :
+                  <button onClick={addToWishlist} className='add-to-wishlist-button'>Add to wishlist</button>
+                }
         </div>
       </div>
       </div>

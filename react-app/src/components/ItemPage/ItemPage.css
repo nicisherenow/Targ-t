@@ -183,3 +183,43 @@
 .space-between > button:hover {
   background-color: rgb(223, 36, 36);
 }
+
+.add-to-wishlist-button {
+  width: fit-content;
+  height: 1.8rem;
+  display: flex;
+  justify-content: center;
+  margin-left: 1vh;
+  align-items: center;
+  border-radius: .4rem;
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  border: none;
+}
+
+.ip-next-item {
+  display: flex;
+  width: 50px;
+  position: fixed;
+  right: 3vw;
+  top: 35vh;
+  cursor: pointer;
+}
+
+.ip-previous-item {
+  display: flex;
+  width: 50px;
+  position: fixed;
+  left: 3vw;
+  top: 35vh;
+  cursor: pointer;
+}
+
+.ip-next-item:hover {
+  content: url('../../assets/arr-right-red.png')
+}
+
+.ip-previous-item:hover {
+  content: url('../../assets/arr-left-red.png');
+}

@@ -16,3 +16,7 @@
   color: black;
   font-weight: bold;
 }
+
+.no-text-deco:hover {
+  color: rgb(223, 36, 36);
+}

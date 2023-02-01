@@ -59,6 +59,19 @@ def delete_one(id):
 
 @wishlist_routes.route('/remove', methods=['DELETE'])
 @login_required
+def move_all():
+  """
+  Finds all wishlist items that a user has and then deletes them
+  """
+  wishlists = Wishlist.query.filter(Wishlist.user_id == current_user.id).all()
+  carts = [Cart(item_id=wishlist.item_id, user_id=current_user.id, quantity=1) for wishlist in wishlists]
+  [db.session.add(cart) for cart in carts]
+  [db.session.delete(wishlist) for wishlist in wishlists]
+  db.session.commit()
+  return current_user.to_dict(), 200
+
+@wishlist_routes.route('/removed', methods=['DELETE'])
+@login_required
 def delete_all():
   """
   Finds all wishlist items that a user has and then deletes them
