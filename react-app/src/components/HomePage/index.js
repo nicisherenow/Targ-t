@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"
 import './HomePage.css'
 import { getAllReviews } from "../../store/review";
 import { createNewCart, getAllCarts } from "../../store/cart";
-import { createNewWishlist, getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
+import { getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
 
@@ -17,7 +17,6 @@ export default function HomePage() {
   const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
   const user = useSelector(state => state.session.user)
-  const wishlists = useSelector(state => state.wishlists)
 
   let itemsList;
   if (items) {
@@ -34,18 +33,6 @@ export default function HomePage() {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
 
-  let wishlistsList;
-  if (wishlists) {
-    wishlistsList = Object.values(wishlists)
-  }
-
-  let hasWishlist;
-  if (wishlistsList) {
-    hasWishlist = wishlistsList.filter(wishlist => wishlist.itemId === +itemId)
-  }
-
-
-
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
 
   const category = categories[categoryId]
@@ -58,7 +45,9 @@ export default function HomePage() {
   const addToCart = async (e) => {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
+    await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllCarts())
+    await dispatch(getAllWishlists())
   }
 
   const updateItemId = (e) => {

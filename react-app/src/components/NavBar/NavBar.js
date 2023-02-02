@@ -29,7 +29,7 @@ const NavBar = () => {
       dispatch(getAllItems())
     }
     setLoaded(true)
-  },[dispatch])
+  },[dispatch, user])
 
   let cartsList;
   let total = 0
@@ -151,6 +151,24 @@ const NavBar = () => {
         <a href='https://github.com/nicisherenow' className="git-links"><img src={github} alt='github' className='link-size' id='github' /></a>
         <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
       </div>
+      <div className='tech-drop' ref={techRef}>
+          <button className='tech-drop-button' onClick={() => setIsTechOpen(!isTechOpen)} id={`${isTechOpen ? 'open' : ''}`}>Tech stack:</button>
+          <ul id={`${isTechOpen ? '' : 'open'}`}>
+            Tech Stack:
+            <li>SQLalchemy</li>
+            <li>Alembic</li>
+            <li>Python 3</li>
+            <li>Html/CSS</li>
+            <li>Flask</li>
+            <li>React</li>
+            <li>Redux</li>
+            <li>PostgreSQL</li>
+            <li>Node.js</li>
+            <li>JSX</li>
+            <li>Javascript</li>
+            <li>SQLite3</li>
+          </ul>
+        </div>
     </div>
         :
       <div className="dropdown-menu">

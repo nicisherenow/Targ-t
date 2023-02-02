@@ -22,7 +22,6 @@ export default function ItemPage() {
   const history = useHistory()
   const [quantity, setQuantity] = useState(1)
   const item = useSelector(state => state.items[itemId])
-  const items = useSelector(state => state.items)
   const carts = useSelector(state => state.carts)
   const user = useSelector(state => state.session.user)
   const wishlists = useSelector(state => state.wishlists)
@@ -50,11 +49,6 @@ export default function ItemPage() {
   let hasWishlist;
   if (wishlistsList) {
     hasWishlist = wishlistsList.filter(wishlist => wishlist.itemId === +itemId)
-  }
-
-  let itemsList;
-  if (items) {
-    itemsList = Object.values(items)
   }
 
   const onPreviousClick = () => {
@@ -114,7 +108,7 @@ export default function ItemPage() {
       dispatch(getAllReviews())
     }
     setLoaded(true)
-  }, [dispatch, loaded, itemId])
+  }, [dispatch, loaded, itemId, user, history])
 
   if (!loaded) return <div className="targét-item-container"></div>
   if (!item) return <div className="targét-item-container"></div>
