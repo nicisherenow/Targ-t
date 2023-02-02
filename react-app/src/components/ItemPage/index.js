@@ -13,6 +13,7 @@ import StarDisplay from "../StarDisplay";
 import { createNewWishlist, getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
+import homeLogo from '../../assets/home-logo.png'
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -150,7 +151,7 @@ export default function ItemPage() {
                 <span className="tiny-review-name">{review.user.firstName}</span>
                 <div>{review.review}</div>
               {review.imageUrl ? (
-              <img src={review.imageUrl} alt='review' onError={e => { e.currentTarget.src = "../../assets/home-logo.png"; }} className="review-image" />
+              <img src={review.imageUrl} alt='review' onError={e => { e.currentTarget.src = homeLogo ; }} className="review-image" />
                 ) : null }
               </div>
               </div>
@@ -231,7 +232,7 @@ export default function ItemPage() {
               <span className="tiny-review-name">{review.user.firstName}</span>
               <div>{review.review}</div>
             {review.imageUrl ? (
-            <img src={review.imageUrl} alt='review' className="review-image" />
+            <img src={review.imageUrl} alt='review' onError={e => { e.currentTarget.src = homeLogo ; }} className="review-image" />
               ) : null }
             </div>
               { review.userId === user.id ?

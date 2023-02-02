@@ -6,8 +6,8 @@ def is_image_url(form, field):
   imageUrl = field.data
   if not imageUrl.startswith(('http://', 'https://',)):
     raise ValidationError('Image URL must start with http or https')
-  if not imageUrl.endswith(('.jpg', '.jpeg', '.png', '.svg', '.img',)) or not '/image' in imageUrl:
-    raise ValidationError('Image URL must end with .jpg, .jpeg, .png, .svg, or .img or include /image')
+  if not imageUrl.endswith(('.jpg', '.jpeg', '.png', '.svg', '.img',)):
+    raise ValidationError('Image URL must end with .jpg, .jpeg, .png, .svg, or .img')
 
 class ReviewForm(FlaskForm):
   title = StringField('title', validators=[DataRequired(message='Please provide a title'), Length(min=3, max=100, message='Title must be at least 3 characters')])
