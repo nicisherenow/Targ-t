@@ -4,15 +4,20 @@ from app.models import db, User, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        first_name='Demo', last_name='Demo', city='Clearfield', state='UT', street_address='180 Flower Ct', zipcode='84015', email='demo@aa.io', password='password')
+        first_name='Demo', last_name='Demo', city='Clearfield', state='UT', street_address='180 Flower Ct', zipcode=84015, email='demo@aa.io', password='password')
     rambo = User(
-        first_name='Rambo', last_name='Dillan', city='Merced', state='CA', street_address='180 Elk Ct', zipcode='95300', email='rambo@aa.io', password='password')
+        first_name='Rambo', last_name='Dillan', city='Merced', state='CA', street_address='180 Elk Ct', zipcode=95300, email='rambo@aa.io', password='password')
     randall = User(
-        first_name='Randall', last_name='Flowen', city='Marysville', state='OH', street_address='2500 Walmart Ct', zipcode='81101', email='randall@aa.io', password='password')
+        first_name='Randall', last_name='Flowen', city='Marysville', state='OH', street_address='2500 Walmart Ct', zipcode=81101, email='randall@aa.io', password='password')
+    user4 = User(
+        first_name='Luise', last_name='Shallots', city='Atwater', state='CA', street_address='300 Target Blvd', zipcode=81111, email='luise@aa.io', password='password'
+    )
+    user5 = User(
+        first_name='Frank', last_name='Furter', city='France', state='CA', street_address='200 Home Depot Way', zipcode=81211, email='frank@aa.io', password='password'
+    )
+    users = [demo, rambo, randall, user4, user5]
 
-    db.session.add(demo)
-    db.session.add(rambo)
-    db.session.add(randall)
+    [db.session.add(user) for user in users]
     db.session.commit()
 
 

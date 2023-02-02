@@ -24,7 +24,7 @@ export const getItemById = (id) => async (dispatch) => {
   if (res.ok) {
     const item = await res.json()
     dispatch(loadItem(item))
-  }
+  } 
 }
 
 let initialState = {}

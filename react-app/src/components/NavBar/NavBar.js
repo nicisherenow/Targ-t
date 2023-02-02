@@ -20,9 +20,11 @@ const NavBar = () => {
   const carts = useSelector(state => state.carts)
 
   useEffect(() => {
-    dispatch(getAllCarts())
-    dispatch(getAllItems())
-    .then(() => setLoaded(true))
+    if (user) {
+      dispatch(getAllCarts())
+      dispatch(getAllItems())
+    }
+    setLoaded(true)
   },[dispatch])
 
   let cartsList;

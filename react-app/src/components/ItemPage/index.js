@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getItemById } from "../../store/item";
+import { getAllItems, getItemById } from "../../store/item";
 import { useParams, useHistory } from "react-router-dom"
 import './ItemPage.css'
 import ReviewForm from "../ReviewForm";
@@ -13,6 +13,7 @@ import StarDisplay from "../StarDisplay";
 import { createNewWishlist, getAllWishlists, deleteSingleWishlist } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
+import homeLogo from '../../assets/home-logo.png'
 
 export default function ItemPage() {
   const [loaded, setLoaded] = useState(false)
@@ -60,12 +61,12 @@ export default function ItemPage() {
     if (itemId > 1) {
       history.push(`/items/${+itemId - 1}`)
     } else {
-      history.push(`/items/${+itemsList.length}`)
+      history.push(`/items/${36}`)
     }
   }
 
   const onNextClick = () => {
-    if (+itemId < +itemsList.length) {
+    if (+itemId < 36) {
       history.push(`/items/${+itemId + 1}`)
     } else {
       history.push('/items/1')
@@ -106,8 +107,13 @@ export default function ItemPage() {
 
   useEffect(() => {
     dispatch(getItemById(itemId))
-    dispatch(getAllReviews())
-    .then(() => setLoaded(true))
+    if (!+itemId || +itemId > 36 || +itemId < 0) {
+      history.push('/catch')
+    }
+    if (user) {
+      dispatch(getAllReviews())
+    }
+    setLoaded(true)
   }, [dispatch, loaded, itemId])
 
   if (!loaded) return <div className="targét-item-container"></div>
@@ -145,7 +151,7 @@ export default function ItemPage() {
                 <span className="tiny-review-name">{review.user.firstName}</span>
                 <div>{review.review}</div>
               {review.imageUrl ? (
-              <img src={review.imageUrl} alt='review' className="review-image" />
+              <img src={review.imageUrl} alt='review' onError={e => { e.currentTarget.src = homeLogo ; }} className="review-image" />
                 ) : null }
               </div>
               </div>
@@ -226,7 +232,7 @@ export default function ItemPage() {
               <span className="tiny-review-name">{review.user.firstName}</span>
               <div>{review.review}</div>
             {review.imageUrl ? (
-            <img src={review.imageUrl} alt='review' className="review-image" />
+            <img src={review.imageUrl} alt='review' onError={e => { e.currentTarget.src = homeLogo ; }} className="review-image" />
               ) : null }
             </div>
               { review.userId === user.id ?
