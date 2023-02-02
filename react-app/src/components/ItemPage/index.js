@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllItems, getItemById } from "../../store/item";
+import { getItemById } from "../../store/item";
 import { useParams, useHistory } from "react-router-dom"
 import './ItemPage.css'
 import ReviewForm from "../ReviewForm";

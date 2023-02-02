@@ -8,14 +8,18 @@ import SignUpForm from '../auth/SignUpForm';
 import LoginForm from '../auth/LoginForm';
 import cart from '../../assets/cart.png'
 import home from '../../assets/home-logo.png'
+import github from '../../assets/github.png'
+import linkedin from '../../assets/linkedin.png'
 import { getAllCarts } from '../../store/cart';
 import { getAllItems } from '../../store/item';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isTechOpen, setIsTechOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const user = useSelector(state => state.session.user)
   const divRef = useRef()
+  const techRef = useRef()
   const dispatch = useDispatch()
   const carts = useSelector(state => state.carts)
 
@@ -49,6 +53,20 @@ const NavBar = () => {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isTechOpen) return;
+
+    const closeMenu = (e) => {
+      if (!techRef.current.contains(e.target)) {
+        setIsTechOpen(false);
+      }
+    };
+
+    document.addEventListener('click', closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [isTechOpen]);
 
   if (!loaded) return null
 
@@ -128,8 +146,12 @@ const NavBar = () => {
           modalComponent={<SignUpForm />}
           className='create-account-button'
           />
-        </div>
       </div>
+      <div className='dev-links'>
+        <a href='https://github.com/nicisherenow' className="git-links"><img src={github} alt='github' className='link-size' id='github' /></a>
+        <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+      </div>
+    </div>
         :
       <div className="dropdown-menu">
         <div>
@@ -138,7 +160,29 @@ const NavBar = () => {
         <div className='menu-buttons'>
           <LogoutButton />
         </div>
-    </div>
+        <div className='dev-links'>
+          <a href='https://github.com/nicisherenow' className="git-links"><img src={github} alt='github' className='link-size' id='github' /></a>
+          <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+        </div>
+        <div className='tech-drop' ref={techRef}>
+          <button className='tech-drop-button' onClick={() => setIsTechOpen(!isTechOpen)} id={`${isTechOpen ? 'open' : ''}`}>Tech stack:</button>
+          <ul id={`${isTechOpen ? '' : 'open'}`}>
+            Tech Stack:
+            <li>SQLalchemy</li>
+            <li>Alembic</li>
+            <li>Python 3</li>
+            <li>Html/CSS</li>
+            <li>Flask</li>
+            <li>React</li>
+            <li>Redux</li>
+            <li>PostgreSQL</li>
+            <li>Node.js</li>
+            <li>JSX</li>
+            <li>Javascript</li>
+            <li>SQLite3</li>
+          </ul>
+        </div>
+      </div>
     }
     </div>
       <NavLink to='/cart' className='cart-icon-container'>

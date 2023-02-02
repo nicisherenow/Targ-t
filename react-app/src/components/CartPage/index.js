@@ -8,6 +8,7 @@ import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart } from "
 import { deleteSingleWishlist, getAllWishlists } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
+import { getAllItems } from "../../store/item";
 
 
 export default function CartPage() {
@@ -86,6 +87,7 @@ export default function CartPage() {
   const onClickRemove = async (e) => {
     e.preventDefault()
     await dispatch(deleteSingleCart(itemId))
+    await dispatch(getAllItems())
   }
 
   const updateQuantity = (e) => {
