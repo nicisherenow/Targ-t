@@ -4,7 +4,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './WishlistPage.css'
 import { NavLink, useHistory } from "react-router-dom";
-import { createNewWishlist, getAllWishlists, deleteSingleWishlist, deleteEntireWishlist, reallyDeleteEntireWishlist } from "../../store/wishlist";
+import { getAllWishlists, deleteSingleWishlist, deleteEntireWishlist, reallyDeleteEntireWishlist } from "../../store/wishlist";
 import { createNewCart, getAllCarts } from "../../store/cart";
 import wishlist from '../../assets/wishlist.png'
 import cross from '../../assets/cross-white.png'
@@ -13,11 +13,9 @@ import cross from '../../assets/cross-white.png'
 export default function WishlistPage() {
   const [loaded, setLoaded] = useState(false)
   const [itemId, setItemId] = useState(1)
-  const [errors, setErrors] = useState([])
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const wishlists = useSelector(state => state.wishlists)
-  const items = useSelector(state => state.items)
   const history = useHistory()
 
 
@@ -26,27 +24,12 @@ export default function WishlistPage() {
     wishlistsList = Object.values(wishlists)
   }
 
-  let itemsList;
-  if (items) {
-    itemsList = Object.values(items)
-  }
-
   useEffect(()=> {
     if (user) {
       dispatch(getAllWishlists())
     }
     setLoaded(true)
-  }, [dispatch, loaded])
-
-  const addToWishlist = async (e) => {
-    e.preventDefault()
-    const data = await dispatch(createNewWishlist(user.id, +itemId))
-    if (data) {
-      setErrors(data)
-    } else {
-      await dispatch(getAllWishlists())
-    }
-  }
+  }, [dispatch, loaded, user])
 
   const addToCart = async (e) => {
     e.preventDefault()

@@ -4,10 +4,11 @@ import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './CartPage.css'
 import { NavLink, useHistory } from "react-router-dom";
-import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart } from "../../store/cart";
-import { deleteSingleWishlist, getAllWishlists } from "../../store/wishlist";
+import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart, deleteEntireCartForWishlist } from "../../store/cart";
+import { createNewWishlist, deleteSingleWishlist, getAllWishlists } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
+import { getAllItems } from "../../store/item";
 
 
 export default function CartPage() {
@@ -78,6 +79,12 @@ export default function CartPage() {
     await dispatch(deleteEntireCart())
   }
 
+  const onAddAllToWishlist = async (e) => {
+    e.preventDefault()
+    await dispatch(deleteEntireCartForWishlist())
+    await dispatch(getAllWishlists())
+  }
+
   const onCheckout = async (e) => {
     e.preventDefault()
     await dispatch(deleteEntireCart())
@@ -86,6 +93,13 @@ export default function CartPage() {
   const onClickRemove = async (e) => {
     e.preventDefault()
     await dispatch(deleteSingleCart(itemId))
+    await dispatch(getAllItems())
+  }
+  const onClickWishlist = async (e) => {
+    e.preventDefault()
+    await dispatch(deleteSingleCart(+itemId))
+    await dispatch(createNewWishlist(user.id, +itemId))
+    await dispatch(getAllWishlists())
   }
 
   const updateQuantity = (e) => {
@@ -175,6 +189,7 @@ export default function CartPage() {
                     </select>
                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons' >Update</button>
                     <button onMouseEnter={updateItemId} onClick={onClickRemove} value={cart.id} className='cart-buttons'>Remove</button>
+                    <button onMouseEnter={updateItemId} onClick={onClickWishlist} value={cart.id} className='cart-buttons'>Add to Wishlist</button>
                 </div>
             </form>
           </div>
@@ -188,6 +203,7 @@ export default function CartPage() {
             <div className="totals-spacing" id='total'>Total <span>${priceWithTax.toFixed(2)}</span></div>
             <div className="button-container">
               <button onClick={onDeleteTheWholeCart} className='checkout-button'>Clear cart</button>
+              <button onClick={onAddAllToWishlist} className='checkout-button'>Add all to wishlist</button>
               <button onClick={onCheckout} className='checkout-button'>Checkout</button>
             </div>
             <div className="ad-background">

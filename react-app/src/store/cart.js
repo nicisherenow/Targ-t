@@ -90,6 +90,17 @@ export const deleteEntireCart = () => async (dispatch) => {
   }
 }
 
+export const deleteEntireCartForWishlist = () => async (dispatch) => {
+  const res = await fetch('/api/carts/wishlist', {
+    method: 'DELETE'
+  })
+  if (res.ok) {
+    await res.json()
+    dispatch(clearCart())
+    return null
+  }
+}
+
 
 let initialState = {}
 

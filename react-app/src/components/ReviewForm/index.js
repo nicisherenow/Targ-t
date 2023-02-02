@@ -33,7 +33,7 @@ const  ReviewForm = ( { itemId }) => {
   const updateImageUrl = (e) => {
     setImageUrl(e.target.value)
   }
-
+  console.log(errors)
   const onSubmit = async (e) => {
     e.preventDefault()
     const data = await dispatch(writeReview(userId, +itemId, review, rating, imageUrl, title))
@@ -54,7 +54,7 @@ const  ReviewForm = ( { itemId }) => {
     <form onSubmit={onSubmit}>
       <div>
         {errors.map((error, ind) => (
-          <div className='errors' key={ind}>{error.split(':')[1]}</div>
+          <div className='errors' key={ind}>{error.split(':').length === 2 ? error.split(':')[1] : error.split('imageUrl :')[1]}</div>
           ))}
       </div>
       <div>
