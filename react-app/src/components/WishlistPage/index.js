@@ -29,7 +29,7 @@ export default function WishlistPage() {
       dispatch(getAllWishlists())
     }
     setLoaded(true)
-  }, [dispatch, loaded])
+  }, [dispatch, loaded, user])
 
   const addToCart = async (e) => {
     e.preventDefault()

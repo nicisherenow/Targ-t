@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import Cart, db, Item
+from app.models import Cart, db, Item, Wishlist
 from flask_login import current_user, login_required
 from ..forms import CartForm
 from .auth_routes import validation_errors_to_error_messages
@@ -75,3 +75,17 @@ def delete_all():
   [db.session.delete(cart) for cart in carts]
   db.session.commit()
   return current_user.to_dict(), 200
+
+@cart_routes.route('/wishlist', methods=['DELETE'])
+@login_required
+def wishlist_all():
+  """
+  Finds all carts and then turns makes them all wishlists and deletes them all
+  """
+  carts = Cart.query.filter(Cart.user_id == current_user.id).all()
+
+  wishlists = [Wishlist(user_id=cart.user_id, item_id=cart.item_id) for cart in carts]
+  [db.session.add(wishlist) for wishlist in wishlists]
+  [db.session.delete(cart) for cart in carts]
+  db.session.commit()
+  return current_user.to_dict()
