@@ -55,7 +55,7 @@ const UpdateReview = ({ reviewId }) => {
     <form onSubmit={onSubmit}>
       <div>
         {errors.map((error, ind) => (
-          <div className='errors' key={ind}>{error.split(':')[1]}</div>
+          <div className='errors' key={ind}>{error.split(':').length === 2 ? error.split(':')[1] : error.split('imageUrl :')[1]}</div>
         ))}
       <div>
         <StarComponent onChange={setRating} rate={currentReview.rating} />
