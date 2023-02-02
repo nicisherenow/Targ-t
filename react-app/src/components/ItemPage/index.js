@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getItemById } from "../../store/item";
+import { getAllItems, getItemById } from "../../store/item";
 import { useParams, useHistory } from "react-router-dom"
 import './ItemPage.css'
 import ReviewForm from "../ReviewForm";
@@ -106,8 +106,13 @@ export default function ItemPage() {
 
   useEffect(() => {
     dispatch(getItemById(itemId))
-    dispatch(getAllReviews())
-    .then(() => setLoaded(true))
+    if (!+itemId || +itemId > 36 || +itemId < 0) {
+      history.push('/catch')
+    }
+    if (user) {
+      dispatch(getAllReviews())
+    }
+    setLoaded(true)
   }, [dispatch, loaded, itemId])
 
   if (!loaded) return <div className="targét-item-container"></div>
