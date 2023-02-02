@@ -55,12 +55,12 @@ export default function CartPage() {
     if (itemId > 1) {
       setItemId(+itemId - 1)
     } else {
-      setItemId(+itemsList.length)
+      setItemId(36)
     }
   }
 
   const onNextClick = () => {
-    if (itemId < +itemsList.length) {
+    if (itemId < 36) {
       setItemId(+itemId + 1)
     } else {
       setItemId(1)

@@ -60,12 +60,12 @@ export default function ItemPage() {
     if (itemId > 1) {
       history.push(`/items/${+itemId - 1}`)
     } else {
-      history.push(`/items/${+itemsList.length}`)
+      history.push(`/items/${36}`)
     }
   }
 
   const onNextClick = () => {
-    if (+itemId < +itemsList.length) {
+    if (+itemId < 36) {
       history.push(`/items/${+itemId + 1}`)
     } else {
       history.push('/items/1')
