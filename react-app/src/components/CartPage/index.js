@@ -89,13 +89,15 @@ export default function CartPage() {
   const onClickRemove = async (e) => {
     e.preventDefault()
     await dispatch(deleteSingleCart(itemId))
-    await dispatch(getAllItems())
+    await dispatch(getAllCarts())
   }
+
   const onClickWishlist = async (e) => {
     e.preventDefault()
     await dispatch(deleteSingleCart(+itemId))
     await dispatch(createNewWishlist(user.id, +itemId))
     await dispatch(getAllWishlists())
+    await dispatch(getAllCarts())
   }
 
   const updateQuantity = (e) => {
