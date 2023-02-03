@@ -44,7 +44,7 @@ export default function HomePage() {
 
   const addToCart = async (e) => {
     e.preventDefault()
-    await dispatch(createNewCart(user.id, +itemId, hasCart.length ? +hasCart[0].quantity + 1 : 1))
+    await dispatch(createNewCart(user.id, +itemId, 1))
     await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllCarts())
     await dispatch(getAllWishlists())

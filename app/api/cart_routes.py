@@ -35,7 +35,7 @@ def new_cart(id):
         db.session.commit()
         return existing_cart.to_dict()
     elif existing_cart:
-        existing_cart.quantity = form.data['quantity']
+        existing_cart.quantity += form.data['quantity']
         db.session.commit()
         return existing_cart.to_dict()
     else:

@@ -148,8 +148,8 @@ const NavBar = () => {
           />
       </div>
       <div className='dev-links'>
-        <a href='https://github.com/nicisherenow' className="git-links"><img src={github} alt='github' className='link-size' id='github' /></a>
-        <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+        <a href='https://github.com/nicisherenow' className="git-links" target='_blank' rel="noreferrer"><img src={github} alt='github' className='link-size' id='github' /></a>
+        <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links" target='_blank' rel="noreferrer"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
       </div>
       <div className='tech-drop' ref={techRef}>
           <button className='tech-drop-button' onClick={() => setIsTechOpen(!isTechOpen)} id={`${isTechOpen ? 'open' : ''}`}>Tech stack:</button>
@@ -179,8 +179,8 @@ const NavBar = () => {
           <LogoutButton />
         </div>
         <div className='dev-links'>
-          <a href='https://github.com/nicisherenow' className="git-links"><img src={github} alt='github' className='link-size' id='github' /></a>
-          <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+          <a href='https://github.com/nicisherenow' className="git-links" target='_blank' rel="noreferrer"><img src={github} alt='github' className='link-size' id='github' /></a>
+          <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links" target='_blank' rel="noreferrer"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
         </div>
         <div className='tech-drop' ref={techRef}>
           <button className='tech-drop-button' onClick={() => setIsTechOpen(!isTechOpen)} id={`${isTechOpen ? 'open' : ''}`}>Tech stack:</button>
