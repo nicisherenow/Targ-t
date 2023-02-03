@@ -33,7 +33,7 @@ export default function HomePage() {
     hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
 
-  const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining']
+  const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining', 'Outdoor Living & Garden', 'Baby', 'Toys', 'Electronics', 'Video Games', 'Movies, Music, & Books', 'Sports & Outdoors']
 
   const category = categories[categoryId]
 

@@ -55,12 +55,12 @@ export default function ItemPage() {
     if (itemId > 1) {
       history.push(`/items/${+itemId - 1}`)
     } else {
-      history.push(`/items/${36}`)
+      history.push(`/items/${120}`)
     }
   }
 
   const onNextClick = () => {
-    if (+itemId < 36) {
+    if (+itemId < 120) {
       history.push(`/items/${+itemId + 1}`)
     } else {
       history.push('/items/1')
@@ -101,7 +101,7 @@ export default function ItemPage() {
 
   useEffect(() => {
     dispatch(getItemById(itemId))
-    if (!+itemId || +itemId > 36 || +itemId < 0) {
+    if (!+itemId || +itemId > 120 || +itemId < 0) {
       history.push('/catch')
     }
     if (user) {
