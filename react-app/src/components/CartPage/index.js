@@ -183,7 +183,7 @@ export default function CartPage() {
                       <option className='update-field' value={10}>10</option>
                     </select>
                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons' >Update</button>
-                    <button onMouseEnter={updateItemId} onClick={onClickRemove} value={+cart.id} className='cart-buttons'>Remove</button>
+                    <button onMouseEnter={updateItemId} onClick={onClickRemove} value={+cart.itemId} className='cart-buttons'>Remove</button>
                     <button onMouseEnter={updateItemId} onClick={onClickWishlist} value={+cart.itemId} className='cart-buttons'>Add to Wishlist</button>
                 </div>
             </form>
