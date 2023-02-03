@@ -183,8 +183,8 @@ export default function CartPage() {
                       <option className='update-field' value={10}>10</option>
                     </select>
                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons' >Update</button>
-                    <button onMouseEnter={updateItemId} onClick={onClickRemove} value={cart.id} className='cart-buttons'>Remove</button>
-                    <button onMouseEnter={updateItemId} onClick={onClickWishlist} value={cart.id} className='cart-buttons'>Add to Wishlist</button>
+                    <button onMouseEnter={updateItemId} onClick={onClickRemove} value={+cart.id} className='cart-buttons'>Remove</button>
+                    <button onMouseEnter={updateItemId} onClick={onClickWishlist} value={+cart.itemId} className='cart-buttons'>Add to Wishlist</button>
                 </div>
             </form>
           </div>
@@ -205,7 +205,7 @@ export default function CartPage() {
               <button onClick={onCheckout} className='checkout-button'>Checkout</button>
             </div>
             <div className="ad-background">
-              <a className="ad-link" href='https://click-it-free-new.netlify.app/'>
+              <a className="ad-link" href='https://click-it-free-new.netlify.app/' target='_blank' rel="noreferrer">
                   <div className="ad-label">Ad</div>
                 <button className="ad-button">Click here!</button>
               </a>
