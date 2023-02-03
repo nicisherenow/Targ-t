@@ -9,6 +9,7 @@ import { createNewWishlist, deleteSingleWishlist, getAllWishlists } from "../../
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
 import { getAllItems } from "../../store/item";
+import DeleteCart from "../DeleteCart";
 
 
 export default function CartPage() {
@@ -72,11 +73,6 @@ export default function CartPage() {
     e.preventDefault()
     await dispatch(createNewCart(user.id, +itemId, quantity))
     await dispatch(getAllCarts())
-  }
-
-  const onDeleteTheWholeCart = async (e) => {
-    e.preventDefault()
-    await dispatch(deleteEntireCart())
   }
 
   const onAddAllToWishlist = async (e) => {
@@ -175,7 +171,6 @@ export default function CartPage() {
                       required={true}
                       className='update-field'
                       >
-                      <option className='update-field' value={cart.quantity}>{cart.quantity}</option>
                       <option className='update-field' value={1}>1</option>
                       <option className='update-field' value={2}>2</option>
                       <option className='update-field' value={3}>3</option>
@@ -202,7 +197,10 @@ export default function CartPage() {
             <div className="totals-spacing">Estimated tax <span>${tax.toFixed(2)}</span></div>
             <div className="totals-spacing" id='total'>Total <span>${priceWithTax.toFixed(2)}</span></div>
             <div className="button-container">
-              <button onClick={onDeleteTheWholeCart} className='checkout-button'>Clear cart</button>
+              <OpenModalButton
+                buttonText='Clear cart'
+                modalComponent={<DeleteCart />}
+                />
               <button onClick={onAddAllToWishlist} className='checkout-button'>Add all to wishlist</button>
               <button onClick={onCheckout} className='checkout-button'>Checkout</button>
             </div>

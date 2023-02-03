@@ -8,6 +8,7 @@ import { getAllWishlists, deleteSingleWishlist, deleteEntireWishlist, reallyDele
 import { createNewCart, getAllCarts } from "../../store/cart";
 import wishlist from '../../assets/wishlist.png'
 import cross from '../../assets/cross-white.png'
+import DeleteWishlist from "../DeleteWishlist";
 
 
 export default function WishlistPage() {
@@ -36,11 +37,6 @@ export default function WishlistPage() {
     await dispatch(createNewCart(user.id, +itemId, 1))
     await dispatch(deleteSingleWishlist(+itemId))
     await dispatch(getAllWishlists())
-  }
-
-  const onDeleteTheWholeWishlist = async (e) => {
-    e.preventDefault()
-    await dispatch(reallyDeleteEntireWishlist())
   }
 
   const onMoveToCart = async (e) => {
@@ -93,7 +89,10 @@ export default function WishlistPage() {
       <div className="wishlist-icon-container">
         <img src={wishlist} alt='wishlist' className="wishlist-icon" />
         <button onClick={onMoveToCart} className='move-to-cart-button'>Add all to cart</button>
-        <button onClick={onDeleteTheWholeWishlist} className='move-to-cart-button'>Clear wishlist</button>
+        <OpenModalButton
+          buttonText='Clear wishlist'
+          modalComponent={<DeleteWishlist />}
+          />
         <span className="wishlist-total">{wishlistsList.length}</span>
       </div>
       {wishlistsList?.length && user ?

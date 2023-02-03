@@ -20,7 +20,7 @@ def cart():
 @login_required
 def new_cart(id):
   """
-  Create a new wishlist if the item is not in the cart already
+  Create a new wishlist 
   """
   currentId = current_user.id
   item = Item.query.get(id)
@@ -29,17 +29,14 @@ def new_cart(id):
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-    existing_cart = Cart.query.filter(Cart.user_id == currentId, Cart.item_id == item.id).first()
-    if existing_cart:
-        return { 'errors': ['That item is already in your cart']}
-    else:
-        new_wishlist = Wishlist(
-            item_id=item.id,
-            user_id=currentId,
-        )
-        db.session.add(new_wishlist)
-        db.session.commit()
-        return new_wishlist.to_dict()
+
+    new_wishlist = Wishlist(
+      item_id=item.id,
+      user_id=currentId,
+    )
+    db.session.add(new_wishlist)
+    db.session.commit()
+    return new_wishlist.to_dict()
 
 @wishlist_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
