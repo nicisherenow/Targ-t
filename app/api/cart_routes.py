@@ -52,10 +52,10 @@ def new_cart(id):
 @login_required
 def delete_one(id):
   """
-  Finds one item by item id and then deletes that item
+  Finds one cart by item id and then deletes that item
   """
 
-  cart = Cart.query.get(id)
+  cart = Cart.query.filter(Cart.item_id == id).first()
 
   if not cart:
     return { "errors": ['cart does not exist']}
