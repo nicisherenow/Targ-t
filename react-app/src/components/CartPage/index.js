@@ -75,11 +75,6 @@ export default function CartPage() {
     await dispatch(getAllCarts())
   }
 
-  const onDeleteTheWholeCart = async (e) => {
-    e.preventDefault()
-    await dispatch(deleteEntireCart())
-  }
-
   const onAddAllToWishlist = async (e) => {
     e.preventDefault()
     await dispatch(deleteEntireCartForWishlist())
@@ -205,7 +200,6 @@ export default function CartPage() {
               <OpenModalButton
                 buttonText='Clear cart'
                 modalComponent={<DeleteCart />}
-                
                 />
               <button onClick={onAddAllToWishlist} className='checkout-button'>Add all to wishlist</button>
               <button onClick={onCheckout} className='checkout-button'>Checkout</button>
