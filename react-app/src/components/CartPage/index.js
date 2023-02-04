@@ -8,7 +8,6 @@ import { createNewCart, getAllCarts, deleteSingleCart, deleteEntireCart, deleteE
 import { createNewWishlist, deleteSingleWishlist, getAllWishlists } from "../../store/wishlist";
 import arrLeft from '../../assets/arr-left.png'
 import arrRight from '../../assets/arr-right.png'
-import { getAllItems } from "../../store/item";
 import DeleteCart from "../DeleteCart";
 
 
@@ -161,7 +160,11 @@ export default function CartPage() {
             <div className="cart-item-details">
               <div>{cart.item.name}</div>
               <div>{cart.quantity} </div>
-              <div className="price">${cart.item.price}</div>
+              {cart.quantity > 1 ?
+                  <div className="price">${(cart.item.price * cart.quantity).toFixed(2)} ({cart.item.price} each)</div>
+                  :
+                  <div className="price">${cart.item.price}</div>
+              }
             </div>
           </NavLink>
           <div className="update-cart-align">
