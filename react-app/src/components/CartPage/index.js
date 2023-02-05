@@ -158,7 +158,7 @@ export default function CartPage() {
               <img src={cart.item.imageUrl} alt={`${cart.item.name}`} className='cart-image' />
             </div>
             <div className="cart-item-details">
-              <div>{cart.item.name}</div>
+              <div className="cart-item-name">{cart.item.name}</div>
               <div>{cart.quantity} </div>
               {cart.quantity > 1 ?
                   <div className="price">${(cart.item.price * cart.quantity).toFixed(2)} ({cart.item.price} each)</div>
@@ -168,8 +168,8 @@ export default function CartPage() {
             </div>
           </NavLink>
           <div className="update-cart-align">
-            <form onSubmit={onUpdateCart} className='update-cart-button'>
                 <div className="cart-item-cards">
+            <form onSubmit={onUpdateCart} className='update-cart-button'>
                     <select
                       name="quantity"
                       onChange={updateQuantity}
@@ -188,10 +188,16 @@ export default function CartPage() {
                       <option className='update-field' value={10}>10</option>
                     </select>
                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons' >Update</button>
-                    <button onMouseEnter={updateItemId} onClick={onClickRemove} value={+cart.itemId} className='cart-buttons'>Remove</button>
-                    <button onMouseEnter={updateItemId} onClick={onClickWishlist} value={+cart.itemId} className='cart-buttons'>Add to Wishlist</button>
-                </div>
             </form>
+                    <form onSubmit={onClickRemove}>
+                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons'>Remove</button>
+
+                    </form>
+                    <form onSubmit={onClickWishlist}>
+                     <button type='submit' onClick={updateItemId} value={+cart.itemId} className='cart-buttons'>Add to Wishlist</button>
+
+                    </form>
+                </div>
           </div>
           </div>
         ))}

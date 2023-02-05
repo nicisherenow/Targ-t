@@ -80,7 +80,10 @@
 .update-field {
   display: flex;
   flex-direction: column;
-  justify-content: right;
+  justify-self: right;
+  align-items: flex-end;
+  margin: 0 0 .4vh 0;
+  width: 60px;
 }
 
 #cart-page-align {
@@ -109,6 +112,7 @@
   flex-direction: column;
   align-items: flex-end;
   justify-items: flex-end;
+  width: 112px;
   gap: .4vh;
 }
 
@@ -197,6 +201,10 @@
   border-radius: .4rem;
   padding: 1vh;
   font-weight: bold;
+}
+
+.cart-item-name {
+  width: fit-content;
 }
 
 .last-grab-buttons > button:hover {
