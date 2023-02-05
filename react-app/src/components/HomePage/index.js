@@ -109,7 +109,9 @@ export default function HomePage() {
           </NavLink>
           {user ?
           <>
-            <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            <form onSubmit={addToCart}>
+              <button type='submit' onClick={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            </form>
           </>
             : null
           }
@@ -123,7 +125,9 @@ export default function HomePage() {
           </NavLink>
           {user ?
           <>
-            <button onClick={addToCart} onMouseEnter={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            <form onSubmit={addToCart}>
+              <button type='submit' onClick={updateItemId} value={item.id} className='home-cart-button'>Add to cart</button>
+            </form>
           </>
             : null
         }

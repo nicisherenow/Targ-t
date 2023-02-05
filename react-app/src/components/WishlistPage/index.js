@@ -103,10 +103,14 @@ export default function WishlistPage() {
               <img src={wishlist.item.imageUrl} alt={wishlist.item.name} className='wishlist-image' />
             </NavLink>
             <div className="wishlist-buttons">
-              <button onClick={addToCart} onMouseEnter={updateItemId} value={wishlist.item.id} className='wishlist-to-cart'>Add to cart</button>
-              <button onClick={onClickRemove} onMouseEnter={updateItemId} value={wishlist.item.id} className='wishlist-remove'>
-                <img src={cross} alt='remove' className="wishlist-remove-image" />
-              </button>
+              <form onSubmit={addToCart}>
+                <button type='submit' onClick={updateItemId} value={wishlist.item.id} className='wishlist-to-cart'>Add to cart</button>
+              </form>
+              <form onSubmit={onClickRemove}>
+                <button type='submit' onClick={updateItemId} value={wishlist.item.id} className='wishlist-remove'>
+                  x
+                </button>
+              </form>
             </div>
           </div>
         ))}

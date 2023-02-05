@@ -105,6 +105,8 @@
 
 .wishlist-remove {
   display: flex;
+  color: white;
+  font-weight: bold;
   position: relative;
   left: -15px;
   top: -10.5vh;
@@ -114,7 +116,7 @@
   cursor: pointer;
   background-color: black;
   border: none;
-  padding: 8px;
+  padding: 0 8px;
   border-radius: .4rem;
 }
 
