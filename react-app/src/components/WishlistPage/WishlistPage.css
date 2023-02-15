@@ -61,7 +61,8 @@
 .each-wishlist {
   display: flex;
   flex-direction: column;
-  height: 13vh;
+  height: 10vh;
+  width: 10vh;
   margin: 0 0 1vh 1vh;
 }
 
@@ -159,8 +160,8 @@
   justify-content: center;
   font-weight: bold;
   width: fit-content;
-  left: 35px;
-  bottom: 10.5vh;
+  left: 29px;
+  bottom: 11.2vh;
   padding: .2vh;
   border-radius: 50%;
 }
