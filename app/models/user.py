@@ -167,6 +167,6 @@ class Wishlist(db.Model):
         return {
             'id': self.id,
             'itemId': self.item_id,
-            'userId': self.item_id,
+            'userId': self.user_id,
             'item': self.item.to_dict()
         }

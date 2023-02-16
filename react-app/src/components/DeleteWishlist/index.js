@@ -1,5 +1,4 @@
 import { useModal } from "../../context/Modal";
-import { getAllItems } from "../../store/item";
 import { useDispatch } from "react-redux";
 import '../DeleteReview/DeleteReview.css'
 import { reallyDeleteEntireWishlist } from "../../store/wishlist";

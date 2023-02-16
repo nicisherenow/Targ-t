@@ -4,10 +4,9 @@ import OpenModalButton from "../OpenModalButton";
 import LoginForm from "../auth/LoginForm";
 import './WishlistPage.css'
 import { NavLink, useHistory } from "react-router-dom";
-import { getAllWishlists, deleteSingleWishlist, deleteEntireWishlist, reallyDeleteEntireWishlist } from "../../store/wishlist";
+import { getAllWishlists, deleteSingleWishlist, deleteEntireWishlist } from "../../store/wishlist";
 import { createNewCart, getAllCarts } from "../../store/cart";
 import wishlist from '../../assets/wishlist.png'
-import cross from '../../assets/cross-white.png'
 import DeleteWishlist from "../DeleteWishlist";
 
 
