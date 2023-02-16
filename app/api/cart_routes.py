@@ -76,6 +76,18 @@ def delete_all():
   db.session.commit()
   return current_user.to_dict(), 200
 
+@cart_routes.route('/checkout', methods=['DELETE'])
+@login_required
+def delete_checkout():
+  """
+  Finds all cart items that a user has and then deletes them
+  """
+  carts = Cart.query.filter(Cart.user_id == current_user.id).all()
+
+  [db.session.delete(cart) for cart in carts]
+  db.session.commit()
+  return current_user.to_dict(), 200
+
 @cart_routes.route('/wishlist', methods=['DELETE'])
 @login_required
 def wishlist_all():
