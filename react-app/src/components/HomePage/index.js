@@ -14,23 +14,12 @@ export default function HomePage() {
   const [categoryId, setCategoryId] = useState(0)
   const [itemId, setItemId] = useState(0)
   const dispatch = useDispatch()
-  const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
   const user = useSelector(state => state.session.user)
 
   let itemsList;
   if (items) {
     itemsList = Object.values(items)
-  }
-
-  let cartsList;
-  if (carts) {
-    cartsList = Object.values(carts)
-  }
-
-  let hasCart;
-  if (cartsList) {
-    hasCart = cartsList.filter(cart => cart.itemId === +itemId)
   }
 
   const categories = ['', 'Clothing, Shoes & Accessories', 'Furniture', 'Kitchen & Dining', 'Outdoor Living & Garden', 'Baby', 'Toys', 'Electronics', 'Video Games', 'Movies, Music, & Books', 'Sports & Outdoors']
@@ -87,7 +76,7 @@ export default function HomePage() {
         <div className="targét-home-words">
           <h1 className="targét-home-header">Welcome to Targét</h1>
           <h2>Tired of buying the same ol' everyday items at reasonable prices?</h2>
-          <h3>Where everything is just a little bit more expensive and that's ok because it's french.</h3>
+          <h3>Targét, where everything is just a little bit more expensive and that's ok because it's french.</h3>
         </div>
         <div className="pic-home-nav-container">
           <NavLink to={`/items/${item.id}`}>

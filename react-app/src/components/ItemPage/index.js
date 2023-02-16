@@ -108,6 +108,7 @@ export default function ItemPage() {
       dispatch(getAllReviews())
     }
     setLoaded(true)
+
   }, [dispatch, loaded, itemId, user, history])
 
   if (!loaded) return <div className="targét-item-container"></div>
@@ -194,7 +195,7 @@ export default function ItemPage() {
                   <button type='submit'>Add to cart</button>
               </div>
               </form>
-              {hasWishlist && hasWishlist.length || hasCart && hasCart.length ? null :
+              {(hasWishlist && hasWishlist.length) || (hasCart && hasCart.length) ? null :
                   <button onClick={addToWishlist} className='add-to-wishlist-button'>Add to wishlist</button>
                 }
         </div>
