@@ -15,6 +15,7 @@ import { getAllItems } from '../../store/item';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isTechOpen, setIsTechOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [searchText, setSearchText] = useState('')
@@ -56,10 +57,6 @@ const NavBar = () => {
 
   useEffect(() => {
   const searchData = (itemsList, searchText) => {
-      if (!searchText || searchText.length === 0) {
-        setSearchResults([])
-      }
-
       const results = [];
       itemsList.forEach(item => {
         if (item.name.toLowerCase().includes(searchText.toLowerCase()) || item.category.toLowerCase().includes(searchText.toLowerCase())) {
@@ -72,7 +69,6 @@ const NavBar = () => {
   // eslint-disable-next-line
   }, [searchText])
 
-  console.log(searchResults)
   useEffect(() => {
     if (!isOpen) return;
 
@@ -86,6 +82,21 @@ const NavBar = () => {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    const closeMenu = (e) => {
+      if (!searchRef.current.contains(e.target)) {
+        setIsSearchOpen(false);
+        setSearchText('')
+      }
+    };
+
+    document.addEventListener('click', closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [isSearchOpen]);
 
   useEffect(() => {
     if (!isTechOpen) return;
@@ -113,20 +124,28 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className='nav-search'>
-          <input
-            placeholder='Search'
-            name='search'
-            type='text'
-            id='search-input'
-            onChange={updateSearchText}
-            value={searchText}
-            />
-              <div className='search-results'>
+            <input
+              placeholder='Search'
+              name='search'
+              type='text'
+              className='search-input'
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              ref={searchRef}
+              onChange={updateSearchText}
+              value={searchText}
+              />
+              <div className={`search-results`} id={isSearchOpen ? '' : 'open'}>
               {searchResults.length > 0 ?
               searchResults.map(result => (
                 <div className='result-container'>
-                <NavLink to={`/items/${result.id}`}>
-                  <img src={result.imageUrl} alt={result.name} />
+                <NavLink className='result-container' to={`/items/${result.id}`}>
+                  <div className='search-image-container'>
+                    <img className='search-image' src={result.imageUrl} alt={result.name} />
+                  </div>
+                  <div className='search-result-details'>
+                    <span>{result.name}</span>
+                    <span>${result.price}</span>
+                  </div>
                 </NavLink>
                 </div>
               )) : null}
@@ -184,18 +203,23 @@ const NavBar = () => {
               placeholder='Search'
               name='search'
               type='text'
-              id='search-input'
+              className='search-input'
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              ref={searchRef}
               onChange={updateSearchText}
               value={searchText}
               />
-              <div className='search-results'>
+              <div className={`search-results`} id={isSearchOpen ? '' : 'open'}>
               {searchResults.length > 0 ?
               searchResults.map(result => (
                 <div className='result-container'>
-                <NavLink to={`/items/${result.id}`}>
+                <NavLink className='result-container' to={`/items/${result.id}`}>
                   <div className='search-image-container'>
-
                     <img className='search-image' src={result.imageUrl} alt={result.name} />
+                  </div>
+                  <div className='search-result-details'>
+                    <span>{result.name}</span>
+                    <span>${result.price}</span>
                   </div>
                 </NavLink>
                 </div>

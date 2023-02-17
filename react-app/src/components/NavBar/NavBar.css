@@ -160,13 +160,15 @@
 
 .nav-search {
   position: absolute;
-  left: 40vw;
+  left: 35vw;
 }
 
-#search-input {
+.search-input {
   display: flex;
   border-radius: .4rem;
-  width: 29.3vw;
+  width: 29.5vw;
+  height: 2vh;
+  font-weight: bold;
 }
 
 .search-results {
@@ -182,6 +184,10 @@
 }
 .result-container {
   margin: .4vh;
+  display: flex;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
 }
 .search-image-container {
   height: 10vh;
@@ -189,7 +195,14 @@
 }
 
 .search-image {
-  height: 100%;
-  width: 100%;
+  height: 10vh;
+  width: 10vh;
   border-radius: .4rem;
+}
+
+.search-result-details {
+  margin: .4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
