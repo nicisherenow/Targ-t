@@ -156,7 +156,7 @@ const NavBar = () => {
                 </div>
               )) : null}
                 </div>
-            :null}
+            : <div className={`search-results-faux`} id={isSearchOpen ? '' : 'open'}>{(searchText === '') ? 'Please search for an item by category or name.' : 'No items match that description.'}</div>}
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
       <div className='right-side-container'>
