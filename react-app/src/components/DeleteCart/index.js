@@ -1,5 +1,4 @@
 import { useModal } from "../../context/Modal";
-import { getAllItems } from "../../store/item";
 import { useDispatch } from "react-redux";
 import { deleteEntireCart } from "../../store/cart";
 import '../DeleteReview/DeleteReview.css'
@@ -11,7 +10,6 @@ export default function DeleteCart() {
   const onDeleteTheWholeCart = async (e) => {
     e.preventDefault()
     await dispatch(deleteEntireCart())
-    await dispatch(getAllItems())
     await closeModal()
   }
 

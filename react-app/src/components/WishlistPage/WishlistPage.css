@@ -165,3 +165,35 @@
   padding: .2vh;
   border-radius: 50%;
 }
+
+
+.dev-links-wl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#github {
+  background-color: white;
+  border-radius: 50%;
+}
+
+#linkedin {
+  background-color: white;
+  border-radius: .2rem;
+}
+
+#github:hover {
+  content: url('../../assets/github-red.png')
+}
+
+#linkedin:hover {
+  content: url('../../assets/linkedin-red.png')
+}
+
+.dev-links-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

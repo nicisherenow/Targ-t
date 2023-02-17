@@ -157,3 +157,52 @@
 #linkedin:hover {
   content: url('../../assets/linkedin-red.png')
 }
+
+.nav-search {
+  position: absolute;
+  left: 35vw;
+}
+
+.search-input {
+  display: flex;
+  border-radius: .4rem;
+  width: 29.5vw;
+  height: 2vh;
+  font-weight: bold;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  height: 20vh;
+  width: 30vw;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, .6);
+  gap: .4vh;
+  border-radius: .4rem;
+}
+.result-container {
+  margin: .4vh;
+  display: flex;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+}
+.search-image-container {
+  height: 10vh;
+  width: 10vh;
+}
+
+.search-image {
+  height: 10vh;
+  width: 10vh;
+  border-radius: .4rem;
+}
+
+.search-result-details {
+  margin: .4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

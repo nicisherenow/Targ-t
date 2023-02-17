@@ -15,18 +15,23 @@ import { getAllItems } from '../../store/item';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isTechOpen, setIsTechOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [searchText, setSearchText] = useState('')
+  const [searchResults, setSearchResults] = useState([])
   const user = useSelector(state => state.session.user)
   const divRef = useRef()
   const techRef = useRef()
+  const searchRef = useRef()
   const dispatch = useDispatch()
   const carts = useSelector(state => state.carts)
+  const items = useSelector(state => state.items)
 
   useEffect(() => {
+    dispatch(getAllItems())
     if (user) {
       dispatch(getAllCarts())
-      dispatch(getAllItems())
     }
     setLoaded(true)
   },[dispatch, user])
@@ -39,6 +44,30 @@ const NavBar = () => {
       total += cart.quantity
     );
   }
+
+  let itemsList;
+  if (items) {
+    itemsList = Object.values(items)
+  }
+
+  const updateSearchText = (e) => {
+    e.preventDefault()
+    setSearchText(e.target.value)
+  }
+
+  useEffect(() => {
+  const searchData = (itemsList, searchText) => {
+      const results = [];
+      itemsList.forEach(item => {
+        if (item.name.toLowerCase().includes(searchText.toLowerCase()) || item.category.toLowerCase().includes(searchText.toLowerCase())) {
+          results.push(item);
+        }
+      });
+      setSearchResults(results);
+  };
+  searchData(itemsList, searchText.length === 0 ? '' : searchText)
+  // eslint-disable-next-line
+  }, [searchText])
 
   useEffect(() => {
     if (!isOpen) return;
@@ -53,6 +82,21 @@ const NavBar = () => {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    const closeMenu = (e) => {
+      if (!searchRef.current.contains(e.target)) {
+        setIsSearchOpen(false);
+        setSearchText('')
+      }
+    };
+
+    document.addEventListener('click', closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [isSearchOpen]);
 
   useEffect(() => {
     if (!isTechOpen) return;
@@ -78,6 +122,34 @@ const NavBar = () => {
           <NavLink to='/' exact={true} activeClassName='active'>
             <img src={home} alt='home-icon' id='home' className='cart-icon-size' />
           </NavLink>
+        </div>
+        <div className='nav-search'>
+            <input
+              placeholder='Search'
+              name='search'
+              type='text'
+              className='search-input'
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              ref={searchRef}
+              onChange={updateSearchText}
+              value={searchText}
+              />
+              <div className={`search-results`} id={isSearchOpen ? '' : 'open'}>
+              {searchResults.length > 0 ?
+              searchResults.map(result => (
+                <div className='result-container'>
+                <NavLink className='result-container' to={`/items/${result.id}`}>
+                  <div className='search-image-container'>
+                    <img className='search-image' src={result.imageUrl} alt={result.name} />
+                  </div>
+                  <div className='search-result-details'>
+                    <span>{result.name}</span>
+                    <span>${result.price}</span>
+                  </div>
+                </NavLink>
+                </div>
+              )) : null}
+                </div>
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
       <div className='right-side-container'>
@@ -126,6 +198,34 @@ const NavBar = () => {
           <img src={home} alt='home-icon' id='home' className='cart-icon-size' />
         </NavLink>
       </div>
+      <div className='nav-search'>
+            <input
+              placeholder='Search'
+              name='search'
+              type='text'
+              className='search-input'
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              ref={searchRef}
+              onChange={updateSearchText}
+              value={searchText}
+              />
+              <div className={`search-results`} id={isSearchOpen ? '' : 'open'}>
+              {searchResults.length > 0 ?
+              searchResults.map(result => (
+                <div className='result-container'>
+                <NavLink className='result-container' to={`/items/${result.id}`}>
+                  <div className='search-image-container'>
+                    <img className='search-image' src={result.imageUrl} alt={result.name} />
+                  </div>
+                  <div className='search-result-details'>
+                    <span>{result.name}</span>
+                    <span>${result.price}</span>
+                  </div>
+                </NavLink>
+                </div>
+              )) : null}
+                </div>
+        </div>
       <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
     <div id='right-side-container'>
     <button onClick={() => setIsOpen(!isOpen)} id={`${isOpen ? 'open' : ''}`}>

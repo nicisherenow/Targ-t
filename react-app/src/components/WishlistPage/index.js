@@ -8,6 +8,8 @@ import { getAllWishlists, deleteSingleWishlist, deleteEntireWishlist } from "../
 import { createNewCart, getAllCarts } from "../../store/cart";
 import wishlist from '../../assets/wishlist.png'
 import DeleteWishlist from "../DeleteWishlist";
+import github from '../../assets/github.png'
+import linkedin from '../../assets/linkedin.png'
 
 
 export default function WishlistPage() {
@@ -56,6 +58,8 @@ export default function WishlistPage() {
     <div className="wishlist-icon-container">
         <img src={wishlist} alt='wishlist' className="wishlist-icon" />
       </div>
+      <div className="wishlist-container">
+
       <div className="wishlist-header-container">
         <h2 className="wishlist-header">You don't have a wishlist yet,
         <OpenModalButton
@@ -64,19 +68,33 @@ export default function WishlistPage() {
           className='wishlist-signin-button'
           /></h2>
       </div>
+          </div>
+      <div className="dev-links-center">
+        <div className='dev-links-wl'>
+            <a href='https://github.com/nicisherenow' className="git-links" target='_blank' rel="noreferrer"><img src={github} alt='github' className='link-size' id='github' /></a>
+            <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links" target='_blank' rel="noreferrer"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+        </div>
+      </div>
   </div>
     )
 
   if ( !wishlistsList.length || !loaded ) return (
 
     <div className="wishlist-page-body">
-    <div className="wishlist-icon-container">
+      <div className="wishlist-icon-container">
         <img src={wishlist} alt='wishlist' className="wishlist-icon" />
       </div>
+      <div className="wishlist-container">
+
       <div className="wishlist-header-container">
         <h2 className="wishlist-header">You don't have anything in your wishlist yet.</h2>
       </div>
-  </div>
+      </div>
+      <div className='dev-links-wl'>
+          <a href='https://github.com/nicisherenow' className="git-links" target='_blank' rel="noreferrer"><img src={github} alt='github' className='link-size' id='github' /></a>
+          <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links" target='_blank' rel="noreferrer"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+      </div>
+    </div>
     )
 
   const updateItemId = (e) => {
@@ -95,6 +113,7 @@ export default function WishlistPage() {
         <span className="wishlist-total">{wishlistsList.length}</span>
       </div>
       {wishlistsList?.length && user ?
+      <>
       <div className="wishlist-container">
         {wishlistsList.map(wishlist => (
           <div className="each-wishlist" key={wishlist.id}>
@@ -114,10 +133,22 @@ export default function WishlistPage() {
           </div>
         ))}
       </div>
+            <div className='dev-links-wl'>
+              <a href='https://github.com/nicisherenow' className="git-links" target='_blank' rel="noreferrer"><img src={github} alt='github' className='link-size' id='github' /></a>
+              <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links" target='_blank' rel="noreferrer"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+            </div>
+        </>
       :
+          <>
           <div className="wishlist-header-container">
             <h2 className="wishlist-header">You don't have anything in your wishlist yet</h2>
           </div>
+            <div className='dev-links-wl'>
+              <a href='https://github.com/nicisherenow' className="git-links" target='_blank' rel="noreferrer"><img src={github} alt='github' className='link-size' id='github' /></a>
+              <a href='https://www.linkedin.com/in/nicholas-talbot-5441a4242/' className="linkedin-links" target='_blank' rel="noreferrer"><img src={linkedin} alt='linkedin' className='link-size' id='linkedin' /></a>
+            </div>
+          </>
+
       }
     </div>
   )
