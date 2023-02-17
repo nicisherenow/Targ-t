@@ -55,19 +55,6 @@ const NavBar = () => {
     setSearchText(e.target.value)
   }
 
-  useEffect(() => {
-  const searchData = (itemsList, searchText) => {
-      const results = [];
-      itemsList.forEach(item => {
-        if (item.name.toLowerCase().includes(searchText.toLowerCase()) || item.category.toLowerCase().includes(searchText.toLowerCase())) {
-          results.push(item);
-        }
-      });
-      setSearchResults(results);
-  };
-  searchData(itemsList, searchText.length === 0 ? '' : searchText)
-  // eslint-disable-next-line
-  }, [searchText])
 
   useEffect(() => {
     if (!isOpen) return;
@@ -89,6 +76,7 @@ const NavBar = () => {
     const closeMenu = (e) => {
       if (!searchRef.current.contains(e.target)) {
         setIsSearchOpen(false);
+        setSearchResults([])
         setSearchText('')
       }
     };
@@ -112,6 +100,23 @@ const NavBar = () => {
     return () => document.removeEventListener("click", closeMenu);
   }, [isTechOpen]);
 
+  useEffect(() => {
+  const searchData = (itemsList, searchText) => {
+      const results = [];
+      itemsList.forEach(item => {
+        if (searchText === '') {
+
+        }
+        else if (item.name.toLowerCase().includes(searchText.toLowerCase()) || item.category.toLowerCase().includes(searchText.toLowerCase())) {
+          results.push(item);
+        }
+      });
+      setSearchResults(results);
+  };
+  searchData(itemsList, searchText)
+  // eslint-disable-next-line
+  }, [searchText])
+
   if (!loaded) return null
 
   if (!carts) {
@@ -134,10 +139,11 @@ const NavBar = () => {
               onChange={updateSearchText}
               value={searchText}
               />
+              {searchResults.length ?
               <div className={`search-results`} id={isSearchOpen ? '' : 'open'}>
               {searchResults.length > 0 ?
               searchResults.map(result => (
-                <div className='result-container'>
+                <div key={result.id} className='result-container'>
                 <NavLink className='result-container' to={`/items/${result.id}`}>
                   <div className='search-image-container'>
                     <img className='search-image' src={result.imageUrl} alt={result.name} />
@@ -150,6 +156,7 @@ const NavBar = () => {
                 </div>
               )) : null}
                 </div>
+            : <div className={`search-results-faux`} id={isSearchOpen ? '' : 'open'}>{(searchText === '') ? 'Please search for an item by category or name.' : 'No items match that description.'}</div>}
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
       <div className='right-side-container'>
@@ -209,10 +216,11 @@ const NavBar = () => {
               onChange={updateSearchText}
               value={searchText}
               />
+              {searchResults.length ?
               <div className={`search-results`} id={isSearchOpen ? '' : 'open'}>
               {searchResults.length > 0 ?
               searchResults.map(result => (
-                <div className='result-container'>
+                <div key={result.id} className='result-container'>
                 <NavLink className='result-container' to={`/items/${result.id}`}>
                   <div className='search-image-container'>
                     <img className='search-image' src={result.imageUrl} alt={result.name} />
@@ -225,6 +233,7 @@ const NavBar = () => {
                 </div>
               )) : null}
                 </div>
+            : <div className={`search-results-faux`} id={isSearchOpen ? '' : 'open'}>{(searchText === '') ? 'Please search for an item by category or name.' : 'No items match that description.'}</div> }
         </div>
       <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
     <div id='right-side-container'>

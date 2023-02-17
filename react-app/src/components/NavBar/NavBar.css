@@ -182,6 +182,23 @@
   gap: .4vh;
   border-radius: .4rem;
 }
+
+.search-results-faux {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  height: 2.7vh;
+  width: 30vw;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, .6);
+  gap: .4vh;
+  border-radius: .4rem;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
 .result-container {
   margin: .4vh;
   display: flex;
