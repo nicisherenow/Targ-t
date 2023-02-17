@@ -22,14 +22,15 @@ const NavBar = () => {
   const user = useSelector(state => state.session.user)
   const divRef = useRef()
   const techRef = useRef()
+  const searchRef = useRef()
   const dispatch = useDispatch()
   const carts = useSelector(state => state.carts)
   const items = useSelector(state => state.items)
 
   useEffect(() => {
+    dispatch(getAllItems())
     if (user) {
       dispatch(getAllCarts())
-      dispatch(getAllItems())
     }
     setLoaded(true)
   },[dispatch, user])
@@ -116,9 +117,20 @@ const NavBar = () => {
             placeholder='Search'
             name='search'
             type='text'
+            id='search-input'
             onChange={updateSearchText}
             value={searchText}
             />
+              <div className='search-results'>
+              {searchResults.length > 0 ?
+              searchResults.map(result => (
+                <div className='result-container'>
+                <NavLink to={`/items/${result.id}`}>
+                  <img src={result.imageUrl} alt={result.name} />
+                </NavLink>
+                </div>
+              )) : null}
+                </div>
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
       <div className='right-side-container'>
@@ -172,9 +184,23 @@ const NavBar = () => {
               placeholder='Search'
               name='search'
               type='text'
+              id='search-input'
               onChange={updateSearchText}
               value={searchText}
               />
+              <div className='search-results'>
+              {searchResults.length > 0 ?
+              searchResults.map(result => (
+                <div className='result-container'>
+                <NavLink to={`/items/${result.id}`}>
+                  <div className='search-image-container'>
+
+                    <img className='search-image' src={result.imageUrl} alt={result.name} />
+                  </div>
+                </NavLink>
+                </div>
+              )) : null}
+                </div>
         </div>
       <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
     <div id='right-side-container'>
