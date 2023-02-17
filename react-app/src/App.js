@@ -38,9 +38,9 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/checkout' exact={true}>
+        <Route path='/checkout' exact={true}>
           <CheckoutLanding />
-        </ProtectedRoute>
+        </Route>
         <Route path='/cart' exact={true}>
           <CartPage />
         </Route>

@@ -90,6 +90,7 @@ const NavBar = () => {
       if (!searchRef.current.contains(e.target)) {
         setIsSearchOpen(false);
         setSearchText('')
+        setSearchResults([])
       }
     };
 
