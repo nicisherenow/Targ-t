@@ -17,11 +17,14 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isTechOpen, setIsTechOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [searchText, setSearchText] = useState('')
+  const [searchResults, setSearchResults] = useState([])
   const user = useSelector(state => state.session.user)
   const divRef = useRef()
   const techRef = useRef()
   const dispatch = useDispatch()
   const carts = useSelector(state => state.carts)
+  const items = useSelector(state => state.items)
 
   useEffect(() => {
     if (user) {
@@ -40,6 +43,35 @@ const NavBar = () => {
     );
   }
 
+  let itemsList;
+  if (items) {
+    itemsList = Object.values(items)
+  }
+
+  const updateSearchText = (e) => {
+    e.preventDefault()
+    setSearchText(e.target.value)
+  }
+
+  useEffect(() => {
+  const searchData = (itemsList, searchText) => {
+      if (!searchText || searchText.length === 0) {
+        setSearchResults([])
+      }
+
+      const results = [];
+      itemsList.forEach(item => {
+        if (item.name.toLowerCase().includes(searchText.toLowerCase()) || item.category.toLowerCase().includes(searchText.toLowerCase())) {
+          results.push(item);
+        }
+      });
+      setSearchResults(results);
+  };
+  searchData(itemsList, searchText.length === 0 ? '' : searchText)
+  // eslint-disable-next-line
+  }, [searchText])
+
+  console.log(searchResults)
   useEffect(() => {
     if (!isOpen) return;
 
@@ -78,6 +110,15 @@ const NavBar = () => {
           <NavLink to='/' exact={true} activeClassName='active'>
             <img src={home} alt='home-icon' id='home' className='cart-icon-size' />
           </NavLink>
+        </div>
+        <div className='nav-search'>
+          <input
+            placeholder='Search'
+            name='search'
+            type='text'
+            onChange={updateSearchText}
+            value={searchText}
+            />
         </div>
         <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
       <div className='right-side-container'>
@@ -126,6 +167,15 @@ const NavBar = () => {
           <img src={home} alt='home-icon' id='home' className='cart-icon-size' />
         </NavLink>
       </div>
+      <div className='nav-search'>
+            <input
+              placeholder='Search'
+              name='search'
+              type='text'
+              onChange={updateSearchText}
+              value={searchText}
+              />
+        </div>
       <div className={`dropdown-container ${isOpen ? 'open' : ''}`} ref={divRef}>
     <div id='right-side-container'>
     <button onClick={() => setIsOpen(!isOpen)} id={`${isOpen ? 'open' : ''}`}>
